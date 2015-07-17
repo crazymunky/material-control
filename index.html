@@ -12,7 +12,7 @@
 <body ng-app="backendApp" ng-controller="ListController" layout="column" layout-align="top center">
 <md-toolbar>
     <div class="md-toolbar-tools">
-        <md-button class="md-icon-button" aria-label="Show slider" hide-gt-md ng-click="toggleNav()">
+        <md-button class="md-icon-button" aria-label="Show slider" hide-gt-sm ng-click="toggleNav()">
             <md-icon>
                 <i class="material-icons" >menu</i>
             </md-icon>
@@ -21,7 +21,7 @@
     </div>
 </md-toolbar>
 <div  flex layout="row">
-    <md-sidenav layout="column" class="md-whiteframe-z2 md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')"></md-sidenav>
+    <md-sidenav layout="column" class="md-whiteframe-z2 md-sidenav-left" md-is-locked-open="$mdMedia('gt-sm')"></md-sidenav>
     <md-content layout="column">
         <div class="app-content">
             <form ng-submit="search()">
