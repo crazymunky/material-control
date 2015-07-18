@@ -1,22 +1,23 @@
 .center-both {
-  position: relative;
+  position:relative;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate3d(-50%, -50%, 0);
-  -moz-transform: translate3d(-50%, -50%, 0);
-  -ms-transform: translate3d(-50%, -50%, 0);
-  -o-transform: translate3d(-50%, -50%, 0);
-  transform: translate3d(-50%, -50%, 0); }
+  -webkit-transform: translate3d(-50%,-50%,0);
+  -moz-transform: translate3d(-50%,-50%,0);
+  -ms-transform: translate3d(-50%,-50%,0);
+  -o-transform: translate3d(-50%,-50%,0);
+  transform: translate3d(-50%,-50%,0);
+}
 
 .profile-menu {
-  width: 100%;
+  width:100%;
   height: 150px;
   position: relative;
-  overflow: hidden; }
-  .profile-menu .blurred-background {
+  overflow:hidden;
+  .blurred-background {
     position: absolute;
     top: 0;
-    left: 0;
+    left:0;
     width: 100%;
     height: 100%;
     -webkit-background-size: cover;
@@ -28,11 +29,14 @@
     -o-filter: blur(5px);
     -ms-filter: blur(5px);
     filter: blur(5px);
-    z-index: 1; }
-    .profile-menu .blurred-background img {
+    z-index: 1;
+    img {
       width: 100%;
-      height: 100%; }
-  .profile-menu .picture {
+      height: 100%;
+    }
+  }
+
+  .picture {
     border-radius: 50%;
     height: 65px;
     width: 65px;
@@ -41,13 +45,17 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    z-index: 2; }
-  .profile-menu .subtitle {
+    z-index: 2;
+  }
+  .subtitle {
     position: relative;
     z-index: 2;
-    margin-top: 16px;
-    color: white; }
-    .profile-menu .subtitle span {
-      display: block; }
+    margin-top:16px;
+    color:white;
+    span {
+      display: block;
+    }
 
-/*# sourceMappingURL=style.css.map */
+  }
+}
+
