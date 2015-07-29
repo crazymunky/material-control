@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=RobotoDraft:400,500,700,400italic"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body ng-app="backendApp" ng-controller="ListController" layout="column" layout-align="top center">
+<body ng-app="backendApp" layout="column" layout-align="top center">
 <md-toolbar>
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" aria-label="Show slider" hide-gt-sm ng-click="openLeftMenu()">
@@ -23,16 +23,16 @@
 <div  flex layout="row">
     <md-sidenav md-component-id="side-nav" class="md-whiteframe-z2 md-sidenav-left" md-is-locked-open="$mdMedia('gt-sm')">
 
-            <div class="profile-menu md-padding">
-                <div class="blurred-background" style="background-image: url(https://scontent-mia1-1.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/1661943_1097481573615159_6760595959176605612_n.jpg?oh=09bd0fb278a081ae1a0cf18bceb8249c&oe=561E3D33);">
-                </div>
-                <div class="picture" style="background-image: url(https://scontent-mia1-1.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/1661943_1097481573615159_6760595959176605612_n.jpg?oh=09bd0fb278a081ae1a0cf18bceb8249c&oe=561E3D33);"></div>
-                <div class="subtitle" >
-                    <span class="name .md-body-2">Maximiliano Techera</span>
-                    <span class="email .md-body-1">maxi.techerag@gmail.com</span>
-                </div>
-
+        <div class="profile-menu md-padding">
+            <div class="blurred-background" style="background-image: url(https://scontent-mia1-1.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/1661943_1097481573615159_6760595959176605612_n.jpg?oh=09bd0fb278a081ae1a0cf18bceb8249c&oe=561E3D33);">
             </div>
+            <div class="picture" style="background-image: url(https://scontent-mia1-1.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/1661943_1097481573615159_6760595959176605612_n.jpg?oh=09bd0fb278a081ae1a0cf18bceb8249c&oe=561E3D33);"></div>
+            <div class="subtitle" >
+                <span class="name .md-body-2">Maximiliano Techera</span>
+                <span class="email .md-body-1">maxi.techerag@gmail.com</span>
+            </div>
+
+        </div>
         <md-list layout="column">
             <md-list-item >
                 <md-icon layout="row">
@@ -45,16 +45,18 @@
 
     </md-sidenav>
     <md-content flex>
-        <div class="app-content md-padding">
+        <div class="app-content md-padding"  ng-controller="ListController">
             <form ng-submit="search()">
                 <md-input-container flex>
                     <label>Search:</label>
                     <input type="text"/>
                 </md-input-container>
             </form>
-            <md-button class="md-fab md-accent" aria-label="Eat cake">
-                <i class="material-icons" >cake</i>
-            </md-button>
+
+            <div ng-repeat="noticia in noticias">
+                <h1 class="title">{{noticia.headline}}</h1>
+                <p class="desc">{{noticia.descripcion}}</p>
+            </div>
         </div>
     </md-content>
 </div>
@@ -62,6 +64,7 @@
 <script src="bower_components/angular-aria/angular-aria.min.js"></script>
 <script src="bower_components/angular-animate/angular-animate.min.js"></script>
 <script src="bower_components/angular-material/angular-material.min.js"></script>
+<script src="bower_components/angular-resource/angular-resource.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
