@@ -58,6 +58,10 @@ md-content.holder {
   right: 20px;
 }
 
+div.md-padding.view {
+  padding: 36px;
+}
+
 [ui-view].ng-enter, [ui-view].ng-leave{
   -webkit-transition: all .5s;
   -moz-transition: all .5s;
