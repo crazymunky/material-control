@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body ng-app="backendApp" layout="column" layout-align="top center">
-<md-toolbar>
+<md-toolbar ng-controller="HeaderController" class="md-whiteframe-z3">
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" aria-label="Show slider" hide-gt-sm ng-click="openLeftMenu()">
             <md-icon>
@@ -21,7 +21,7 @@
     </div>
 </md-toolbar>
 <div  flex layout="row">
-    <md-sidenav md-component-id="side-nav" class="md-whiteframe-z2 md-sidenav-left" md-is-locked-open="$mdMedia('gt-sm')">
+    <md-sidenav  md-component-id="side-nav" class="md-whiteframe-z2 md-sidenav-left" md-is-locked-open="$mdMedia('gt-sm')">
 
         <div class="profile-menu md-padding">
             <div class="blurred-background" style="background-image: url(https://scontent-mia1-1.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/1661943_1097481573615159_6760595959176605612_n.jpg?oh=09bd0fb278a081ae1a0cf18bceb8249c&oe=561E3D33);">
@@ -35,36 +35,49 @@
         </div>
         <md-list layout="column">
             <md-list-item >
-                <md-icon layout="row">
-                    <i class="material-icons" >menu</i>
-                </md-icon>
-                <span layout="row"></span>
+                <a ui-sref="noticias"><span class=".md-body-1">Noticias</span>
+
+                    <md-icon layout="row">
+                        <i class="material-icons" >menu</i>
+                    </md-icon>
+                    <span layout="row"></span>
+                </a>
+            </md-list-item>
+            <md-list-item >
+                <a ui-sref="categorias"><span class=".md-body-1">Categorias</span>
+                    <md-icon layout="row">
+                        <i class="material-icons" >menu</i>
+                    </md-icon>
+                    <span layout="row"></span>
+                </a>
+            </md-list-item>
+            <md-list-item >
+                <a ui-sref="canciones">
+                    <span class=".md-body-1">Cancion</span>
+                    <md-icon layout="row">
+                        <i class="material-icons" >menu</i>
+                    </md-icon>
+                    <span layout="row"></span>
+                </a>
             </md-list-item>
 
         </md-list>
 
     </md-sidenav>
-    <md-content flex>
-        <div class="app-content md-padding"  ng-controller="ListController">
-            <form ng-submit="search()">
-                <md-input-container flex>
-                    <label>Search:</label>
-                    <input type="text"/>
-                </md-input-container>
-            </form>
-
-            <div ng-repeat="noticia in noticias">
-                <h1 class="title">{{noticia.headline}}</h1>
-                <p class="desc">{{noticia.descripcion}}</p>
-            </div>
+    <md-content class="holder" flex>
+        <div ui-view class="md-padding">
         </div>
     </md-content>
+
 </div>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-aria/angular-aria.min.js"></script>
 <script src="bower_components/angular-animate/angular-animate.min.js"></script>
 <script src="bower_components/angular-material/angular-material.min.js"></script>
 <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+<script src="bower_components/angular-ui-router/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-messages/messages.js"></script>
+
 <script src="app.js"></script>
 </body>
 </html>

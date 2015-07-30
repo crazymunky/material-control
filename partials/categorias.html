@@ -1,0 +1,18 @@
+<md-content class="md-padding md-whiteframe-z1">
+    <md-input-container flex>
+        <label>Search:</label>
+        <input type="text" ng-model="search"/>
+    </md-input-container>
+
+    <div class="holder-items">
+        <div ng-repeat="categoria in categorias | filter:search">
+            <h3 class="title">{{categoria.nombre}}</h3>
+        </div>
+    </div>
+
+    <md-button class="md-fab agregar" ng-click="showAdd($event)">
+        <md-icon>
+            <i class="material-icons" >add</i>
+        </md-icon>
+    </md-button>
+</md-content>

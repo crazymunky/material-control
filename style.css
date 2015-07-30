@@ -1,13 +1,3 @@
-.center-both {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate3d(-50%, -50%, 0);
-  -moz-transform: translate3d(-50%, -50%, 0);
-  -ms-transform: translate3d(-50%, -50%, 0);
-  -o-transform: translate3d(-50%, -50%, 0);
-  transform: translate3d(-50%, -50%, 0); }
-
 .profile-menu {
   width: 100%;
   height: 150px;
@@ -49,5 +39,30 @@
     color: white; }
     .profile-menu .subtitle span {
       display: block; }
+
+md-content.holder {
+  background: #f7f7f7; }
+
+.md-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px; }
+
+[ui-view].ng-enter, [ui-view].ng-leave {
+  -webkit-transition: all .5s;
+  -moz-transition: all .5s;
+  -ms-transition: all .5s;
+  -o-transition: all .5s;
+  transition: all .5s; }
+
+[ui-view].ng-enter {
+  opacity: 0; }
+  [ui-view].ng-enter.ng-enter-active {
+    opacity: 1; }
+
+[ui-view].ng-leave {
+  opacity: 1; }
+  [ui-view].ng-leave.ng-leave-active {
+    opacity: 0; }
 
 /*# sourceMappingURL=style.css.map */

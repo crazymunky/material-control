@@ -1,0 +1,11 @@
+<md-content class="md-padding md-whiteframe-z1">
+    <md-input-container flex>
+        <label>Search:</label>
+        <input type="text" ng-model="search"/>
+    </md-input-container>
+
+    <div ng-repeat="noticia in noticias | filter:search">
+        <h1 class="title">{{noticia.headline}}</h1>
+        <p class="desc">{{noticia.resumen}}</p>
+    </div>
+</md-content>
