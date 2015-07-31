@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=RobotoDraft:400,500,700,400italic"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="bower_components/md-data-table/dist/md-data-table-style.css">
 </head>
 <body ng-app="backendApp" layout="column" layout-align="top center">
 <md-toolbar ng-controller="HeaderController" class="md-whiteframe-z3">
@@ -22,8 +23,7 @@
 </md-toolbar>
 <div  flex layout="row">
     <md-sidenav  md-component-id="side-nav" class="md-whiteframe-z2 md-sidenav-left" md-is-locked-open="$mdMedia('gt-sm')">
-
-        <div class="profile-menu md-padding">
+        <header class="profile-menu md-padding">
             <div class="blurred-background" style="background-image: url(https://scontent-mia1-1.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/1661943_1097481573615159_6760595959176605612_n.jpg?oh=09bd0fb278a081ae1a0cf18bceb8249c&oe=561E3D33);">
             </div>
             <div class="picture" style="background-image: url(https://scontent-mia1-1.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/1661943_1097481573615159_6760595959176605612_n.jpg?oh=09bd0fb278a081ae1a0cf18bceb8249c&oe=561E3D33);"></div>
@@ -31,44 +31,27 @@
                 <span class="name .md-body-2">Maximiliano Techera</span>
                 <span class="email .md-body-1">maxi.techerag@gmail.com</span>
             </div>
-
-        </div>
-        <md-list layout="column">
-            <md-list-item >
-                <a ui-sref="noticias"><span class=".md-body-1">Noticias</span>
-
-                    <md-icon layout="row">
-                        <i class="material-icons" >menu</i>
-                    </md-icon>
-                    <span layout="row"></span>
+        </header>
+        <md-list ng-controller="MenuController">
+            <md-item ng-repeat="item in menu">
+                <a ui-sref="{{item.link}}">
+                    <md-item-content md-ink-ripple layout="row" layout-align="start center">
+                        <div class="inset">
+                            <md-icon layout="row">
+                                <i class="material-icons" >{{item.icon}}</i>
+                            </md-icon>
+                        </div>
+                        <div class="inset">{{item.title}}</div>
+                    </md-item-content>
                 </a>
-            </md-list-item>
-            <md-list-item >
-                <a ui-sref="categorias"><span class=".md-body-1">Categorias</span>
-                    <md-icon layout="row">
-                        <i class="material-icons" >menu</i>
-                    </md-icon>
-                    <span layout="row"></span>
-                </a>
-            </md-list-item>
-            <md-list-item >
-                <a ui-sref="canciones">
-                    <span class=".md-body-1">Cancion</span>
-                    <md-icon layout="row">
-                        <i class="material-icons" >menu</i>
-                    </md-icon>
-                    <span layout="row"></span>
-                </a>
-            </md-list-item>
-
+            </md-item>
+            <md-divider></md-divider>
         </md-list>
-
     </md-sidenav>
     <md-content class="holder" flex>
         <div ui-view class="md-padding view">
         </div>
     </md-content>
-
 </div>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-aria/angular-aria.min.js"></script>
@@ -78,6 +61,8 @@
 <script src="bower_components/angular-ui-router/angular-ui-router.min.js"></script>
 <script src="bower_components/angular-messages/messages.js"></script>
 
-<script src="app.js"></script>
+<script src="js/app.js"></script>
+<script src="js/services.js"></script>
+<script src="js/controllers.js"></script>
 </body>
 </html>
