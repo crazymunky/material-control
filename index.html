@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=RobotoDraft:400,500,700,400italic"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="bower_components/md-data-table/dist/md-data-table-style.css">
+    <link rel="stylesheet" href="bower_components/angular-data-table/dataTable.css">
+    <link rel="stylesheet" href="bower_components/angular-data-table/material.css">
+    <link rel="stylesheet" href="bower_components/md-date-time/md-date-time.css">
 </head>
 <body ng-app="backendApp" layout="column" layout-align="top center">
 <md-toolbar ng-controller="HeaderController" class="md-whiteframe-z3">
     <div class="md-toolbar-tools">
-        <md-button class="md-icon-button" aria-label="Show slider" hide-gt-sm ng-click="openLeftMenu()">
+        <md-button class="md-icon-button" aria-label="Show slider" hide-gt-md ng-click="openLeftMenu()">
             <md-icon>
                 <i class="material-icons" >menu</i>
             </md-icon>
@@ -22,7 +24,7 @@
     </div>
 </md-toolbar>
 <div  flex layout="row">
-    <md-sidenav  md-component-id="side-nav" class="md-whiteframe-z2 md-sidenav-left" md-is-locked-open="$mdMedia('gt-sm')">
+    <md-sidenav  md-component-id="side-nav" class="md-whiteframe-z2 md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')">
         <header class="profile-menu md-padding">
             <div class="blurred-background" style="background-image: url(https://scontent-mia1-1.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/1661943_1097481573615159_6760595959176605612_n.jpg?oh=09bd0fb278a081ae1a0cf18bceb8249c&oe=561E3D33);">
             </div>
@@ -60,9 +62,12 @@
 <script src="bower_components/angular-resource/angular-resource.min.js"></script>
 <script src="bower_components/angular-ui-router/angular-ui-router.min.js"></script>
 <script src="bower_components/angular-messages/messages.js"></script>
+<script src="bower_components/angular-data-table/dataTable.helpers.min.js"></script>
+<script src="bower_components/md-date-time/md-date-time.js"></script>
 
 <script src="js/app.js"></script>
 <script src="js/services.js"></script>
-<script src="js/controllers.js"></script>
+<script src="js/controllers/controllers.js"></script>
+<script src="js/controllers/evento.js"></script>
 </body>
 </html>

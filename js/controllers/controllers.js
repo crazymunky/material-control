@@ -6,13 +6,23 @@
 
     var module = angular.module('backendApp.controllers', []);
 
-    module.controller( 'NoticiaListController',['$scope', 'Noticia',
+    module.controller('NoticiaListController',['$scope', 'Noticia',
         function($scope, Noticia){
             $scope.noticias = Noticia.query();
-
+            $scope.options = {
+                rowHeight: 40,
+                footerHeight: false,
+                headerHeight: 50,
+                scrollbarV: false,
+                selectable: false,
+                columnMode: 'force'
+            };
+            $scope.clickNoticia  = function(noticia){
+                console.log(noticia);
+            };
         }]);
 
-    module.controller( 'CancionListController',['$scope', 'Cancion', '$mdDialog',
+    module.controller('CancionListController',['$scope', 'Cancion', '$mdDialog',
         function($scope, Cancion, $mdDialog){
             $scope.canciones = Cancion.query();
             $scope.showAdd = function(ev){
@@ -37,9 +47,14 @@
         function ($scope) {
             $scope.menu = [
                 {
-                    link : 'noticias',
-                    title: 'Noticias',
-                    icon: 'dashboard'
+                    link : 'ads',
+                    title: 'Ads',
+                    icon: 'message'
+                },
+                {
+                    link : 'canciones',
+                    title: 'Canciones',
+                    icon: 'message'
                 },
                 {
                     link : 'categorias',
@@ -47,15 +62,30 @@
                     icon: 'group'
                 },
                 {
-                    link : 'canciones',
-                    title: 'Canciones',
+                    link : 'discos',
+                    title: 'Discos',
+                    icon: 'message'
+                },
+                {
+                    link : 'eventos',
+                    title: 'Eventos',
+                    icon: 'message'
+                },
+                {
+                    link : 'noticias',
+                    title: 'Noticias',
+                    icon: 'dashboard'
+                },
+                {
+                    link : 'videos',
+                    title: 'Videos',
                     icon: 'message'
                 }
             ];
         }
     ]);
 
-    module.controller( 'AddCategoriaController',['$scope', '$mdDialog', 'Categoria',
+    module.controller('AddCategoriaController',['$scope', '$mdDialog', 'Categoria',
         function($scope, $mdDialog, Categoria){
             $scope.categoria = new Categoria();
 
@@ -68,11 +98,20 @@
                     $mdDialog.hide($scope.categoria);
                 });
             };
-        }]);
+        }
+    ]);
 
-    module.controller( 'CategoriaListController',['$scope', 'Categoria', '$mdDialog',
+    module.controller('CategoriaListController',['$scope', 'Categoria', '$mdDialog',
         function($scope, Categoria, $mdDialog){
             $scope.categorias = Categoria.query();
+            $scope.options = {
+                rowHeight: 50,
+                footerHeight: false,
+                headerHeight: 50,
+                scrollbarV: false,
+                selectable: false,
+                columnMode: 'force'
+            };
             $scope.showAdd = function(ev){
                 $mdDialog.show({
                     controller: 'AddCategoriaController',
@@ -86,4 +125,6 @@
             };
 
         }]);
+
+
 })();

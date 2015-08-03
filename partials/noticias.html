@@ -1,13 +1,14 @@
-<md-content class="md-padding md-whiteframe-z1">
 
+<dtable options="options" rows="noticias" class="material" on-row-click="clickNoticia(row)">
+    <column name="Headline"></column>
+    <column name="Autor"></column>
+    <column name="Resumen"></column>
+    <column name="Creado">{{row.created_at | date:'MM/dd/yyyy'}}</column>
+</dtable>
 
-    <div class="holder-items">
+<md-button class="md-fab agregar" ng-click="showAdd($event)">
+    <md-icon>
+        <i class="material-icons" >add</i>
+    </md-icon>
+</md-button>
 
-    </div>
-
-    <md-button class="md-fab agregar" ng-click="showAdd($event)">
-        <md-icon>
-            <i class="material-icons" >add</i>
-        </md-icon>
-    </md-button>
-</md-content>
