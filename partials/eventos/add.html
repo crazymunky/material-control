@@ -1,0 +1,46 @@
+<md-dialog class="md-padding md-whiteframe-z2">
+    <md-dialog-content>
+        <h2>Agregar evento</h2>
+        <form name="eventoForm">
+            <md-input-container>
+                <label>Titulo</label>
+                <input name="titulo" ng-model="evento.titulo" required/>
+                <div ng-messages="eventoForm.titulo.$error" ng-show="eventoForm.titulo.$dirty">
+                    <div ng-message="required">Debes completar este campo.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Telefono</label>
+                <input name="telefono" ng-model="evento.telefono" required numeric/>
+                <div ng-messages="eventoForm.telefono.$error" ng-show="eventoForm.telefono.$dirty">
+                    <div ng-message="required">Debes completar este campo.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Email</label>
+                <input name="email" ng-model="evento.email" required/>
+                <div ng-messages="eventoForm.email.$error" ng-show="eventoForm.email.$dirty">
+                    <div ng-message="required">Debes completar este campo.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Descripci&oacute;n</label>
+                <input name="titulo" ng-model="evento.descripcion" required/>
+                <div ng-messages="eventoForm.descripcion.$error" ng-show="eventoForm.descripcion.$dirty">
+                    <div ng-message="required">Debes completar este campo.</div>
+                </div>
+            </md-input-container>
+<md-button ng-click="showInputDate()" >Fecha</md-button>
+
+        </form>
+    </md-dialog-content>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-click="hide()" class="md-secondary">
+            Cancelar
+        </md-button>
+        <md-button ng-click="submit()" class="md-primary">
+            Aceptar
+        </md-button>
+    </div>
+</md-dialog>

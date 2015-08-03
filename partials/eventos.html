@@ -1,0 +1,16 @@
+<dtable options="options" rows="eventos" class="material dt">
+    <column name="Titulo">{{value}}</column>
+    <column name="Descripci&oacute;n">{{row.descripcion}}</column>
+    <column name="Email">{{value}}</column>
+    <column name="Tel&eacute;fono">{{row.telefono}}</column>
+    <column name="Fecha">{{row.fecha | date:'MM/dd/yyyy'}}</column>
+    <column name="Creado">{{row.created_at | date:'MM/dd/yyyy'}}</column>
+</dtable>
+
+
+<md-button class="md-fab agregar" ng-click="showAdd($event)">
+    <md-icon>
+        <i class="material-icons" >add</i>
+    </md-icon>
+</md-button>
+

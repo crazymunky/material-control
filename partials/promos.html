@@ -1,0 +1,14 @@
+
+
+<dtable options="options" rows="categorias" class="material dt">
+    <column name="Nombre">{{value}}</column>
+    <column name="Creado">{{row.created_at | date:'MM/dd/yyyy'}}</column>
+</dtable>
+
+
+<md-button class="md-fab agregar" ng-click="showAdd($event)">
+    <md-icon>
+        <i class="material-icons" >add</i>
+    </md-icon>
+</md-button>
+
