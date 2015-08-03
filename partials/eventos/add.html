@@ -25,12 +25,18 @@
             </md-input-container>
             <md-input-container>
                 <label>Descripci&oacute;n</label>
-                <input name="titulo" ng-model="evento.descripcion" required/>
+                <textarea name="descripcion" ng-model="evento.descripcion" required></textarea>
                 <div ng-messages="eventoForm.descripcion.$error" ng-show="eventoForm.descripcion.$dirty">
                     <div ng-message="required">Debes completar este campo.</div>
                 </div>
             </md-input-container>
-<md-button ng-click="showInputDate()" >Fecha</md-button>
+            <md-input-container>
+                <label>Fecha</label>
+                <input name="fecha" ng-model="evento.fecha" type="date" required/>
+                <div ng-messages="eventoForm.fecha.$error" ng-show="eventoForm.fecha.$dirty">
+                    <div ng-message="required">Debes completar este campo.</div>
+                </div>
+            </md-input-container>
 
         </form>
     </md-dialog-content>

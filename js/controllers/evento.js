@@ -28,8 +28,8 @@
         }
     ]);
 
-    angular.module('backendApp.controllers').controller('AddEventoController',['$scope', '$mdDialog', 'Evento',
-        function($scope, $mdDialog, Evento){
+    angular.module('backendApp.controllers').controller('AddEventoController',['$scope','$mdToast', '$mdDialog', 'Evento',
+        function($scope,$mdToast, $mdDialog, Evento){
             $scope.evento = new Evento();
 
             $scope.hide = function() {
@@ -48,8 +48,10 @@
             };
 
             $scope.submit = function(){
-                $scope.evento.$save(function() {
+                $scope.evento.$save($scope.evento, function(response) {
                     $mdDialog.hide($scope.evento);
+                }, function(response){
+                    $mdToast.show($mdToast.simple().content(response.data.error));
                 });
             };
         }

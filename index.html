@@ -35,8 +35,8 @@
             </div>
         </header>
         <md-list ng-controller="MenuController">
-            <md-item ng-repeat="item in menu">
-                <a ui-sref="{{item.link}}">
+            <md-item ui-sref-active="active" ng-repeat="item in menu">
+                <a  ui-sref="{{item.link}}">
                     <md-item-content md-ink-ripple layout="row" layout-align="start center">
                         <div class="inset">
                             <md-icon layout="row">
