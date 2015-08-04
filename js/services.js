@@ -16,7 +16,7 @@
     });
 
     module.factory('Disco', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/noticias/:id');
+        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/discos/:id');
     });
 
     module.factory('Evento', function($resource){

@@ -1,14 +1,14 @@
-
 <dtable options="options" rows="noticias" class="material" on-row-click="clickNoticia(row)">
     <column name="Headline"></column>
     <column name="Autor"></column>
     <column name="Resumen"></column>
+    <column name="Categoria">{{row.categorias[0].nombre}}</column>
     <column name="Creado">{{row.created_at | date:'MM/dd/yyyy'}}</column>
 </dtable>
-
 <md-button class="md-fab agregar" ng-click="showAdd($event)">
     <md-icon>
         <i class="material-icons" >add</i>
     </md-icon>
 </md-button>
+
 

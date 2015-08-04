@@ -1,8 +1,8 @@
 (function(){
     'use strict';
 
-    angular.module('backendApp', ['ngMaterial', 'data-table', 'mdDateTime', 'ngResource','ngMessages', 'ui.router','backendApp.controllers', 'backendApp.services'])
-        .config(function($mdThemingProvider, $stateProvider) {
+    angular.module('backendApp', ['flow', 'ngMaterial', 'data-table', 'mdDateTime', 'ngResource','ngMessages', 'ui.router','backendApp.controllers', 'backendApp.services'])
+        .config(function($mdThemingProvider, $stateProvider,flowFactoryProvider) {
             var customBlueMap = 		$mdThemingProvider.extendPalette('light-blue', {
                 'contrastDefaultColor': 'light',
                 'contrastDarkColors': ['50'],
@@ -21,7 +21,7 @@
             $stateProvider.state('ads',{
                 url:'/promos',
                 templateUrl: 'partials/promos.html',
-                controller: 'AdsListController'
+                controller: 'AdListController'
             }).state('canciones',{
                 url:'/canciones',
                 templateUrl: 'partials/canciones.html',
@@ -33,11 +33,11 @@
             }).state('discos',{
                 url:'/discos',
                 templateUrl: 'partials/discos.html',
-                controller: 'DiscosListController'
+                controller: 'DiscoListController'
             }).state('eventos',{
                 url:'/eventos',
                 templateUrl: 'partials/eventos.html',
-                controller: 'EventosListController'
+                controller: 'EventoListController'
             }).state('noticias',{
                 url:'/noticias',
                 templateUrl: 'partials/noticias.html',
@@ -45,11 +45,20 @@
             }).state('videos',{
                 url:'/videos',
                 templateUrl: 'partials/videos.html',
-                controller: 'VideosListController'
+                controller: 'VideoListController'
             });
 
+            flowFactoryProvider.defaults = {
+                target: 'upload.php',
+                permanentErrors:[404, 500, 501],
+                singleFile:true,
+            };
         }).run(function($state){
             $state.go('noticias');
+        }).filter('capitalize', function() {
+            return function(input, all) {
+                return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) : '';
+            }
         });
 
 })();

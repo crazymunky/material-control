@@ -1,6 +1,6 @@
 {
-  "name": "backend-angular",
-  "version": "0.0.0",
+  "name": "material-control",
+  "version": "0.0.4",
   "license": "MIT",
   "ignore": [
     "**/.*",

@@ -3,9 +3,9 @@
  */
 (function() {
     'use strict';
-    angular.module('backendApp.controllers').controller('EventoListController',['$scope', 'Evento', '$mdDialog',
-        function($scope, Evento, $mdDialog){
-            $scope.eventos = Evento.query();
+    angular.module('backendApp.controllers').controller('DiscoListController',['$scope', 'Disco', '$mdDialog',
+        function($scope, Disco, $mdDialog){
+            $scope.discos = Disco.query();
             $scope.options = {
                 rowHeight: 50,
                 footerHeight: false,
@@ -16,21 +16,21 @@
             };
             $scope.showAdd = function(ev){
                 $mdDialog.show({
-                    controller: 'AddEventoController',
-                    templateUrl: 'partials/eventos/add.html',
+                    controller: 'DiscoController',
+                    templateUrl: 'partials/discos/add.html',
                     parent: angular.element(document.body),
                     targetEvent: ev
                 }).then(function(newEvent){
                     if(newEvent!== undefined)
-                        $scope.eventos.push(newEvent);
+                        $scope.discos.push(newEvent);
                 });
             };
         }
     ]);
 
-    angular.module('backendApp.controllers').controller('AddEventoController',['$scope','$mdToast', '$mdDialog', 'Evento',
-        function($scope,$mdToast, $mdDialog, Evento){
-            $scope.evento = new Evento();
+    angular.module('backendApp.controllers').controller('DiscoController',['$scope','$mdToast', '$mdDialog', 'Disco',
+        function($scope,$mdToast, $mdDialog, Disco){
+            $scope.evento = new Disco();
 
             $scope.hide = function() {
                 $mdDialog.hide();
@@ -43,7 +43,7 @@
                     targetEvent: ev
                 }).then(function(newEvent){
                     if(newEvent!== undefined)
-                        $scope.eventos.push(newEvent);
+                        $scope.discos.push(newEvent);
                 });
             };
 

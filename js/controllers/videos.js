@@ -3,9 +3,9 @@
  */
 (function() {
     'use strict';
-    angular.module('backendApp.controllers').controller('EventoListController',['$scope', 'Evento', '$mdDialog',
-        function($scope, Evento, $mdDialog){
-            $scope.eventos = Evento.query();
+    angular.module('backendApp.controllers').controller('VideoListController',['$scope', 'Video', '$mdDialog',
+        function($scope, Video, $mdDialog){
+            $scope.videos = Video.query();
             $scope.options = {
                 rowHeight: 50,
                 footerHeight: false,
@@ -16,21 +16,21 @@
             };
             $scope.showAdd = function(ev){
                 $mdDialog.show({
-                    controller: 'AddEventoController',
-                    templateUrl: 'partials/eventos/add.html',
+                    controller: 'AddVideoController',
+                    templateUrl: 'partials/videos/add.html',
                     parent: angular.element(document.body),
                     targetEvent: ev
                 }).then(function(newEvent){
                     if(newEvent!== undefined)
-                        $scope.eventos.push(newEvent);
+                        $scope.videos.push(newEvent);
                 });
             };
         }
     ]);
 
-    angular.module('backendApp.controllers').controller('AddEventoController',['$scope','$mdToast', '$mdDialog', 'Evento',
-        function($scope,$mdToast, $mdDialog, Evento){
-            $scope.evento = new Evento();
+    angular.module('backendApp.controllers').controller('AddVideoController',['$scope','$mdToast', '$mdDialog', 'Video',
+        function($scope,$mdToast, $mdDialog, Video){
+            $scope.video = new Video();
 
             $scope.hide = function() {
                 $mdDialog.hide();
@@ -38,18 +38,18 @@
 
             $scope.showInputDate = function (ev){
                 $mdDialog.show({
-                    template: '<time-date-picker ng-model="evento.fecha"></time-date-picker>',
+                    template: '<time-date-picker ng-model="video.fecha"></time-date-picker>',
                     parent: angular.element(document.body),
                     targetEvent: ev
                 }).then(function(newEvent){
                     if(newEvent!== undefined)
-                        $scope.eventos.push(newEvent);
+                        $scope.videos.push(newEvent);
                 });
             };
 
             $scope.submit = function(){
-                $scope.evento.$save($scope.evento, function(response) {
-                    $mdDialog.hide($scope.evento);
+                $scope.video.$save($scope.video, function(response) {
+                    $mdDialog.hide($scope.video);
                 }, function(response){
                     $mdToast.show($mdToast.simple().content(response.data.error));
                 });

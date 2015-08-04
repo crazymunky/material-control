@@ -1,14 +1,31 @@
-<md-dialog class="md-padding md-whiteframe-z2">
+<md-dialog class="md-padding md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml" flow-init="{target:'/uploader'}" flow-drop flow-drag-enter="style={opacity: 0.5}"
+           flow-drag-leave="style={}">
     <md-dialog-content>
-        <h1>Agregar categoria</h1>
-        <form name="categoriaForm">
+        <h2>Agregar Ad</h2>
+        <form name="adForm">
             <md-input-container>
                 <label>Nombre</label>
-                <input name="nombre" ng-model="categoria.nombre" required/>
-                <div ng-messages="categoriaForm.nombre.$error" ng-show="categoriaForm.nombre.$dirty">
+                <input name="nombre" ng-model="ad.nombre" required/>
+                <div ng-messages="adForm.nombre.$error" ng-show="adForm.nombre.$dirty">
                     <div ng-message="required">Debes completar este campo.</div>
                 </div>
+
             </md-input-container>
+            <md-input-container>
+                <md-checkbox ng-model="ad.skip_enabled" aria-label="Skipable">
+                    Skipable
+                </md-checkbox>
+            </md-input-container>
+
+            <div class="upload-container">
+                <md-button type="button" aria-label="Subir archivo">
+                    <label for="fileToUpload" style="cursor:pointer;">
+                        Subir fuente
+                    </label>
+                </md-button>
+                <input id="fileToUpload" type="file" style="display:none;" flow-btn flow-attrs="{accept:'image/*,video/*'}">
+                <span class="file-name" >{{$flow.files[$flow.files.length-1].name}}</span>
+            </div>
         </form>
     </md-dialog-content>
     <div class="md-actions" layout="row">

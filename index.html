@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
-    <title>Angular Material Backend</title>
+    <title>Material Control > {{state.name | capitalize}} </title>
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css"/>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=RobotoDraft:400,500,700,400italic"/>
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="bower_components/angular-data-table/material.css">
     <link rel="stylesheet" href="bower_components/md-date-time/md-date-time.css">
 </head>
-<body ng-app="backendApp" layout="column" layout-align="top center">
+<body ng-app="backendApp" layout="column" layout-align="top center" flow-prevent-drop>
 <md-toolbar ng-controller="HeaderController" class="md-whiteframe-z3">
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" aria-label="Show slider" hide-gt-md ng-click="openLeftMenu()">
@@ -20,7 +20,7 @@
                 <i class="material-icons" >menu</i>
             </md-icon>
         </md-button>
-        <span class="md-flex">MATERIAL CONTROL</span>
+        <span class="md-flex">MATERIAL CONTROL > {{state.name | uppercase}}</span>
     </div>
 </md-toolbar>
 <div  flex layout="row">
@@ -64,10 +64,17 @@
 <script src="bower_components/angular-messages/messages.js"></script>
 <script src="bower_components/angular-data-table/dataTable.helpers.min.js"></script>
 <script src="bower_components/md-date-time/md-date-time.js"></script>
+<script src="bower_components/ng-flow/dist/ng-flow-standalone.js"></script>
 
 <script src="js/app.js"></script>
 <script src="js/services.js"></script>
-<script src="js/controllers/controllers.js"></script>
+<script src="js/controllers/common.js"></script>
 <script src="js/controllers/evento.js"></script>
+<script src="js/controllers/promos.js"></script>
+<script src="js/controllers/canciones.js"></script>
+<script src="js/controllers/discos.js"></script>
+<script src="js/controllers/videos.js"></script>
+<script src="js/controllers/noticias.js"></script>
+<script src="js/controllers/categorias.js"></script>
 </body>
 </html>
