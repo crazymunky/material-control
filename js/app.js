@@ -1,8 +1,8 @@
 (function(){
     'use strict';
 
-    angular.module('backendApp', ['flow', 'ngMaterial', 'data-table', 'mdDateTime', 'ngResource','ngMessages', 'ui.router','backendApp.controllers', 'backendApp.services'])
-        .config(function($mdThemingProvider, $stateProvider,flowFactoryProvider) {
+    angular.module('backendApp', ['ngFileUpload', 'ngMaterial', 'data-table', 'ngResource','ngMessages', 'ui.router','backendApp.controllers', 'backendApp.services'])
+        .config(function($mdThemingProvider, $stateProvider) {
             var customBlueMap = 		$mdThemingProvider.extendPalette('light-blue', {
                 'contrastDefaultColor': 'light',
                 'contrastDarkColors': ['50'],
@@ -48,11 +48,6 @@
                 controller: 'VideoListController'
             });
 
-            flowFactoryProvider.defaults = {
-                target: 'upload.php',
-                permanentErrors:[404, 500, 501],
-                singleFile:true,
-            };
         }).run(function($state){
             $state.go('noticias');
         }).filter('capitalize', function() {

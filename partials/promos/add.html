@@ -18,13 +18,7 @@
             </md-input-container>
 
             <div class="upload-container">
-                <md-button type="button" aria-label="Subir archivo">
-                    <label for="fileToUpload" style="cursor:pointer;">
-                        Subir fuente
-                    </label>
-                </md-button>
-                <input id="fileToUpload" type="file" style="display:none;" flow-btn flow-attrs="{accept:'image/*,video/*'}">
-                <span class="file-name" >{{$flow.files[$flow.files.length-1].name}}</span>
+             <md-button type="file" ng-model="ad.source" ngf-select>Subir fuente</md-button>
             </div>
         </form>
     </md-dialog-content>
