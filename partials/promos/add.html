@@ -5,29 +5,44 @@
         <form name="adForm">
             <md-input-container>
                 <label>Nombre</label>
-                <input name="nombre" ng-model="ad.nombre" required/>
+                <input ng-disabled="submitting"  name="nombre" ng-model="ad.nombre" required/>
                 <div ng-messages="adForm.nombre.$error" ng-show="adForm.nombre.$dirty">
                     <div ng-message="required">Debes completar este campo.</div>
                 </div>
-
             </md-input-container>
             <md-input-container>
-                <md-checkbox ng-model="ad.skip_enabled" aria-label="Skipable">
+                <label>Duraci&oacute;n (segundos)</label>
+                <input ng-disabled="submitting"  name="duracion" ng-model="ad.duration" number numeric/>
+                <div ng-messages="adForm.duracion.$error" ng-show="adForm.duracion.$dirty">
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <md-checkbox ng-disabled="submitting" ng-model="ad.skip_enabled" ng-true-value="1" ng-false-value="0" aria-label="Skipable">
                     Skipable
                 </md-checkbox>
             </md-input-container>
+            <md-input-container>
+                <div class="upload-container">
+                    <md-button ng-disabled="submitting" class="md-raised md-primary file" type="file" name="source" ng-model="ad.source" required ngf-select="" ngf-accept="'image/*,video/*'">Subir fuente</md-button>
+                    <label ng-if="ad.source">{{ad.source.name}}</label>
 
-            <div class="upload-container">
-             <md-button type="file" ng-model="ad.source" ngf-select>Subir fuente</md-button>
-            </div>
+                    <div ng-messages="adForm.source.$error" ng-show="adForm.source.$dirty">
+                        <div ng-message="required">Debe subir un archivo </div>
+                    </div>
+                    <!--video ng-if="ad.source" controls ngf-src="ad.source" ngf-accept="'video/*'"></video-->
+                    <img ng-if="ad.source" ngf-src="ad.source" ngf-accept="'image/*'"/>
+
+                    <md-progress-linear ng-if="progress!=0" class="md-accent" md-mode="determinate" value="{{progress}}">
+                </div>
+            </md-input-container>
         </form>
     </md-dialog-content>
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-click="hide()" class="md-secondary">
+        <md-button ng-disabled="submitting"  ng-click="hide()" class="md-secondary">
             Cancelar
         </md-button>
-        <md-button ng-click="submit()" class="md-primary">
+        <md-button ng-disabled="submitting"  ng-click="submit()" class="md-primary">
             Aceptar
         </md-button>
     </div>

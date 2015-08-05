@@ -1,7 +1,8 @@
 <dtable options="options" rows="ads" class="material dt" title-overflow-header="truncateColumnNames">
     <column name="Nombre">{{value}}</column>
-    <column name="Tipo">{{row.type}}</column>
-    <column name="Skippable">{{row.skip_enabled}}</column>
+    <column name="Tipo">{{row.type | capitalize}}</column>
+    <column name="Duracion">{{row.duration}}s</column>
+    <column name="Skippable">{{row.skip_enabled == 1 ? 'Si' : 'No'}}</column>
     <column name="Creado">{{row.created_at | date:'MM/dd/yyyy'}}</column>
 </dtable>
 <md-button class="md-fab agregar" ng-click="showAdd($event)">
@@ -9,4 +10,3 @@
         <i class="material-icons" >add</i>
     </md-icon>
 </md-button>
-

@@ -31,7 +31,7 @@
 
     angular.module('backendApp.controllers').controller('AddAdController',['$scope','$mdToast', '$mdDialog', 'Ad', 'Upload',
         function($scope,$mdToast, $mdDialog, Ad, Upload){
-            $scope.ad = new Ad();
+            $scope.ad = new Ad;
 
             $scope.hide = function() {
                 $mdDialog.hide();
@@ -43,26 +43,37 @@
             // set default directive values
             // Upload.setDefaults( {ngf-keep:false ngf-accept:'image/*', ...} );
             $scope.upload = function (file) {
-                Upload.upload({
-                    url: 'http://stg1.jwtdigitalpr.com/mpto/api/upload',
-                    file: file
-                }).progress(function (evt) {
-                    var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                    console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
-                }).success(function (data, status, headers, config) {
-                    console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
-                }).error(function (data, status, headers, config) {
-                    console.log('error status: ' + status);
-                });
+
             };
 
+            $scope.progress = 0;
+            $scope.submitting = false;
+
             $scope.submit = function(){
-                $scope.upload($scope.ad.source);
-                /*$scope.ad.$save($scope.ad, function(response) {
-                 $mdDialog.hide($scope.ad);
-                 }, function(response){
-                 $mdToast.show($mdToast.simple().content(response.data.error));
-                 });*/
+                $scope.submitting= true;
+                Upload.upload({
+                    url: 'http://stg1.jwtdigitalpr.com/mpto/api/upload',
+                    file: $scope.ad.source
+                }).progress(function(evt) {
+                    $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
+                }).success(function (data, status, headers, config) {
+                    $scope.ad.source = data.url;
+                    $scope.ad.type = data.type;
+                    $scope.ad.$save(function(response) {
+                        $mdDialog.hide($scope.ad);
+                    }, function(response){
+                        $mdToast.show($mdToast.simple().content(response.data.error));
+                    }).then(function(){
+                        $scope.submitting=false;
+                    });
+                }).error(function (data, status, headers, config) {
+                    $mdToast.show($mdToast.simple().content(data.error));
+                }).then(function(){
+                    $scope.ad.source="";
+                    $scope.submitting=false;
+                    $scope.progress=0;
+                });
+
             };
         }
     ]);

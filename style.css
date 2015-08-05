@@ -85,6 +85,19 @@ md-input-container {
 .active md-item-content {
   background-color: rgba(167, 163, 163, 0.28); }
 
+.upload-container audio {
+  margin-top: 10px;
+  width: 100%; }
+.upload-container button {
+  margin-left: 0px; }
+.upload-container video {
+  width: 100%; }
+.upload-container img {
+  max-width: 100%;
+  max-height: 140px;
+  margin: auto;
+  display: block; }
+
 /*# sourceMappingURL=style.css.map */
 
 /*# sourceMappingURL=style.css.map */
