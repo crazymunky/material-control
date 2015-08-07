@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('backendApp', ['ngFileUpload', 'ngMaterial', 'data-table', 'ngResource','ngMessages', 'ui.router','backendApp.controllers', 'backendApp.services'])
-        .config(function($mdThemingProvider, $stateProvider) {
-            var customBlueMap = 		$mdThemingProvider.extendPalette('light-blue', {
+        .config(function($mdThemingProvider, $stateProvider ) {
+            var customBlueMap = $mdThemingProvider.extendPalette('light-blue', {
                 'contrastDefaultColor': 'light',
                 'contrastDarkColors': ['50'],
                 '50': 'ffffff'
@@ -47,9 +47,9 @@
                 templateUrl: 'partials/videos.html',
                 controller: 'VideoListController'
             });
-
-        }).run(function($state){
+        }).run(function($state, Upload, $rootScope){
             $state.go('noticias');
+            $rootScope.upload_url ='http://stg1.jwtdigitalpr.com/mpto/api/upload';
         }).filter('capitalize', function() {
             return function(input, all) {
                 return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) : '';

@@ -36,24 +36,26 @@
                 $mdDialog.hide();
             };
 
-            $scope.showInputDate = function (ev){
-                $mdDialog.show({
-                    template: '<time-date-picker ng-model="categoria.fecha"></time-date-picker>',
-                    parent: angular.element(document.body),
-                    targetEvent: ev
-                }).then(function(newEvent){
-                    if(newEvent!== undefined)
-                        $scope.categorias.push(newEvent);
-                });
-            };
+            $scope.submitting = false;
+            $scope.attempted = false;
 
             $scope.submit = function(){
-                $scope.categoria.$save($scope.categoria, function(response) {
-                    $mdDialog.hide($scope.categoria);
-                }, function(response){
-                    $mdToast.show($mdToast.simple().content(response.data.error));
-                });
+                $scope.attempted = true;
+                if(!$scope.form.$valid)
+                    return false;
+                save();
             };
+
+            function save() {
+                $scope.categoria.$save(function (response) {
+                    $mdDialog.hide($scope.categoria);
+                    $mdToast.show($mdToast.simple().content("Nuevo ad guardado"));
+                }, function (response) {
+                    $mdToast.show($mdToast.simple().content(response.data.error).theme("error-toast"));
+                }).then(function(){
+                    $scope.submitting = false;
+                });
+            }
         }
     ]);
 })();

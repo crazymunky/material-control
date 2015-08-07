@@ -6,6 +6,7 @@
     angular.module('backendApp.controllers').controller('CancionListController',['$scope', 'Cancion', '$mdDialog',
         function($scope, Cancion, $mdDialog){
             $scope.canciones = Cancion.query();
+
             $scope.options = {
                 rowHeight: 50,
                 footerHeight: false,
@@ -28,41 +29,61 @@
         }
     ]);
 
-    angular.module('backendApp.controllers').controller('AddCancionController',['$scope','$mdToast', '$mdDialog', 'Cancion', 'Upload',
-        function($scope,$mdToast, $mdDialog, Cancion, Upload){
+    angular.module('backendApp.controllers').controller('AddCancionController',['$rootScope','$scope','$mdToast', '$mdDialog', 'Cancion', 'Disco', 'Upload',
+        function($rootScope,$scope,$mdToast, $mdDialog, Cancion, Disco, Upload){
             $scope.cancion = new Cancion();
-
+            $scope.discos = Disco.query();
             $scope.hide = function() {
                 $mdDialog.hide();
-            }
+            };
 
             $scope.progress = 0;
             $scope.submitting = false;
+            $scope.photoUploaded = false;
+            $scope.attempted = false;
+
             $scope.submit = function(){
-                $scope.submitting= true;
+                $scope.attempted = true;
+                if(!$scope.form.$valid)
+                    return false;
+
+                if(!$scope.photoUploaded)
+                    uploadAndSave();
+                else
+                    save();
+            };
+
+            $scope.fileChanged = function(){
+                $scope.photoUploaded = false;
+            };
+
+            function uploadAndSave() {
                 Upload.upload({
-                    url: 'http://stg1.jwtdigitalpr.com/mpto/api/upload',
+                    url: $rootScope.upload_url,
                     file: $scope.cancion.audio_source
-                }).progress(function(evt) {
+                }).progress(function (evt) {
                     $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
                 }).success(function (data, status, headers, config) {
                     $scope.cancion.audio_source = data.url;
-                    $scope.cancion.$save(function(response) {
-                        $mdDialog.hide($scope.cancion);
-                    }, function(response){
-                        $scope.cancion.audio_source="";
-                        $mdToast.show($mdToast.simple().content(response.data.error));
-                    }).then(function(){
-                        $scope.submitting=false;
-                    });
-                }).error(function (data, status, headers, config) {
-                    $mdToast.show($mdToast.simple().content(data.error));
-                }).then(function(){
-                    $scope.cancion.audio_source="";
-                    $scope.submitting=false;
+                    $scope.photoUploaded = true;
                     $scope.progress=0;
+                    save();
+                }).error(function (data, status, headers, config) {
+                    $mdToast.show($mdToast.simple().content(data.error).theme("error-toast"));
+                    $scope.submitting = false;
+                    $scope.progress = 0;
                 });
-            };
+            }
+            function save() {
+                $scope.cancion.$save(function (response) {
+                    $mdDialog.hide($scope.cancion);
+                    $scope.submitting = false;
+                    $mdToast.show($mdToast.simple().content("Nuevo canción guardada"));
+                }, function (response) {
+                    $mdToast.show($mdToast.simple().content(response.data.error).theme("error-toast"));
+                    $scope.submitting = false;
+                });
+            }
         }
     ]);
 })();

@@ -29,52 +29,64 @@
         }
     ]);
 
-    angular.module('backendApp.controllers').controller('AddAdController',['$scope','$mdToast', '$mdDialog', 'Ad', 'Upload',
-        function($scope,$mdToast, $mdDialog, Ad, Upload){
+    angular.module('backendApp.controllers').controller('AddAdController',['$rootScope','$scope','$mdToast', '$mdDialog', 'Ad', 'Upload',
+        function($rootScope, $scope,$mdToast, $mdDialog, Ad, Upload){
             $scope.ad = new Ad;
 
             $scope.hide = function() {
                 $mdDialog.hide();
             };
 
-            $scope.$watch('file', function () {
-                $scope.upload($scope.ad.source);
-            });
-            // set default directive values
-            // Upload.setDefaults( {ngf-keep:false ngf-accept:'image/*', ...} );
-            $scope.upload = function (file) {
-
-            };
-
-            $scope.progress = 0;
             $scope.submitting = false;
+            $scope.attempted = false;
 
             $scope.submit = function(){
-                $scope.submitting= true;
+                $scope.attempted = true;
+                if(!$scope.adForm.$valid)
+                    return false;
+
+                if(!$scope.photoUploaded)
+                    uploadAndSave();
+                else
+                    save();
+            };
+
+            function save() {
+                $scope.ad.$save(function (response) {
+                    $mdDialog.hide($scope.ad);
+                    $scope.submitting = false;
+                    $mdToast.show($mdToast.simple().content("Nuevo ad guardado"));
+                }, function (response) {
+                    $mdToast.show($mdToast.simple().content(response.data.error).theme("error-toast"));
+                    $scope.submitting = false;
+                });
+            }
+            $scope.progress = 0;
+            $scope.photoUploaded = false;
+            $scope.fileChanged = function(){
+                $scope.photoUploaded = false;
+            };
+            function uploadAndSave() {
+                $scope.submitting = true;
                 Upload.upload({
-                    url: 'http://stg1.jwtdigitalpr.com/mpto/api/upload',
+                    url: $rootScope.upload_url,
                     file: $scope.ad.source
-                }).progress(function(evt) {
+                }).progress(function (evt) {
                     $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
                 }).success(function (data, status, headers, config) {
                     $scope.ad.source = data.url;
                     $scope.ad.type = data.type;
-                    $scope.ad.$save(function(response) {
-                        $mdDialog.hide($scope.ad);
-                    }, function(response){
-                        $mdToast.show($mdToast.simple().content(response.data.error));
-                    }).then(function(){
-                        $scope.submitting=false;
-                    });
+                    $scope.photoUploaded = true;
+                    $scope.progress = 0;
+                    save();
                 }).error(function (data, status, headers, config) {
-                    $mdToast.show($mdToast.simple().content(data.error));
-                }).then(function(){
-                    $scope.ad.source="";
-                    $scope.submitting=false;
-                    $scope.progress=0;
+                    $mdToast.show($mdToast.simple().content(data.error).theme("error-toast"));
+                    $scope.submitting = false;
+                    $scope.progress = 0;
                 });
 
-            };
+            }
+
         }
     ]);
 })();

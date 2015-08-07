@@ -123,6 +123,19 @@ md-input-container {
     display: block;
   }
 }
+
+md-toast.md-error-toast-theme {
+  background-color: rgb(255, 70, 72);
+}
+
+md-dialog {
+  max-height:90%;
+}
+
+md-select .md-select-label{
+  width:100%;
+}
 /*# sourceMappingURL=style.css.map */
+
 
 

@@ -1,11 +1,11 @@
-<md-dialog class="md-padding md-whiteframe-z2">
+<md-dialog class="md-padding md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml" >
     <md-dialog-content>
-        <h1>Agregar categoria</h1>
-        <form name="categoriaForm">
+        <h2>Agregar categoria</h2>
+        <form name="form">
             <md-input-container>
                 <label>Nombre</label>
-                <input name="nombre" ng-model="categoria.nombre" required/>
-                <div ng-messages="categoriaForm.nombre.$error" ng-show="categoriaForm.nombre.$dirty">
+                <input ng-disabled="submitting" name="nombre" ng-model="categoria.nombre" required/>
+                <div ng-messages="form.nombre.$error" ng-show="(form.nombre.$dirty || attempted)">
                     <div ng-message="required">Debes completar este campo.</div>
                 </div>
             </md-input-container>
@@ -13,10 +13,10 @@
     </md-dialog-content>
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-click="hide()" class="md-secondary">
+        <md-button ng-disabled="submitting"  ng-click="hide()" class="md-secondary">
             Cancelar
         </md-button>
-        <md-button ng-click="submit()" class="md-primary">
+        <md-button ng-disabled="submitting"  ng-click="submit()" class="md-primary">
             Aceptar
         </md-button>
     </div>

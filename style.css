@@ -98,6 +98,15 @@ md-input-container {
   margin: auto;
   display: block; }
 
+md-toast.md-error-toast-theme {
+  background-color: #ff4648; }
+
+md-dialog {
+  max-height: 90%; }
+
+md-select .md-select-label {
+  width: 100%; }
+
 /*# sourceMappingURL=style.css.map */
 
 /*# sourceMappingURL=style.css.map */

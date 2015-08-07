@@ -28,32 +28,62 @@
         }
     ]);
 
-    angular.module('backendApp.controllers').controller('AddEventoController',['$scope','$mdToast', '$mdDialog', 'Evento',
-        function($scope,$mdToast, $mdDialog, Evento){
+    angular.module('backendApp.controllers').controller('AddEventoController',['$rootScope','$scope','$mdToast', '$mdDialog', 'Evento','Upload',
+        function($rootScope, $scope,$mdToast, $mdDialog, Evento, Upload){
             $scope.evento = new Evento();
 
             $scope.hide = function() {
                 $mdDialog.hide();
             };
 
-            $scope.showInputDate = function (ev){
-                $mdDialog.show({
-                    template: '<time-date-picker ng-model="evento.fecha"></time-date-picker>',
-                    parent: angular.element(document.body),
-                    targetEvent: ev
-                }).then(function(newEvent){
-                    if(newEvent!== undefined)
-                        $scope.eventos.push(newEvent);
-                });
-            };
+            $scope.submitting = false;
+            $scope.attempted = false;
 
             $scope.submit = function(){
-                $scope.evento.$save($scope.evento, function(response) {
-                    $mdDialog.hide($scope.evento);
-                }, function(response){
-                    $mdToast.show($mdToast.simple().content(response.data.error));
-                });
+                $scope.attempted = true;
+                if(!$scope.form.$valid)
+                    return false;
+
+                if(!$scope.photoUploaded)
+                    uploadAndSave();
+                else
+                    save();
             };
+
+            function save() {
+                $scope.evento.$save(function (response) {
+                    $mdDialog.hide($scope.evento);
+                    $scope.submitting = false;
+                    $mdToast.show($mdToast.simple().content("Nuevo evento guardado"));
+                }, function (response) {
+                    $mdToast.show($mdToast.simple().content(response.data.error).theme("error-toast"));
+                    $scope.submitting = false;
+                });
+            }
+            $scope.progress = 0;
+            $scope.photoUploaded = false;
+            $scope.fileChanged = function(){
+                $scope.photoUploaded = false;
+            };
+            function uploadAndSave() {
+                $scope.submitting = true;
+                Upload.upload({
+                    url: $rootScope.upload_url,
+                    file: $scope.evento.imagen
+                }).progress(function (evt) {
+                    $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
+                }).success(function (data, status, headers, config) {
+                    $scope.evento.imagen = data.url;
+                    $scope.photoUploaded = true;
+                    $scope.progress = 0;
+                    save();
+                }).error(function (data, status, headers, config) {
+                    $mdToast.show($mdToast.simple().content(data.error).theme("error-toast"));
+                    $scope.submitting = false;
+                    $scope.progress = 0;
+                });
+
+            }
         }
     ]);
 })();
