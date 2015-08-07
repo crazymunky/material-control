@@ -1,0 +1,27 @@
+<md-dialog class="md-padding md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml">
+    <md-dialog-content>
+        <form name="loginForm" ng-controller="LoginController"
+              ng-submit="login(credentials)" novalidate>
+            <md-input-container>
+                <label>Email</label>
+                <input id="username" name="email" ng-model="credentials.email" required/>
+                <div ng-messages="form.email.$error" ng-show="(form.email.$dirty || attempted)">
+                    <div ng-message="required">Debes ingresar un nombre.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Contraseña</label>
+                <input name="password" id="passowrd" type="password" ng-model="credentials.password" required/>
+                <div ng-messages="form.password.$error" ng-show="(form.password.$dirty || attempted)">
+                    <div ng-message="required">Debes ingresar un nombre.</div>
+                </div>
+            </md-input-container>
+            <div class="md-actions" layout="row">
+                <span flex></span>
+                <md-button class="md-primary md-raised" type="submit">
+                    Login
+                </md-button>
+            </div>
+        </form>
+    </md-dialog-content>
+</md-dialog>

@@ -1,22 +1,45 @@
-<md-dialog class="md-padding md-whiteframe-z2">
+<md-dialog class="md-padding md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml" >
     <md-dialog-content>
-        <h1>Agregar categoria</h1>
-        <form name="categoriaForm">
+        <h2>Agregar video</h2>
+        <form name="form">
             <md-input-container>
                 <label>Nombre</label>
-                <input name="nombre" ng-model="categoria.nombre" required/>
-                <div ng-messages="categoriaForm.nombre.$error" ng-show="categoriaForm.nombre.$dirty">
-                    <div ng-message="required">Debes completar este campo.</div>
+                <input ng-disabled="submitting" name="nombre" ng-model="video.nombre" required />
+                <div ng-messages="form.nombre.$error" ng-show="(form.nombre.$dirty || attempted)">
+                    <div ng-message="required">Debe completar este campo.</div>
                 </div>
             </md-input-container>
+            <md-input-container>
+                <md-select ng-disabled="submitting" name="ad" placeholder="Sin ad" ng-model="video.ad_id" required>
+                    <md-option value="0" >Sin ad</md-option>
+                    <md-option ng-value="ad.id" ng-repeat="ad in ads">{{ad.nombre}}</md-option>
+                </md-select>
+            </md-input-container>
+            <md-input-container>
+                <label>Youtube link</label>
+                <input  ng-change="linkChanged()" ng-disabled="submitting" name="youtube" ng-model="video.source"/>
+            </md-input-container>
+            <p>o</p>
+            <md-input-container>
+                <div class="upload-container">
+                    <md-button ngf-change="fileChanged()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="source" ng-model="video.source" required ngf-select="" ngf-accept="'video/*'">Subir fuente</md-button>
+                    <label ng-if="video.source">{{video.source.name}}</label>
+                    <div ng-messages="form.source.$error" ng-show="(form.source.$dirty || attempted)">
+                        <div ng-message="required">Debe subir un archivo </div>
+                    </div>
+                    <video ng-if="video.source && !isLink" controls ngf-src="video.source" ngf-accept="'video/*'"/>
+                    <md-progress-linear ng-if="progress!=0" class="md-accent" md-mode="determinate" value="{{progress}}">
+                </div>
+            </md-input-container>
+
         </form>
     </md-dialog-content>
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-click="hide()" class="md-secondary">
+        <md-button ng-disabled="submitting"  ng-click="hide()" class="md-secondary">
             Cancelar
         </md-button>
-        <md-button ng-click="submit()" class="md-primary">
+        <md-button ng-disabled="submitting"  ng-click="submit()" class="md-primary">
             Aceptar
         </md-button>
     </div>

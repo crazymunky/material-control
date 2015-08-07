@@ -4,7 +4,7 @@
         <form name="form">
             <md-input-container>
                 <label>Nombre</label>
-                <input name="nombre" ng-model="cancion.nombre" required/>
+                <input ng-disabled="submitting" name="nombre" ng-model="cancion.nombre" required/>
                 <div ng-messages="form.nombre.$error" ng-show="(form.nombre.$dirty || attempted)">
                     <div ng-message="required">Debes ingresar un nombre.</div>
                 </div>
@@ -24,21 +24,21 @@
             </md-input-container>
             <md-input-container>
                 <label>Link appstore</label>
-                <input name="link_appstore" ng-model="cancion.link_appstore" required/>
+                <input ng-disabled="submitting" name="link_appstore" ng-model="cancion.link_appstore" required/>
                 <div ng-disabled="submitting" ng-messages="form.link_appstore.$error" ng-show="(form.link_appstore.$dirty || attempted)">
                     <div ng-message="required">Debes completar este campo.</div>
                 </div>
             </md-input-container>
             <md-input-container>
                 <label>Link playstore</label>
-                <input name="link_playstore" ng-model="cancion.link_playstore" required/>
-                <div ng-disabled="submitting" ng-messages="form.link_playstore.$error" ng-show="(form.link_playstore.$dirty || attempted)">
+                <input ng-disabled="submitting" name="link_playstore" ng-model="cancion.link_playstore" required/>
+                <div  ng-messages="form.link_playstore.$error" ng-show="(form.link_playstore.$dirty || attempted)">
                     <div ng-message="required">Debes completar este campo.</div>
                 </div>
             </md-input-container>
             <md-input-container>
                 <label>Link spotify</label>
-                <input name="link_spotify" ng-model="cancion.link_spotify" required/>
+                <input ng-disabled="submitting" name="link_spotify" ng-model="cancion.link_spotify" required/>
                 <div ng-disabled="submitting" ng-messages="form.link_spotify.$error" ng-show="(form.link_spotify.$dirty || attempted)">
                     <div ng-message="required">Debes completar este campo.</div>
                 </div>

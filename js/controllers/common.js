@@ -19,43 +19,51 @@
         }
     ]);
 
+
     module.controller('MenuController', ['$scope',
         function ($scope) {
             $scope.menu = [
                 {
                     link : 'ads',
                     title: 'Ads',
-                    icon: 'add_shopping_cart'
+                    icon: 'add_shopping_cart',
+                    roles: ['admin']
                 },
                 {
                     link : 'canciones',
                     title: 'Canciones',
-                    icon: 'music_note'
+                    icon: 'music_note',
+                    roles: ['admin']
                 },
                 {
                     link : 'categorias',
                     title: 'Categorias',
-                    icon: 'filter_list'
+                    icon: 'filter_list',
+                    roles: ['admin','editor']
                 },
                 {
                     link : 'discos',
                     title: 'Discos',
-                    icon: 'library_music'
+                    icon: 'library_music',
+                    roles: ['admin']
                 },
                 {
                     link : 'eventos',
                     title: 'Eventos',
-                    icon: 'event'
+                    icon: 'event',
+                    roles: ['admin']
                 },
                 {
                     link : 'noticias',
                     title: 'Noticias',
-                    icon: 'new_releases'
+                    icon: 'new_releases',
+                    roles: ['admin', 'editor']
                 },
                 {
                     link : 'videos',
                     title: 'Videos',
-                    icon: 'video_library'
+                    icon: 'video_library',
+                    roles: ['admin']
                 }
             ];
         }
