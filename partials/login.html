@@ -1,7 +1,16 @@
-<md-dialog class="md-padding md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml">
-    <md-dialog-content>
+<div class="holder-login" layout="vertical"  layout-align="center center">
+
+<md-card class="card-login" >
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h1>MPTO Control</h1>
+        </div>
+    </md-toolbar>
+    <md-card-content >
+
         <form name="loginForm" ng-controller="LoginController"
               ng-submit="login(credentials)" novalidate>
+
             <md-input-container>
                 <label>Email</label>
                 <input id="username" name="email" ng-model="credentials.email" required/>
@@ -16,12 +25,14 @@
                     <div ng-message="required">Debes ingresar un nombre.</div>
                 </div>
             </md-input-container>
-            <div class="md-actions" layout="row">
+            <div class="md-actions" layout="row" layout-align="end center">
                 <span flex></span>
                 <md-button class="md-primary md-raised" type="submit">
                     Login
                 </md-button>
             </div>
         </form>
-    </md-dialog-content>
-</md-dialog>
+    </md-card-content>
+
+</md-card>
+</div>

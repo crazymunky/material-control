@@ -23,6 +23,10 @@
         return $resource('http://stg1.jwtdigitalpr.com/mpto/api/eventos/:id');
     });
 
+    module.factory('User', function($resource){
+        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/users/:id');
+    });
+
     module.factory('Noticia', function($resource){
         return $resource('http://stg1.jwtdigitalpr.com/mpto/api/noticias/:id');
     });
@@ -31,21 +35,33 @@
         return $resource('http://stg1.jwtdigitalpr.com/mpto/api/videos/:id');
     });
 
-    module.factory('AuthService', function ($rootScope, $http, Session) {
+    module.factory('AuthService', function ($rootScope, $http, UserService) {
         var authService = {};
 
         authService.login = function (credentials) {
-            return $http
-                .post('http://stg1.jwtdigitalpr.com/mpto/api/login', credentials)
-                .then(function (res) {
-                    Session.create(res.data);
-                    return res.data;
-                });
+            var promise = $http.post('http://stg1.jwtdigitalpr.com/mpto/api/login', credentials);
+
+            promise.then(function (response) {
+                var data = response.data;
+                if(data.error){
+                    alert("BAD LOGIN");
+                }else {
+                    UserService.setCurrentUser(data);
+                    $rootScope.$broadcast('authorized');
+                }
+            }, function () {
+                $rootScope.$broadcast('unauthorized');
+            });
+
+            return promise;
         };
 
+        authService.logout = function(){
+            var promise = $http.post('http://stg1.jwtdigitalpr.com/mpto/api/logout');
+            $rootScope.$broadcast('unauthorized');
+        };
         authService.isAuthenticated = function () {
-            console.log($rootScope.currentUser);
-            return $rootScope.currentUser!=null;
+            return UserService.getCurrentUser()!=null;
         };
 
         authService.isAuthorized = function (authorizedRoles) {
@@ -53,37 +69,48 @@
                 authorizedRoles = [authorizedRoles];
             }
             return (authService.isAuthenticated() &&
-            authorizedRoles.indexOf($rootScope.currentUser.role) !== -1);
+            authorizedRoles.indexOf(UserService.getCurrentUser().role.toLowerCase()) !== -1);
         };
 
         return authService;
     });
 
-    module.factory('AuthResolver', function ($q, $rootScope, $state) {
-        return {
-            resolve: function () {
-                var deferred = $q.defer();
-                var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
-                    if (angular.isDefined(currentUser)) {
-                        if (currentUser) {
-                            deferred.resolve(currentUser);
-                        } else {
-                            deferred.reject();
-                            $state.go('user-login');
-                        }
-                        unwatch();
-                    }
-                });
-                return deferred.promise;
+    module.service('UserService', function(store) {
+        var service = this,
+            currentUser = null;
+
+        service.setCurrentUser = function(user) {
+            currentUser = user;
+
+            store.set('user', user);
+            return currentUser;
+        };
+
+        service.getCurrentUser = function() {
+            if (!currentUser) {
+                currentUser = store.get('user');
             }
+            return currentUser;
         };
     });
-    module.service('Session', function () {
-        this.create = function (loggedUser) {
-            this.user = loggedUser;
+
+    module.service('APIInterceptor', function($rootScope, UserService) {
+        var service = this;
+
+        service.request = function(config) {
+            var currentUser = UserService.getCurrentUser(),
+                access_token = currentUser ? currentUser.access_token : null;
+            if (access_token) {
+                config.headers.Authorization = access_token;
+            }
+            return config;
         };
-        this.destroy = function () {
-            this.user = null;
+
+        service.responseError = function(response) {
+            if (response.status === 401) {
+                $rootScope.$broadcast('unauthorized');
+            }
+            return response;
         };
-    });
+    })
 })();

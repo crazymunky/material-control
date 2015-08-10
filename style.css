@@ -29,9 +29,8 @@
     position: relative;
     z-index: 2;
     margin-top: 16px;
-    color: white; }
-  .profile-menu .subtitle span {
-    display: block; }
+    color: white;
+    cursor: pointer; }
 
 md-content.holder {
   background: #f7f7f7; }
@@ -103,5 +102,14 @@ md-select .md-select-label {
   width: 100%; }
 
 /*# sourceMappingURL=style.css.map */
+.holder-login {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0; }
+  .holder-login .card-login {
+    width: 300px;
+    max-width: 80%; }
 
 /*# sourceMappingURL=style.css.map */

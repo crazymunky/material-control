@@ -19,54 +19,78 @@
         }
     ]);
 
-
-    module.controller('MenuController', ['$scope',
-        function ($scope) {
+    module.controller('MenuController', ['$scope', 'USER_ROLES',
+        function ($scope, USER_ROLES) {
             $scope.menu = [
                 {
                     link : 'ads',
                     title: 'Ads',
                     icon: 'add_shopping_cart',
-                    roles: ['admin']
+                    roles: [USER_ROLES.admin, USER_ROLES.editorPlus]
                 },
                 {
                     link : 'canciones',
                     title: 'Canciones',
                     icon: 'music_note',
-                    roles: ['admin']
+                    roles: [USER_ROLES.admin,USER_ROLES.editor, USER_ROLES.editorPlus]
                 },
                 {
                     link : 'categorias',
                     title: 'Categorias',
                     icon: 'filter_list',
-                    roles: ['admin','editor']
+                    roles: [USER_ROLES.admin,USER_ROLES.editor, USER_ROLES.editorPlus]
                 },
                 {
                     link : 'discos',
                     title: 'Discos',
                     icon: 'library_music',
-                    roles: ['admin']
+                    roles: [USER_ROLES.admin,USER_ROLES.editor, USER_ROLES.editorPlus]
                 },
                 {
                     link : 'eventos',
                     title: 'Eventos',
                     icon: 'event',
-                    roles: ['admin']
+                    roles: [USER_ROLES.admin,USER_ROLES.editor, USER_ROLES.editorPlus]
                 },
                 {
                     link : 'noticias',
                     title: 'Noticias',
                     icon: 'new_releases',
-                    roles: ['admin', 'editor']
+                    roles: [USER_ROLES.admin,USER_ROLES.editor, USER_ROLES.editorPlus]
                 },
                 {
                     link : 'videos',
                     title: 'Videos',
                     icon: 'video_library',
-                    roles: ['admin']
+                    roles: [USER_ROLES.admin,USER_ROLES.editor, USER_ROLES.editorPlus]
+                },{
+                    link : 'users',
+                    title: 'Usuarios',
+                    icon: 'account_circle',
+                    roles: [USER_ROLES.admin]
                 }
             ];
         }
     ]);
+
+    module.controller('MainCtrl', function ($scope, $rootScope, $state, AuthService, UserService) {
+        var main = this;
+
+
+        $scope.isAuthorized = AuthService.isAuthorized;
+
+        $rootScope.$on('authorized', function() {
+            main.currentUser = UserService.getCurrentUser();
+        });
+
+        $rootScope.$on('unauthorized', function() {
+            main.currentUser = UserService.setCurrentUser(null);
+            $state.go('login');
+        });
+
+        main.logout = AuthService.logout;
+        main.currentUser = UserService.getCurrentUser();
+    });
+
 
 })();

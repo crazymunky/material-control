@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  ng-app="backendApp" ng-cloak>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="bower_components/angular-data-table/dataTable.css">
     <link rel="stylesheet" href="bower_components/angular-data-table/material.css">
 </head>
-<body ng-app="backendApp"  layout="column" layout-align="top center" >
-<md-toolbar ng-if="currentUser" ng-controller="HeaderController" class="md-whiteframe-z3">
+<body  layout="column" layout-align="top center" ng-controller="MainCtrl as main">
+<md-toolbar ng-if="main.currentUser" ng-controller="HeaderController" class="md-whiteframe-z3">
     <div class="md-toolbar-tools">
         <md-button class="md-icon-button" aria-label="Show slider" hide-gt-md ng-click="openLeftMenu()">
             <md-icon>
@@ -22,16 +22,27 @@
         <span class="md-flex">MATERIAL CONTROL > {{state.name | uppercase}}</span>
     </div>
 </md-toolbar>
-<div  ng-if="currentUser" flex layout="row">
-    <md-sidenav  md-component-id="side-nav" class="md-whiteframe-z2 md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')">
+<div  flex layout="row">
+    <md-sidenav   ng-if="main.currentUser" md-component-id="side-nav" class="md-whiteframe-z2 md-sidenav-left" md-is-locked-open="$mdMedia('gt-md')">
         <header class="profile-menu md-padding">
             <div class="blurred-background" style="background-image: url('assets/bg-profile.png');">
             </div>
-            <div class="picture" style="background-image: url('assets/profile.jpg');"></div>
-            <div class="subtitle" >
-                <span class="name .md-body-2">{{currentUser.nombre}}</span>
-                <span class="email .md-body-1">{{currentUser.email}}</span>
-            </div>
+
+            <div ng-if="!main.currentUser.imagen"class="picture"  style="background-image: url('assets/profile.jpg');"></div>
+            <div ng-if="main.currentUser.imagen"class="picture"  style="background-image: url({{main.currentUser.imagen}});"></div>
+
+            <md-menu>
+                <div class="subtitle" ng-click="$mdOpenMenu()" >
+                    <span class="name .md-body-2">{{main.currentUser.nombre}}</span>
+                    <br>
+                    <span class="email .md-body-1">{{main.currentUser.email}}</span>
+                </div>
+                <md-menu-content width="4">
+                    <md-menu-item>
+                        <md-button class="sidenav-logout" ng-click="main.logout()">Logout</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
         </header>
         <md-list ng-controller="MenuController">
             <md-item ui-sref-active="active" ng-repeat="item in menu" ng-if="isAuthorized(item.roles)">
@@ -64,6 +75,7 @@
 <script src="bower_components/angular-data-table/dataTable.helpers.min.js"></script>
 <script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
 <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+<script src="//cdn.rawgit.com/auth0/angular-storage/master/dist/angular-storage.js"></script>
 
 
 <script src="js/services.js"></script>
@@ -76,6 +88,7 @@
 <script src="js/controllers/noticias.js"></script>
 <script src="js/controllers/categorias.js"></script>
 <script src="js/controllers/login.js"></script>
+<script src="js/controllers/user.js"></script>
 <script src="js/app.js"></script>
 
 </body>

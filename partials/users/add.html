@@ -1,0 +1,68 @@
+<md-dialog class="md-padding md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml" >
+    <md-dialog-content>
+        <h2>Agregar usuario</h2>
+        <form name="form">
+            <md-input-container>
+                <label>Nombre</label>
+                <input ng-disabled="submitting" name="nombre" ng-model="user.nombre" required/>
+                <div ng-disabled="submitting" ng-messages="form.nombre.$error" ng-show="(form.nombre.$dirty || attempted)">
+                    <div ng-message="required">Debes completar este campo.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Email</label>
+                <input ng-disabled="submitting" name="email" ng-model="user.email" required type="email"/>
+                <div ng-disabled="submitting" ng-messages="form.email.$error" ng-show="(form.email.$dirty || attempted)">
+                    <div ng-message="required">Debes completar este campo.</div>
+                    <div ng-message="email">Debes ingresar un email valido.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Contrase&ntilde;a</label>
+                <input ng-disabled="submitting" name="password" ng-model="user.password" equals="{{user.password2}}" type="password" required/>
+                <div ng-disabled="submitting" ng-messages="form.password.$error" ng-show="(form.password.$dirty || attempted)">
+                    <div ng-message="required">Debes completar este campo.</div>
+                    <div ng-message="equals">Las contrase&ntilde;as deben coincidir</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Confirma la contrase&ntilde;a</label>
+                <input ng-disabled="submitting" name="password2" ng-model="user.password2"  equals="{{user.password}}" type="password" required/>
+                <div ng-disabled="submitting" ng-messages="form.password2.$error" ng-show="(form.password2.$dirty || attempted)">
+                    <div ng-message="required">Debes completar este campo.</div>
+                    <div ng-message="equals">Las contrase&ntilde;as deben coincidir</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <md-select ng-disabled="submitting" name="rol" placeholder="Sin rol" ng-model="user.rol" required>
+                    <md-option ng-value="rol" ng-repeat="(rol, nombre) in roles">{{nombre}}</md-option>
+                </md-select>
+                <div ng-messages="form.rol.$error" ng-show="(form.rol.$dirty || attempted)">
+                    <div ng-message="required">Debes seleccionar un rol.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <div class="upload-container">
+                    <md-button ngf-change="fileChanged()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="imagen" ng-model="user.imagen" ngf-select="" ngf-accept="'image/*'">
+                        Imagen perfil
+                    </md-button>
+                    <label ng-if="user.imagen">{{user.imagen.name}}</label>
+                    <div ng-messages="form.imagen.$error" ng-show="(form.imagen.$dirty || attempted)">
+                        <div ng-message="required">Debe subir una imagen.</div>
+                    </div>
+                    <img ng-if="user.imagen" ngf-src="user.imagen" ngf-accept="'image/*'"/>
+                    <md-progress-linear ng-if="progress!=0" class="md-accent" md-mode="determinate" value="{{progress}}">
+                </div>
+            </md-input-container>
+        </form>
+    </md-dialog-content>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-disabled="submitting"  ng-click="hide()" class="md-secondary">
+            Cancelar
+        </md-button>
+        <md-button ng-disabled="submitting"  ng-click="submit()" class="md-primary">
+            Aceptar
+        </md-button>
+    </div>
+</md-dialog>

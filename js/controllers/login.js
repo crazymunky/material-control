@@ -3,25 +3,29 @@
  */
 (function() {
     'use strict';
-    angular.module('backendApp.controllers').controller('LoginController', function ($scope, $rootScope,$mdDialog, AUTH_EVENTS, AuthService) {
+    angular.module('backendApp.controllers').controller('LoginController', function ($scope, $rootScope, AuthService, $state) {
         $scope.credentials = {
-            username: '',
+            email: '',
             password: ''
         };
-        console.log($rootScope.currentUser);
+
         $scope.login = function (credentials) {
-            AuthService.login(credentials).then(function (user) {
-                if(user.error){
-                    alert("BAD LOGIN");
+            AuthService.login(credentials).then(function (response) {
+                var data = response.data;
+                if(data.error){
+                    $scope.form.$isValid = false;
                 }else {
-                    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-                    console.log(user);
-                    $rootScope.setCurrentUser(user);
-                    $mdDialog.hide();
+                    $state.go('noticias');
                 }
-            }, function () {
-                $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             });
         };
+
+        $scope.register = function(){
+            LoginService.register($scope.newUser).then(function(response){
+                $scope.login($scope.newUser);
+            });
+        }
+
+        $scope.newUser = null;
     });
 })();
