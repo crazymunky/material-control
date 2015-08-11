@@ -25,12 +25,40 @@
                         $scope.categorias.push(newEvent);
                 });
             };
+            $scope.delete = function(row, $event){
+                $event.preventDefault();
+                $event.stopPropagation();
+                Categoria.delete({id:row.id}).$promise.then(function(response){
+                    if(response.error)
+                        $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
+                    else {
+                        $mdToast.show($mdToast.simple().content(response.message));
+                        var index = $scope.categorias.indexOf(row);
+                        $scope.categorias.splice(index, 1);
+                    }
+                });
+            };
+
+            $scope.showEdit = function(row){
+                $scope.selectedItem = row;
+                $mdDialog.show({
+                    controller: 'AddCategoriaController',
+                    templateUrl: 'partials/categorias/add.html',
+                    parent: angular.element(document.body),
+                    scope: $scope.$new()
+                });
+            };
         }
     ]);
 
     angular.module('backendApp.controllers').controller('AddCategoriaController',['$scope','$mdToast', '$mdDialog', 'Categoria',
         function($scope,$mdToast, $mdDialog, Categoria){
-            $scope.categoria = new Categoria();
+            if($scope.selectedItem!= undefined) {
+                $scope.categoria = $scope.selectedItem;
+                $scope.edit = true;
+            }else
+                $scope.categoria = new Categoria();
+
 
             $scope.hide = function() {
                 $mdDialog.hide();
@@ -43,7 +71,11 @@
                 $scope.attempted = true;
                 if(!$scope.form.$valid)
                     return false;
-                save();
+
+                if($scope.edit)
+                    update();
+                else
+                    save();
             };
 
             function save() {
@@ -54,6 +86,13 @@
                     $mdToast.show($mdToast.simple().content(response.data.error).theme("error-toast"));
                 }).then(function(){
                     $scope.submitting = false;
+                });
+            }
+
+            function update() {
+                Categoria.update({id: $scope.categoria.id}, $scope.categoria).$promise.then(function(response){
+                    $scope.submitting = false;
+                    $mdDialog.hide($scope.categoria);
                 });
             }
         }

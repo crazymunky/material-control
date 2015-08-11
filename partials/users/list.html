@@ -2,8 +2,15 @@
     <!--column><img ng-src="{{row.imagen}}" /></column-->
     <column name="Nombre">{{value}}</column>
     <column name="Email">{{value}}</column>
-    <column name="Rol">{{value}}</column>
+    <column name="Rol">{{value | capitalize}}</column>
     <column name="Creado">{{row.created_at | date:'MM/dd/yyyy'}}</column>
+    <column frozenRight="true" width="50">
+        <md-button class="md-icon-button" ng-click="delete(row, $event)">
+            <md-icon>
+                <i class="material-icons" >delete</i>
+            </md-icon>
+        </md-button>
+    </column>
 </dtable>
 
 

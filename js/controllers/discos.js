@@ -25,12 +25,40 @@
                         $scope.discos.push(newEvent);
                 });
             };
+            $scope.delete = function(row, $event){
+                $event.preventDefault();
+                $event.stopPropagation();
+                Disco.delete({id:row.id}).$promise.then(function(response){
+                    if(response.error)
+                        $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
+                    else {
+                        $mdToast.show($mdToast.simple().content(response.message));
+                        var index = $scope.discos.indexOf(row);
+                        $scope.discos.splice(index, 1);
+                    }
+                });
+            };
+
+            $scope.showEdit = function(row){
+                $scope.selectedItem = row;
+                $mdDialog.show({
+                    controller: 'AddDiscoController',
+                    templateUrl: 'partials/discos/add.html',
+                    parent: angular.element(document.body),
+                    scope: $scope.$new()
+                });
+            };
         }
     ]);
 
-    angular.module('backendApp.controllers').controller('DiscoController',['$rootScope','$scope','$mdToast', '$mdDialog', 'Disco','Upload',
+    angular.module('backendApp.controllers').controller('AddDiscoController',['$rootScope','$scope','$mdToast', '$mdDialog', 'Disco','Upload',
         function($rootScope,$scope,$mdToast, $mdDialog, Disco, Upload){
-            $scope.disco = new Disco();
+
+            if($scope.selectedItem!= undefined) {
+                $scope.disco = $scope.selectedItem;
+                $scope.edit = true;
+            }else
+                $scope.disco = new Disco();
 
             $scope.hide = function() {
                 $mdDialog.hide();
@@ -44,8 +72,10 @@
                 if(!$scope.form.$valid)
                     return false;
 
-                if(!$scope.photoUploaded)
+                if($scope.fileChanged)
                     uploadAndSave();
+                else if($scope.edit)
+                    update();
                 else
                     save();
             };
@@ -60,11 +90,13 @@
                     $scope.submitting = false;
                 });
             }
+
             $scope.progress = 0;
-            $scope.photoUploaded = false;
-            $scope.fileChanged = function(){
-                $scope.photoUploaded = false;
+            $scope.fileChanged = false;
+            $scope.fileChange = function(){
+                $scope.fileChanged = true;
             };
+
             function uploadAndSave() {
                 $scope.submitting = true;
                 Upload.upload({
@@ -74,15 +106,24 @@
                     $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
                 }).success(function (data, status, headers, config) {
                     $scope.disco.cover_img = data.url;
-                    $scope.photoUploaded = true;
+                    $scope.fileChanged = true;
                     $scope.progress = 0;
-                    save();
+                    if($scope.edit)
+                        update();
+                    else
+                        save();
                 }).error(function (data, status, headers, config) {
                     $mdToast.show($mdToast.simple().content(data.error).theme("error-toast"));
                     $scope.submitting = false;
                     $scope.progress = 0;
                 });
+            }
 
+            function update() {
+                Disco.update({id: $scope.disco.id}, $scope.disco).$promise.then(function(response){
+                    $scope.submitting = false;
+                    $mdDialog.hide($scope.disco);
+                });
             }
         }
     ]);

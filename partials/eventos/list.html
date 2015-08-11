@@ -5,6 +5,13 @@
     <column name="Tel&eacute;fono">{{row.telefono}}</column>
     <column name="Fecha">{{row.fecha | date:'MM/dd/yyyy'}}</column>
     <column name="Creado">{{row.created_at | date:'MM/dd/yyyy'}}</column>
+    <column frozenRight="true" width="50">
+        <md-button class="md-icon-button" ng-click="delete(row, $event)">
+            <md-icon>
+                <i class="material-icons" >delete</i>
+            </md-icon>
+        </md-button>
+    </column>
 </dtable>
 
 

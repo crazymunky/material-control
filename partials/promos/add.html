@@ -1,6 +1,7 @@
-<md-dialog class="md-padding md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml" >
+<md-dialog class="md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml" >
     <md-dialog-content>
-        <h2>Agregar ad</h2>
+        <h2 ng-if="!edit">Agregar ad</h2>
+        <h2 ng-if="edit">Editar ad</h2>
         <form name="adForm">
             <md-input-container>
                 <label>Nombre</label>
@@ -22,12 +23,17 @@
             </md-input-container>
             <md-input-container>
                 <div class="upload-container">
-                    <md-button ngf-change="fileChanged()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="source" ng-model="ad.source" required ngf-select="" ngf-accept="'image/*,video/*'">Subir fuente</md-button>
-                    <label ng-if="ad.source">{{ad.source.name}}</label>
+                    <md-button ngf-change="fileChange()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="source" ng-model="ad.source" required ngf-select="" ngf-accept="'image/*,video/*'">Subir fuente</md-button>
+
                     <div ng-messages="adForm.source.$error" ng-show="(adForm.source.$dirty || attempted)">
                         <div ng-message="required">Debe subir un archivo </div>
                     </div>
-                    <img ng-if="ad.source" ngf-src="ad.source" ngf-accept="'image/*'"/>
+
+                    <div class="previews">
+                        <img ng-if="ad.source && isType('image', ad.source)" ngf-src="ad.source" ngf-accept="'image/*'"/>
+                        <video ng-if="ad.source && isType('video', ad.source)" controls ngf-src="ad.source" ngf-accept="'video/*'"/>
+                    </div>
+                    <p ng-if="ad.source ">{{ad.source.name || ad.source}}</p>
                     <md-progress-linear ng-if="progress!=0" class="md-accent" md-mode="determinate" value="{{progress}}">
                 </div>
             </md-input-container>

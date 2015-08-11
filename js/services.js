@@ -4,35 +4,35 @@
     var module = angular.module('backendApp.services', []);
 
     module.factory('Ad', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/ads/:id');
+        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/ads/:id', null, {'update':{method: 'PUT'}});
     });
 
     module.factory('Cancion', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/canciones/:id');
+        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/canciones/:id', null, {'update':{method: 'PUT'}});
     });
 
     module.factory('Categoria', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/categorias/:id');
+        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/categorias/:id', null, {'update':{method: 'PUT'}});
     });
 
     module.factory('Disco', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/discos/:id');
+        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/discos/:id', null, {'update':{method: 'PUT'}});
     });
 
     module.factory('Evento', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/eventos/:id');
+        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/eventos/:id', null, {'update':{method: 'PUT'}});
     });
 
     module.factory('User', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/users/:id');
+        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/users/:id', null, {'update':{method: 'PUT'}});
     });
 
     module.factory('Noticia', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/noticias/:id');
+        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/noticias/:id', null, {'update':{method: 'PUT'}});
     });
 
     module.factory('Video', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/videos/:id');
+        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/videos/:id', null, {'update':{method: 'PUT'}});
     });
 
     module.factory('AuthService', function ($rootScope, $http, UserService) {

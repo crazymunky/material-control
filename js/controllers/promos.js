@@ -3,8 +3,8 @@
  */
 (function() {
     'use strict';
-    angular.module('backendApp.controllers').controller('AdListController',['$scope', 'Ad', '$mdDialog',
-        function($scope, Ad, $mdDialog){
+    angular.module('backendApp.controllers').controller('AdListController',['$scope', 'Ad', '$mdDialog', '$mdToast',
+        function($scope, Ad, $mdDialog, $mdToast){
             $scope.ads = Ad.query();
             $scope.options = {
                 rowHeight: 50,
@@ -12,7 +12,6 @@
                 headerHeight: 50,
                 scrollbarV: false,
                 selectable: false,
-                columnMode: 'force'
             };
 
             $scope.showAdd = function(ev){
@@ -21,9 +20,34 @@
                     templateUrl: 'partials/promos/add.html',
                     parent: angular.element(document.body),
                     targetEvent: ev
-                }).then(function(newEvent){
-                    if(newEvent!== undefined)
-                        $scope.ads.push(newEvent);
+                }).then(function(newObj){
+                    if(newObj!== undefined)
+                        $scope.ads.push(newObj);
+                });
+            };
+
+            $scope.delete = function(row, $event){
+                $event.preventDefault();
+                $event.stopPropagation();
+                Ad.delete({id:row.id}).$promise.then(function(response){
+                    console.log(response);
+                    if(response.error)
+                        $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
+                    else {
+                        $mdToast.show($mdToast.simple().content(response.message));
+                        var index = $scope.ads.indexOf(row);
+                        $scope.ads.splice(index, 1);
+                    }
+                });
+            };
+
+            $scope.showEdit = function(row){
+                $scope.selectedItem = row;
+                $mdDialog.show({
+                    controller: 'AddAdController',
+                    templateUrl: 'partials/promos/add.html',
+                    parent: angular.element(document.body),
+                    scope: $scope.$new()
                 });
             };
         }
@@ -31,22 +55,31 @@
 
     angular.module('backendApp.controllers').controller('AddAdController',['$rootScope','$scope','$mdToast', '$mdDialog', 'Ad', 'Upload',
         function($rootScope, $scope,$mdToast, $mdDialog, Ad, Upload){
-            $scope.ad = new Ad;
+            $scope.edit = false;
+            $scope.submitting = false;
+            $scope.attempted = false;
+            $scope.progress = 0;
+            $scope.fileChanged = false;
+
+            if($scope.selectedItem!= undefined) {
+                $scope.ad = $scope.selectedItem;
+                $scope.edit = true;
+            }else
+                $scope.ad = new Ad;
 
             $scope.hide = function() {
                 $mdDialog.hide();
             };
-
-            $scope.submitting = false;
-            $scope.attempted = false;
 
             $scope.submit = function(){
                 $scope.attempted = true;
                 if(!$scope.adForm.$valid)
                     return false;
 
-                if(!$scope.photoUploaded)
+                if($scope.fileChanged)
                     uploadAndSave();
+                else if($scope.edit)
+                    update();
                 else
                     save();
             };
@@ -61,11 +94,32 @@
                     $scope.submitting = false;
                 });
             }
-            $scope.progress = 0;
-            $scope.photoUploaded = false;
-            $scope.fileChanged = function(){
-                $scope.photoUploaded = false;
+
+
+
+            function update() {
+                Ad.update({id: $scope.ad.id}, $scope.ad).$promise.then(function(response){
+                    console.log("finished", response);
+                    $scope.submitting = false;
+                    $mdDialog.hide($scope.ad);
+                });
+            }
+
+            $scope.fileChange = function(){
+                $scope.fileChanged = true;
             };
+
+            $scope.isType = function(type, file){
+                var isType = false;
+
+                if($scope.ad.type==type)
+                    isType = true;
+                else if(file.type != undefined)
+                    isType = file.type.indexOf(type) > -1;
+
+                return isType;
+            };
+
             function uploadAndSave() {
                 $scope.submitting = true;
                 Upload.upload({
@@ -76,9 +130,12 @@
                 }).success(function (data, status, headers, config) {
                     $scope.ad.source = data.url;
                     $scope.ad.type = data.type;
-                    $scope.photoUploaded = true;
+                    $scope.fileChanged = false;
                     $scope.progress = 0;
-                    save();
+                    if($scope.edit)
+                        update();
+                    else
+                        save();
                 }).error(function (data, status, headers, config) {
                     $mdToast.show($mdToast.simple().content(data.error).theme("error-toast"));
                     $scope.submitting = false;

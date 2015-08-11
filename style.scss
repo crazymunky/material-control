@@ -100,23 +100,25 @@ md-input-container {
 }
 
 .upload-container {
-  audio {
-    margin-top: 10px;
-    width: 100%;
-  }
 
+  audio, video, img{
+    margin-top: 10px;
+    max-height: 200px;
+    max-width: 100%;
+    display: block;
+    margin:auto;
+  }
+  audio{
+    width:100%;
+  }
   button{
     margin-left:0px;
   }
-
-  video {
-    width:100%;
+  .previews{
+    margin-top: 10px;
   }
-  img {
-    max-width: 100%;
-    max-height: 100px;
-    margin: auto;
-    display: block;
+  p{
+    text-align: center;
   }
 }
 
@@ -125,14 +127,12 @@ md-toast.md-error-toast-theme {
 }
 
 md-dialog {
-  max-height:90%;
+  max-height:100%;
 }
 
 md-select .md-select-label{
   width:100%;
 }
-
-/*# sourceMappingURL=style.css.map */
 
 .holder-login{
   height: 100%;
@@ -146,3 +146,16 @@ md-select .md-select-label{
     max-width:80%;
   }
 }
+
+.dt-cell-content {
+  vertical-align: middle;
+  line-height: 33px;
+  button.md-button {
+    position: absolute;
+    right: 0;
+    top: 1px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
+
