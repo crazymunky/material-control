@@ -3,8 +3,8 @@
  */
 (function() {
     'use strict';
-    angular.module('backendApp.controllers').controller('EventoListController',['$scope', 'Evento', '$mdDialog',
-        function($scope, Evento, $mdDialog){
+    angular.module('backendApp.controllers').controller('EventoListController',['$scope', 'Evento', '$mdDialog','$mdToast',
+        function($scope, Evento, $mdDialog, $mdToast){
             $scope.eventos = Evento.query();
             $scope.options = {
                 rowHeight: 50,
@@ -21,8 +21,34 @@
                     parent: angular.element(document.body),
                     targetEvent: ev
                 }).then(function(newEvent){
-                    if(newEvent!== undefined)
+                    if(newEvent!== undefined) {
+                        newEvent.fecha = new Date(newEvent.fecha);
                         $scope.eventos.push(newEvent);
+                    }
+                })
+            };
+
+            $scope.delete = function(row, $event){
+                $event.preventDefault();
+                $event.stopPropagation();
+                Evento.delete({id:row.id}).$promise.then(function(response){
+                    if(response.error)
+                        $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
+                    else {
+                        $mdToast.show($mdToast.simple().content(response.message));
+                        var index = $scope.eventos.indexOf(row);
+                        $scope.eventos.splice(index, 1);
+                    }
+                });
+            };
+
+            $scope.showEdit = function(row){
+                $scope.selectedItem = row;
+                $mdDialog.show({
+                    controller: 'AddEventoController',
+                    templateUrl: 'partials/eventos/add.html',
+                    parent: angular.element(document.body),
+                    scope: $scope.$new()
                 });
             };
         }
@@ -30,7 +56,12 @@
 
     angular.module('backendApp.controllers').controller('AddEventoController',['$rootScope','$scope','$mdToast', '$mdDialog', 'Evento','Upload',
         function($rootScope, $scope,$mdToast, $mdDialog, Evento, Upload){
-            $scope.evento = new Evento();
+            if($scope.selectedItem!= undefined) {
+                $scope.evento = $scope.selectedItem;
+                $scope.evento.fecha = new Date($scope.evento.fecha);
+                $scope.edit = true;
+            }else
+                $scope.evento = new Evento();
 
             $scope.hide = function() {
                 $mdDialog.hide();
@@ -44,8 +75,10 @@
                 if(!$scope.form.$valid)
                     return false;
 
-                if(!$scope.photoUploaded)
+                if($scope.fileChanged)
                     uploadAndSave();
+                else if($scope.edit)
+                    update();
                 else
                     save();
             };
@@ -61,9 +94,9 @@
                 });
             }
             $scope.progress = 0;
-            $scope.photoUploaded = false;
-            $scope.fileChanged = function(){
-                $scope.photoUploaded = false;
+            $scope.fileChanged = false;
+            $scope.fileChange = function(){
+                $scope.fileChanged = true;
             };
             function uploadAndSave() {
                 $scope.submitting = true;
@@ -74,15 +107,24 @@
                     $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
                 }).success(function (data, status, headers, config) {
                     $scope.evento.imagen = data.url;
-                    $scope.photoUploaded = true;
+                    $scope.fileChanged = true;
                     $scope.progress = 0;
-                    save();
+                    if($scope.edit)
+                        update();
+                    else
+                        save();
                 }).error(function (data, status, headers, config) {
                     $mdToast.show($mdToast.simple().content(data.error).theme("error-toast"));
                     $scope.submitting = false;
                     $scope.progress = 0;
                 });
 
+            }
+            function update() {
+                Evento.update({id: $scope.evento.id}, $scope.evento).$promise.then(function(response){
+                    $scope.submitting = false;
+                    $mdDialog.hide($scope.evento);
+                });
             }
         }
     ]);

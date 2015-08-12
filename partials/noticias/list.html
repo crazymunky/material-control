@@ -1,11 +1,11 @@
-<dtable options="options" rows="noticias" class="material" on-row-click="clickNoticia(row)">
+<dtable options="options" rows="noticias" class="material" on-row-click="showEdit(row)">
     <column name="Headline"></column>
     <column name="Autor"></column>
     <column name="Resumen"></column>
-    <column name="Categoria">{{row.categorias[0].nombre}}</column>
-    <column name="Creado">{{row.created_at | date:'MM/dd/yyyy'}}</column>
+    <column name="Categoria">{{$row.categorias[0].nombre}}</column>
+    <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
     <column frozenRight="true" width="50">
-        <md-button class="md-icon-button" ng-click="delete(row, $event)">
+        <md-button class="md-icon-button" ng-click="delete($row, $event)">
             <md-icon>
                 <i class="material-icons" >delete</i>
             </md-icon>

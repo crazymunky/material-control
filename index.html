@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
-    <title>Material Control > {{state.name | capitalize}} </title>
+    <title>Material Control</title>
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.min.css"/>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=RobotoDraft:400,500,700,400italic"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="bower_components/angular-data-table/dataTable.css">
-    <link rel="stylesheet" href="bower_components/angular-data-table/material.css">
+    <link rel="stylesheet" href="bower_components/angular-data-table/release/dataTable.css">
+    <link rel="stylesheet" href="bower_components/angular-data-table/release/material.css">
 </head>
 <body  layout="column" layout-align="top center" ng-controller="MainCtrl as main">
 <md-toolbar ng-if="main.currentUser" ng-controller="HeaderController" class="md-whiteframe-z3">
@@ -29,7 +29,7 @@
             </div>
 
             <div ng-if="!main.currentUser.imagen"class="picture"  style="background-image: url('assets/profile.jpg');"></div>
-            <div ng-if="main.currentUser.imagen"class="picture"  style="background-image: url({{main.currentUser.imagen}});"></div>
+            <div ng-if="main.currentUser.imagen"class="picture"  ng-style="{'background-image' : 'url('+main.currentUser.imagen+')'}"></div>
 
             <md-menu>
                 <div class="subtitle" ng-click="$mdOpenMenu()" >
@@ -60,8 +60,8 @@
             <md-divider></md-divider>
         </md-list>
     </md-sidenav>
-    <md-content class="holder" flex>
-        <div ui-view class="md-padding view">
+    <md-content class="holder" flex >
+        <div  ui-view class="md-padding view">
         </div>
     </md-content>
 </div>
@@ -72,7 +72,7 @@
 <script src="bower_components/angular-resource/angular-resource.min.js"></script>
 <script src="bower_components/angular-ui-router/angular-ui-router.min.js"></script>
 <script src="bower_components/angular-messages/messages.js"></script>
-<script src="bower_components/angular-data-table/dataTable.helpers.min.js"></script>
+<script src="bower_components/angular-data-table/release/dataTable.helpers.min.js"></script>
 <script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
 <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 <script src="//cdn.rawgit.com/auth0/angular-storage/master/dist/angular-storage.js"></script>

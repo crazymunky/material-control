@@ -1,12 +1,12 @@
-<dtable options="options" rows="eventos" class="material dt">
-    <column name="Titulo">{{value}}</column>
-    <column name="Descripci&oacute;n">{{row.descripcion}}</column>
-    <column name="Email">{{value}}</column>
-    <column name="Tel&eacute;fono">{{row.telefono}}</column>
-    <column name="Fecha">{{row.fecha | date:'MM/dd/yyyy'}}</column>
-    <column name="Creado">{{row.created_at | date:'MM/dd/yyyy'}}</column>
+<dtable options="options" rows="eventos" class="material dt" on-row-click="showEdit(row)">
+    <column name="Titulo"></column>
+    <column name="Descripci&oacute;n">{{$row.descripcion}}</column>
+    <column name="Email"></column>
+    <column name="Tel&eacute;fono">{{$row.telefono}}</column>
+    <column name="Fecha">{{$row.fecha | date:'MM/dd/yyyy'}}</column>
+    <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
     <column frozenRight="true" width="50">
-        <md-button class="md-icon-button" ng-click="delete(row, $event)">
+        <md-button class="md-icon-button" ng-click="delete($row, $event)">
             <md-icon>
                 <i class="material-icons" >delete</i>
             </md-icon>

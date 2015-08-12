@@ -1,21 +1,28 @@
 <md-dialog class="md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml" >
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 ng-if="!edit">Agregar noticia</h2>
+            <h2 ng-if="edit">Editar noticia</h2>
+        </div>
+    </md-toolbar>
     <md-dialog-content>
-        <h2>Agregar noticia</h2>
         <form name="form">
-            <md-input-container>
-                <label>Headline</label>
-                <input name="headline" ng-model="noticia.headline" required ng-disabled="submitting"/>
-                <div ng-messages="form.headline.$error" ng-show="(form.headline.$dirty || attempted)">
-                    <div ng-message="required">Debes completar este campo.</div>
-                </div>
-            </md-input-container>
-            <md-input-container>
-                <label>Autor</label>
-                <input name="autor" ng-model="noticia.autor" required ng-disabled="submitting"/>
-                <div  ng-messages="form.autor.$error" ng-show="(form.autor.$dirty || attempted)">
-                    <div ng-message="required">Debes completar este campo.</div>
-                </div>
-            </md-input-container>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Headline</label>
+                    <input name="headline" ng-model="noticia.headline" required ng-disabled="submitting"/>
+                    <div ng-messages="form.headline.$error" ng-show="(form.headline.$dirty || attempted)">
+                        <div ng-message="required">Debes completar este campo.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Autor</label>
+                    <input name="autor" ng-model="noticia.autor" required ng-disabled="submitting"/>
+                    <div  ng-messages="form.autor.$error" ng-show="(form.autor.$dirty || attempted)">
+                        <div ng-message="required">Debes completar este campo.</div>
+                    </div>
+                </md-input-container>
+            </div>
             <md-input-container>
                 <md-select ng-disabled="submitting" name="categoria" placeholder="Categoria" ng-model="noticia.categoria_id" required>
                     <md-option ng-value="categoria.id" ng-repeat="categoria in categorias">{{categoria.nombre}}</md-option>
@@ -38,22 +45,24 @@
                     <div ng-message="required">Debes completar este campo.</div>
                 </div>
             </md-input-container>
-            <md-input-container>
-                <md-select ng-disabled="submitting" name="video" placeholder="Video" ng-model="noticia.video_id" required>
-                    <md-option ng-value="video.id" ng-repeat="video in videos">{{video.nombre}}</md-option>
-                </md-select>
-                <div  ng-messages="form.video.$error" ng-show="(form.video.$dirty || attempted)">
-                    <div ng-message="required">Debes seleccionar un video.</div>
-                </div>
-            </md-input-container>
-            <md-input-container>
-                <md-select ng-disabled="submitting" name="cancion" placeholder="Canci&oacute;n" ng-model="noticia.cancion_id" required>
-                    <md-option ng-value="cancion.id" ng-repeat="cancion in canciones">{{cancion.nombre}}</md-option>
-                </md-select>
-                <div  ng-messages="form.cancion.$error" ng-show="(form.cancion.$dirty || attempted)">
-                    <div ng-message="required">Debes seleccionar una canci&oacute;n.</div>
-                </div>
-            </md-input-container>
+            <div layout="row">
+                <md-input-container flex>
+                    <md-select ng-disabled="submitting" name="video" placeholder="Video" ng-model="noticia.video_id" required>
+                        <md-option ng-value="video.id" ng-repeat="video in videos">{{video.nombre}}</md-option>
+                    </md-select>
+                    <div  ng-messages="form.video.$error" ng-show="(form.video.$dirty || attempted)">
+                        <div ng-message="required">Debes seleccionar un video.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <md-select ng-disabled="submitting" name="cancion" placeholder="Canci&oacute;n" ng-model="noticia.cancion_id" required>
+                        <md-option ng-value="cancion.id" ng-repeat="cancion in canciones">{{cancion.nombre}}</md-option>
+                    </md-select>
+                    <div  ng-messages="form.cancion.$error" ng-show="(form.cancion.$dirty || attempted)">
+                        <div ng-message="required">Debes seleccionar una canci&oacute;n.</div>
+                    </div>
+                </md-input-container>
+            </div>
             <md-input-container>
                 <label>CTA link (vacio para link a la noticia)</label>
                 <input name="cta_link" ng-model="noticia.cta_link" ng-disabled="submitting"/>
@@ -63,14 +72,17 @@
             </md-input-container>
             <md-input-container>
                 <div class="upload-container">
-                    <md-button ngf-change="fileChanged()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="imagen" ng-model="noticia.imagen" required ngf-select="" ngf-accept="'image/*'">
+                    <md-button ngf-change="fileChange()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="imagen" ng-model="noticia.imagen" required ngf-select="" ngf-accept="'image/*'">
                         Subir imagen
                     </md-button>
-                    <label ng-if="noticia.imagen">{{noticia.imagen.name}}</label>
                     <div ng-messages="form.imagen.$error" ng-show="(form.imagen.$dirty || attempted)">
                         <div ng-message="required">Debe subir una imagen.</div>
                     </div>
-                    <img ng-if="noticia.imagen" ngf-src="noticia.imagen" ngf-accept="'image/*'"/>
+
+                    <div class="previews" ng-if="noticia.imagen">
+                        <img  ngf-src="noticia.imagen" ngf-accept="'image/*'"/>
+                        <p >{{noticia.imagen.name || noticia.imagen}}</p>
+                    </div>
                     <md-progress-linear ng-if="progress!=0" class="md-accent" md-mode="determinate" value="{{progress}}">
                 </div>
             </md-input-container>

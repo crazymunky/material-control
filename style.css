@@ -32,6 +32,9 @@
     color: white;
     cursor: pointer; }
 
+.dt-row {
+  cursor: pointer; }
+
 md-content.holder {
   background: #f7f7f7; }
 
@@ -73,32 +76,32 @@ md-sidenav a {
   top: -12px; }
 
 md-input-container {
-  width: 500px;
-  max-width: 100%; }
+  max-width: 100%;
+  margin-right: 10px; }
 
 .active md-item-content {
   background-color: rgba(167, 163, 163, 0.28); }
 
-.upload-container audio, .upload-container video, .upload-container img {
-  margin-top: 10px;
-  max-height: 200px;
+.previews {
+  padding-top: 15px;
   max-width: 100%;
-  display: block;
   margin: auto; }
-.upload-container audio {
-  width: 100%; }
-.upload-container button {
-  margin-left: 0px; }
-.upload-container .previews {
-  margin-top: 10px; }
-.upload-container p {
-  text-align: center; }
+  .previews audio, .previews video, .previews img, .previews iframe {
+    max-height: 250px;
+    max-width: 100%;
+    display: block;
+    margin: auto; }
+  .previews audio {
+    width: 100%; }
+  .previews button {
+    margin-left: 0px; }
+  .previews p {
+    text-align: center;
+    -ms-word-break: break-all;
+    word-break: break-all; }
 
 md-toast.md-error-toast-theme {
   background-color: #ff4648; }
-
-md-dialog {
-  max-height: 100%; }
 
 md-select .md-select-label {
   width: 100%; }
@@ -121,6 +124,15 @@ md-select .md-select-label {
     right: 0;
     top: 1px; }
 
-/*# sourceMappingURL=style.css.map */
+form > md-input-container:last-child:not(:only-child) {
+  margin-bottom: 0;
+  padding-bottom: 0; }
+
+.dt {
+  /*height:90%;
+  min-height: 500px;*/ }
+
+.o-separator {
+  margin: 0 30px; }
 
 /*# sourceMappingURL=style.css.map */

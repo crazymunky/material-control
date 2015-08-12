@@ -12,6 +12,7 @@
                 headerHeight: 50,
                 scrollbarV: false,
                 selectable: false,
+                columnMode: 'force'
             };
 
             $scope.showAdd = function(ev){
@@ -109,16 +110,6 @@
                 $scope.fileChanged = true;
             };
 
-            $scope.isType = function(type, file){
-                var isType = false;
-
-                if($scope.ad.type==type)
-                    isType = true;
-                else if(file.type != undefined)
-                    isType = file.type.indexOf(type) > -1;
-
-                return isType;
-            };
 
             function uploadAndSave() {
                 $scope.submitting = true;

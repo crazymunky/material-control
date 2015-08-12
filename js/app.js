@@ -82,7 +82,18 @@
             analista: 'analista',
             lector:'lector'
         }).run(function($state, $rootScope, UserService, AuthService){
-            $rootScope.upload_url = 'http://stg1.jwtdigitalpr.com/mpto/api/upload';
+            $rootScope.server_url = 'http://stg1.jwtdigitalpr.com/mpto';
+            $rootScope.upload_url = $rootScope.server_url + '/api/upload';
+
+            $rootScope.isType = function(type, strType, file){
+                var isType = false;
+                if(strType==type)
+                    isType = true;
+                else if(file && file.type != undefined)
+                    isType = file.type.indexOf(type) > -1;
+
+                return isType;
+            };
             if(UserService.getCurrentUser() == null)
                 $state.go('login');
             else {
@@ -90,7 +101,6 @@
             }
 
             $rootScope.$on('$stateChangeStart', function (event, next) {
-
                 if(next.data)
                     var authorizedRoles = next.data.authorizedRoles;
                 if (authorizedRoles && !AuthService.isAuthorized(authorizedRoles)) {

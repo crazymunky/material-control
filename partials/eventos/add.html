@@ -1,36 +1,47 @@
 <md-dialog class="md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml" >
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 ng-if="!edit">Agregar evento</h2>
+            <h2 ng-if="edit">Editar evento</h2>
+        </div>
+    </md-toolbar>
     <md-dialog-content>
-        <h2>Agregar evento</h2>
         <form name="form">
-            <md-input-container>
-                <label>Titulo</label>
-                <input ng-disabled="submitting" name="titulo" ng-model="evento.titulo" required/>
-                <div ng-disabled="submitting" ng-messages="form.titulo.$error" ng-show="(form.titulo.$dirty || attempted)">
-                    <div ng-message="required">Debes completar este campo.</div>
-                </div>
-            </md-input-container>
-            <md-input-container>
-                <label>Tel&eacute;fono</label>
-                <input name="telefono" ng-model="evento.telefono" required/>
-                <div ng-disabled="submitting" ng-messages="form.telefono.$error" ng-show="(form.telefono.$dirty || attempted)">
-                    <div ng-message="required">Debes completar este campo.</div>
-                </div>
-            </md-input-container>
-            <md-input-container>
-                <label>Email</label>
-                <input ng-disabled="submitting" name="email" ng-model="evento.email" required type="email"/>
-                <div ng-disabled="submitting" ng-messages="form.email.$error" ng-show="(form.email.$dirty || attempted)">
-                    <div ng-message="required">Debes completar este campo.</div>
-                    <div ng-message="email">Debes ingresar un email valido.</div>
-                </div>
-            </md-input-container>
-            <md-input-container>
-                <label>Fecha</label>
-                <input ng-disabled="submitting" name="fecha" ng-model="evento.fecha" type="date" required/>
-                <div ng-disabled="submitting" ng-messages="form.fecha.$error" ng-show="(form.fecha.$dirty || attempted)">
-                    <div ng-message="required">Debes completar este campo.</div>
-                </div>
-            </md-input-container>
+            <div layout="row">
+                <md-input-container flex>
+
+                    <label>Titulo</label>
+                    <input ng-disabled="submitting" name="titulo" ng-model="evento.titulo" required/>
+                    <div ng-disabled="submitting" ng-messages="form.titulo.$error" ng-show="(form.titulo.$dirty || attempted)">
+                        <div ng-message="required">Debes completar este campo.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Tel&eacute;fono</label>
+                    <input name="telefono" ng-model="evento.telefono" required/>
+                    <div ng-disabled="submitting" ng-messages="form.telefono.$error" ng-show="(form.telefono.$dirty || attempted)">
+                        <div ng-message="required">Debes completar este campo.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+
+                    <label>Email</label>
+                    <input ng-disabled="submitting" name="email" ng-model="evento.email" required type="email"/>
+                    <div ng-disabled="submitting" ng-messages="form.email.$error" ng-show="(form.email.$dirty || attempted)">
+                        <div ng-message="required">Debes completar este campo.</div>
+                        <div ng-message="email">Debes ingresar un email valido.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Fecha</label>
+                    <input ng-disabled="submitting" name="fecha" ng-model="evento.fecha" type="date" required/>
+                    <div ng-disabled="submitting" ng-messages="form.fecha.$error" ng-show="(form.fecha.$dirty || attempted)">
+                        <div ng-message="required">Debes completar este campo.</div>
+                    </div>
+                </md-input-container>
+            </div>
             <md-input-container>
                 <label>Descripci&oacute;n</label>
                 <textarea ng-disabled="submitting" name="descripcion" ng-model="evento.descripcion" required></textarea>
@@ -40,14 +51,16 @@
             </md-input-container>
             <md-input-container>
                 <div class="upload-container">
-                    <md-button ngf-change="fileChanged()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="imagen" ng-model="evento.imagen" required ngf-select="" ngf-accept="'image/*'">
+                    <md-button ngf-change="fileChange()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="imagen" ng-model="evento.imagen" required ngf-select="" ngf-accept="'image/*'">
                         Subir imagen
                     </md-button>
-                    <label ng-if="evento.imagen">{{evento.imagen.name}}</label>
                     <div ng-messages="form.imagen.$error" ng-show="(form.imagen.$dirty || attempted)">
                         <div ng-message="required">Debe subir una imagen.</div>
                     </div>
-                    <img ng-if="evento.imagen" ngf-src="evento.imagen" ngf-accept="'image/*'"/>
+                    <div class="previews" ng-if="evento.imagen">
+                        <img ngf-src="evento.imagen" ngf-accept="'image/*'"/>
+                        <p >{{evento.imagen.name || evento.imagen}}</p>
+                    </div>
                     <md-progress-linear ng-if="progress!=0" class="md-accent" md-mode="determinate" value="{{progress}}">
                 </div>
             </md-input-container>

@@ -77,6 +77,7 @@
         var main = this;
 
 
+
         $scope.isAuthorized = AuthService.isAuthorized;
 
         $rootScope.$on('authorized', function() {

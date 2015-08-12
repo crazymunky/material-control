@@ -41,6 +41,9 @@
   }
 }
 
+.dt-row {
+  cursor:pointer;
+}
 md-content.holder {
   background: #f7f7f7;
 }
@@ -91,22 +94,24 @@ md-sidenav a {
 }
 
 md-input-container {
-  width:500px;
-  max-width:100%;
+  max-width: 100%;
+  margin-right: 10px;
 }
 
 .active md-item-content {
   background-color: rgba(167, 163, 163, 0.28);
 }
 
-.upload-container {
+.previews{
+  padding-top: 15px;
+  max-width:100%;
+  margin:auto;
 
-  audio, video, img{
-    margin-top: 10px;
-    max-height: 200px;
+  audio, video, img, iframe{
+    max-height: 250px;
     max-width: 100%;
     display: block;
-    margin:auto;
+    margin: auto;
   }
   audio{
     width:100%;
@@ -114,20 +119,17 @@ md-input-container {
   button{
     margin-left:0px;
   }
-  .previews{
-    margin-top: 10px;
-  }
   p{
     text-align: center;
+    -ms-word-break: break-all;
+    word-break: break-all;
   }
 }
+
+
 
 md-toast.md-error-toast-theme {
   background-color: rgb(255, 70, 72);
-}
-
-md-dialog {
-  max-height:100%;
 }
 
 md-select .md-select-label{
@@ -156,6 +158,15 @@ md-select .md-select-label{
     top: 1px;
   }
 }
+form > md-input-container:last-child:not(:only-child) {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
 
-/*# sourceMappingURL=style.css.map */
-
+.dt{
+  /*height:90%;
+  min-height: 500px;*/
+}
+.o-separator{
+  margin: 0 30px;
+}

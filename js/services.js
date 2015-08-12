@@ -39,7 +39,7 @@
         var authService = {};
 
         authService.login = function (credentials) {
-            var promise = $http.post('http://stg1.jwtdigitalpr.com/mpto/api/login', credentials);
+            var promise = $http.post($rootScope.server_url + '/api/login', credentials);
 
             promise.then(function (response) {
                 var data = response.data;
@@ -57,7 +57,7 @@
         };
 
         authService.logout = function(){
-            var promise = $http.post('http://stg1.jwtdigitalpr.com/mpto/api/logout');
+            var promise = $http.post($rootScope.server_url + '/api/logout');
             $rootScope.$broadcast('unauthorized');
         };
         authService.isAuthenticated = function () {

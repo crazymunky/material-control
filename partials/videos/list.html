@@ -1,9 +1,9 @@
-<dtable options="options" rows="videos" class="material dt">
-    <column name="Nombre">{{value}}</column>
-    <column name="Tipo">{{row.type | capitalize}}</column>
-    <column name="Creado">{{row.created_at | date:'MM/dd/yyyy'}}</column>
+<dtable options="options" rows="videos" class="material dt" on-row-click="showEdit(row)">
+    <column name="Nombre"></column>
+    <column name="Tipo">{{$row.type | capitalize}}</column>
+    <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
     <column frozenRight="true" width="50">
-        <md-button class="md-icon-button" ng-click="delete(row, $event)">
+        <md-button class="md-icon-button" ng-click="delete($row, $event)">
             <md-icon>
                 <i class="material-icons" >delete</i>
             </md-icon>

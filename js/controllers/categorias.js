@@ -3,8 +3,8 @@
  */
 (function() {
     'use strict';
-    angular.module('backendApp.controllers').controller('CategoriaListController',['$scope', 'Categoria', '$mdDialog',
-        function($scope, Categoria, $mdDialog){
+    angular.module('backendApp.controllers').controller('CategoriaListController',['$scope', 'Categoria', '$mdDialog', '$mdToast',
+        function($scope, Categoria, $mdDialog, $mdToast){
             $scope.categorias = Categoria.query();
             $scope.options = {
                 rowHeight: 50,
@@ -79,12 +79,14 @@
             };
 
             function save() {
-                $scope.categoria.$save(function (response) {
-                    $mdDialog.hide($scope.categoria);
-                    $mdToast.show($mdToast.simple().content("Nuevo ad guardado"));
-                }, function (response) {
-                    $mdToast.show($mdToast.simple().content(response.data.error).theme("error-toast"));
-                }).then(function(){
+                Categoria.save($scope.categoria).$promise.then(function (response) {
+                    console.log(response);
+                    if(response.error){
+                        $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
+                    }else{
+                        $mdDialog.hide(response);
+                        $mdToast.show($mdToast.simple().content("Nuevo ad guardado"));
+                    }
                     $scope.submitting = false;
                 });
             }

@@ -1,6 +1,11 @@
 <md-dialog class="md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml" >
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 ng-if="!edit">Agregar usuario</h2>
+            <h2 ng-if="edit">Editar usuario</h2>
+        </div>
+    </md-toolbar>
     <md-dialog-content>
-        <h2>Agregar usuario</h2>
         <form name="form">
             <md-input-container>
                 <label>Nombre</label>

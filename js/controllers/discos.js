@@ -3,8 +3,8 @@
  */
 (function() {
     'use strict';
-    angular.module('backendApp.controllers').controller('DiscoListController',['$scope', 'Disco', '$mdDialog',
-        function($scope, Disco, $mdDialog){
+    angular.module('backendApp.controllers').controller('DiscoListController',['$scope', 'Disco', '$mdDialog','$mdToast',
+        function($scope, Disco, $mdDialog, $mdToast){
             $scope.discos = Disco.query();
             $scope.options = {
                 rowHeight: 50,
@@ -16,7 +16,7 @@
             };
             $scope.showAdd = function(ev){
                 $mdDialog.show({
-                    controller: 'DiscoController',
+                    controller: 'AddDiscoController',
                     templateUrl: 'partials/discos/add.html',
                     parent: angular.element(document.body),
                     targetEvent: ev
