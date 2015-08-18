@@ -3,8 +3,8 @@
  */
 (function() {
     'use strict';
-    angular.module('backendApp.controllers').controller('CancionListController',['$scope', 'Cancion', '$mdDialog',
-        function($scope, Cancion, $mdDialog){
+    angular.module('backendApp.controllers').controller('CancionListController',['$scope', 'Cancion', '$mdDialog','$mdToast',
+        function($scope, Cancion, $mdDialog, $mdToast){
             $scope.canciones = Cancion.query();
 
             $scope.options = {
@@ -43,12 +43,16 @@
             };
 
             $scope.showEdit = function(row){
-                $scope.selectedItem = row;
+                $scope.selectedItem = angular.copy(row);
+                var index = $scope.canciones.indexOf(row);
                 $mdDialog.show({
                     controller: 'AddCancionController',
                     templateUrl: 'partials/canciones/add.html',
                     parent: angular.element(document.body),
                     scope: $scope.$new()
+                }).then(function(edited){
+                    if(edited)
+                        $scope.canciones[index] = edited;
                 });
             };
         }
@@ -113,6 +117,7 @@
                     $scope.progress = 0;
                 });
             }
+
             function save() {
                 $scope.cancion.$save(function (response) {
                     $mdDialog.hide($scope.cancion);
@@ -126,8 +131,8 @@
 
             function update() {
                 Cancion.update({id: $scope.cancion.id}, $scope.cancion).$promise.then(function(response){
-                    $scope.submitting = false;
-                    $mdDialog.hide($scope.cancion);
+                        $scope.submitting = false;
+                        $mdDialog.hide($scope.cancion);
                 });
             }
         }

@@ -78,7 +78,7 @@
 
             $scope.submit = function(){
                 $scope.attempted = true;
-                if(!$scope.videoForm.$valid)
+                if(!$scope.form.$valid)
                     return false;
 
                 if($scope.fileChanged && !$scope.isLink)
@@ -133,13 +133,23 @@
                     $scope.video.type = data.type;
                     $scope.fileChanged = true;
                     $scope.progress = 0;
-                    save();
+                    if($scope.edit)
+                        update();
+                    else
+                        save();
                 }).error(function (data, status, headers, config) {
                     $mdToast.show($mdToast.simple().content(data.error).theme("error-toast"));
                     $scope.submitting = false;
                     $scope.progress = 0;
                 });
 
+            }
+
+            function update() {
+                Video.update({id: $scope.video.id}, $scope.video).$promise.then(function(response){
+                    $scope.submitting = false;
+                    $mdDialog.hide($scope.video);
+                });
             }
         }
     ]);

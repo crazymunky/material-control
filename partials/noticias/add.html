@@ -70,6 +70,21 @@
                     <div ng-message="required">Debes completar este campo.</div>
                 </div>
             </md-input-container>
+            <md-chips ng-model="noticia.tags" md-on-append="newTag($chip)" >
+                <md-autocomplete
+                        md-selected-item="selectedTag"
+                        md-search-text="searchText"
+                        md-items="item in querySearch(searchText)"
+                        md-item-text="item.nombre"
+                        placeholder="Search for a tag">
+                    <span md-highlight-text="searchText">{{item.nombre}}</span>
+                </md-autocomplete>
+                <md-chip-template>
+                    <span>
+                      <strong>{{$chip.nombre}}</strong>
+                    </span>
+                </md-chip-template>
+            </md-chips>
             <md-input-container>
                 <div class="upload-container">
                     <md-button ngf-change="fileChange()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="imagen" ng-model="noticia.imagen" required ngf-select="" ngf-accept="'image/*'">

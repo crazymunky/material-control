@@ -93,7 +93,7 @@ md-sidenav a {
   top: -12px;
 }
 
-md-input-container {
+div > md-input-container {
   max-width: 100%;
   margin-right: 10px;
 }
@@ -169,4 +169,13 @@ form > md-input-container:last-child:not(:only-child) {
 }
 .o-separator{
   margin: 0 30px;
+}
+
+md-input-container input {
+  min-width: 250px;
+}
+
+md-chips-wrap.md-chips.ng-scope {
+  margin-bottom: 20px;
+  max-width: 490px;
 }

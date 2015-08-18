@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="Bender">
+    <serverData>
+      <paths name="Bender">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/var/www/musica_para_tus_oidos/public/backend" local="$PROJECT_DIR$" web="/musica_para_tus_oidos/public/backend" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Staging JWT">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/public_html/mpto/backend" local="$PROJECT_DIR$" web="/mpto/backend/index.html" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>

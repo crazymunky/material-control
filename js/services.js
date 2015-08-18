@@ -3,36 +3,44 @@
 
     var module = angular.module('backendApp.services', []);
 
-    module.factory('Ad', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/ads/:id', null, {'update':{method: 'PUT'}});
+    module.factory('Ad', function($resource, $rootScope){
+        return $resource($rootScope.server_url+ '/api/ads/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Cancion', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/canciones/:id', null, {'update':{method: 'PUT'}});
+    module.factory('Cancion', function($resource, $rootScope){
+        return $resource($rootScope.server_url+ '/api/canciones/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Categoria', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/categorias/:id', null, {'update':{method: 'PUT'}});
+    module.factory('Categoria', function($resource, $rootScope){
+        return $resource($rootScope.server_url+ '/api/categorias/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Disco', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/discos/:id', null, {'update':{method: 'PUT'}});
+    module.factory('Cuento', function($resource, $rootScope){
+        return $resource($rootScope.server_url+ '/api/cuentos/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Evento', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/eventos/:id', null, {'update':{method: 'PUT'}});
+    module.factory('Disco', function($resource, $rootScope){
+        return $resource($rootScope.server_url+ '/api/discos/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('User', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/users/:id', null, {'update':{method: 'PUT'}});
+    module.factory('Evento', function($resource, $rootScope){
+        return $resource($rootScope.server_url+ '/api/eventos/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Noticia', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/noticias/:id', null, {'update':{method: 'PUT'}});
+    module.factory('User', function($resource, $rootScope){
+        return $resource($rootScope.server_url+ '/api/users/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Video', function($resource){
-        return $resource('http://stg1.jwtdigitalpr.com/mpto/api/videos/:id', null, {'update':{method: 'PUT'}});
+    module.factory('Noticia', function($resource, $rootScope){
+        return $resource($rootScope.server_url+ '/api/noticias/:id', null, {'update':{method: 'PUT'}});
+    });
+
+    module.factory('Video', function($resource, $rootScope){
+        return $resource($rootScope.server_url+ '/api/videos/:id', null, {'update':{method: 'PUT'}});
+    });
+
+    module.factory('Tag', function($resource, $rootScope){
+        return $resource($rootScope.server_url+ '/api/tags/:id', null, {'update':{method: 'PUT'}});
     });
 
     module.factory('AuthService', function ($rootScope, $http, UserService) {

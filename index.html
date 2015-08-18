@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="bower_components/angular-data-table/release/dataTable.css">
     <link rel="stylesheet" href="bower_components/angular-data-table/release/material.css">
+    <script src="bower_components/angular/angular.js"></script>
 </head>
 <body  layout="column" layout-align="top center" ng-controller="MainCtrl as main">
 <md-toolbar ng-if="main.currentUser" ng-controller="HeaderController" class="md-whiteframe-z3">
@@ -65,14 +66,14 @@
         </div>
     </md-content>
 </div>
-<script src="bower_components/angular/angular.js"></script>
+
 <script src="bower_components/angular-aria/angular-aria.min.js"></script>
 <script src="bower_components/angular-animate/angular-animate.min.js"></script>
 <script src="bower_components/angular-material/angular-material.min.js"></script>
 <script src="bower_components/angular-resource/angular-resource.min.js"></script>
 <script src="bower_components/angular-ui-router/angular-ui-router.min.js"></script>
 <script src="bower_components/angular-messages/messages.js"></script>
-<script src="bower_components/angular-data-table/release/dataTable.helpers.min.js"></script>
+<script src="bower_components/angular-data-table/release/dataTable.helpers.js"></script>
 <script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
 <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 <script src="//cdn.rawgit.com/auth0/angular-storage/master/dist/angular-storage.js"></script>
@@ -89,6 +90,7 @@
 <script src="js/controllers/categorias.js"></script>
 <script src="js/controllers/login.js"></script>
 <script src="js/controllers/user.js"></script>
+<script src="js/controllers/cuentos.js"></script>
 <script src="js/app.js"></script>
 
 </body>

@@ -41,6 +41,12 @@
                     roles: [USER_ROLES.admin,USER_ROLES.editor, USER_ROLES.editorPlus]
                 },
                 {
+                    link : 'cuentos',
+                    title: 'Cuentos',
+                    icon: 'book',
+                    roles: [USER_ROLES.admin,USER_ROLES.editor, USER_ROLES.editorPlus]
+                },
+                {
                     link : 'discos',
                     title: 'Discos',
                     icon: 'library_music',

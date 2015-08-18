@@ -7,6 +7,9 @@
     <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
     <column frozenRight="true" width="50">
         <md-button class="md-icon-button" ng-click="delete($row, $event)">
+            <md-tooltip>
+                Borrar
+            </md-tooltip>
             <md-icon>
                 <i class="material-icons" >delete</i>
             </md-icon>
@@ -15,6 +18,9 @@
 </md-button>
 </dtable>
 <md-button class="md-fab agregar" ng-click="showAdd($event)">
+    <md-tooltip md-direction="left">
+        Agregar ad
+    </md-tooltip>
     <md-icon>
         <i class="material-icons" >add</i>
     </md-icon>

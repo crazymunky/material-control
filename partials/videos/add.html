@@ -20,10 +20,10 @@
                     <md-option ng-value="ad.id" ng-repeat="ad in ads">{{ad.nombre}}</md-option>
                 </md-select>
             </md-input-container>
-            <div layout="row" layout-align="space-between center"  >
+            <div layout="row" layout-align="space-between center">
                 <md-input-container>
                     <div class="upload-container">
-                        <md-button ngf-change="fileChanged()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="source" ng-model="video.source" required ngf-select="" ngf-accept="'video/*'">Subir fuente</md-button>
+                        <md-button ngf-change="fileChange()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="source" ng-model="video.source" required ngf-select="" ngf-accept="'video/*'">Subir fuente</md-button>
                         <div ng-messages="form.source.$error" ng-show="(form.source.$dirty || attempted)">
                             <div ng-message="required">Debe subir un archivo </div>
                         </div>

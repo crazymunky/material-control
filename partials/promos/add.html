@@ -36,8 +36,8 @@
                     </div>
 
                     <div class="previews" ng-if="ad.source">
-                        <img ng-if="$root.isType('image', ad.source.type, ad.source)" ngf-src="ad.source" ngf-accept="'image/*'"/>
-                        <video ng-if="$root.isType('video', ad.source.type, ad.source)" controls ngf-src="ad.source" ngf-accept="'video/*'"/>
+                        <img ng-if="$root.isType('image', ad.type, ad.source)" ngf-src="ad.source" ngf-accept="'image/*'"/>
+                        <video ng-if="$root.isType('video', ad.type, ad.source)" controls ngf-src="ad.source" ngf-accept="'video/*'"/>
                         <p>{{ad.source.name || ad.source}}</p>
                     </div>
 

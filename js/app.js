@@ -35,6 +35,13 @@
                 data:{
                     authorizedRoles:[USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.editorPlus]
                 }
+            }).state('cuentos',{
+                url:'/cuentos',
+                controller: 'CuentoController',
+                templateUrl: 'partials/cuentos/list.html',
+                data:{
+                    authorizedRoles:[USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.editorPlus]
+                }
             }).state('discos',{
                 url:'/discos',
                 controller: 'DiscoListController',
@@ -86,6 +93,7 @@
             $rootScope.upload_url = $rootScope.server_url + '/api/upload';
 
             $rootScope.isType = function(type, strType, file){
+                console.log(type, strType, file);
                 var isType = false;
                 if(strType==type)
                     isType = true;
