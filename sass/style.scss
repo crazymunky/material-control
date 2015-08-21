@@ -1,6 +1,16 @@
+/*utils*/
+@mixin transition($something){
+  -webkit-transition: $something;
+  -moz-transition: $something;
+  -ms-transition: $something;
+  -o-transition: $something;
+  transition: $something;
+}
+/*******************************/
+
 .profile-menu {
   width: 100%;
-  height: 150px;
+  min-height: 150px;
   position: relative;
   overflow: hidden;
 
@@ -33,7 +43,7 @@
     position: relative;
     z-index: 2;
     margin-top: 16px;
-    color: white;
+    color: black;
     cursor: pointer;
     span {
 
@@ -58,35 +68,16 @@ div.md-padding.view {
   padding: 38px;
 }
 
-[ui-view].ng-enter, [ui-view].ng-leave {
-  -webkit-transition: all .5s;
-  -moz-transition: all .5s;
-  -ms-transition: all .5s;
-  -o-transition: all .5s;
-  transition: all .5s;
-}
-
-[ui-view].ng-enter {
-  opacity: 0;
-}
-[ui-view].ng-enter.ng-enter-active {
-  opacity: 1;
-}
-
-[ui-view].ng-leave {
-  opacity: 1;
-}
-[ui-view].ng-leave.ng-leave-active {
-  opacity: 0;
-}
-
 md-item-content {
   position: relative;
 }
 
-md-sidenav a {
-  text-decoration: none;
-  color: inherit;
+md-sidenav{
+  overflow-y:auto;
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 .dt-cell button {
@@ -126,8 +117,6 @@ div > md-input-container {
   }
 }
 
-
-
 md-toast.md-error-toast-theme {
   background-color: rgb(255, 70, 72);
 }
@@ -158,15 +147,12 @@ md-select .md-select-label{
     top: 1px;
   }
 }
+
 form > md-input-container:last-child:not(:only-child) {
   margin-bottom: 0;
   padding-bottom: 0;
 }
 
-.dt{
-  /*height:90%;
-  min-height: 500px;*/
-}
 .o-separator{
   margin: 0 30px;
 }
@@ -178,4 +164,9 @@ md-input-container input {
 md-chips-wrap.md-chips.ng-scope {
   margin-bottom: 20px;
   max-width: 490px;
+}
+
+.md-dialog-container {
+  height: 100%!important;
+  background-color: rgba(0, 0, 0, 0.51);
 }

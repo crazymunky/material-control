@@ -1,78 +1,78 @@
-<md-dialog class="md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml" >
+<md-dialog class="md-whiteframe-z2">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2 ng-if="!edit">Agregar canci&oacute;n</h2>
-            <h2 ng-if="edit">Editar canci&oacute;n</h2>
+            <h2 ng-if="!vm.edit">Agregar canci&oacute;n</h2>
+            <h2 ng-if="vm.edit">Editar canci&oacute;n</h2>
         </div>
     </md-toolbar>
     <md-dialog-content>
         <form name="form">
             <div layout="row">
                 <md-input-container flex>
-                    <label>Nombre</label>
-                    <input ng-disabled="submitting" name="nombre" ng-model="cancion.nombre" required/>
-                    <div ng-messages="form.nombre.$error" ng-show="(form.nombre.$dirty || attempted)">
+                    <label for="nombre" >Nombre</label>
+                    <input id="nombre" ng-disabled="vm.submitting" name="nombre" ng-model="vm.cancion.nombre" required/>
+                    <div ng-messages="form.nombre.$error" ng-show="(form.nombre.$dirty || vm.attempted)">
                         <div ng-message="required">Debes ingresar un nombre.</div>
                     </div>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Duraci&oacute;n (milisegundos)</label>
-                    <input ng-disabled="submitting" type="number" name="duracion" required ng-model="cancion.duracion"/>
-                    <div ng-messages="form.duracion.$error" ng-show="(form.duracion.$dirty || attempted)">
+                    <input ng-disabled="vm.submitting" type="number" name="duracion" required ng-model="vm.cancion.duracion"/>
+                    <div ng-messages="form.duracion.$error" ng-show="(form.duracion.$dirty || vm.attempted)">
                         <div ng-message="required">Debe ingresar la duraci&oacute;n</div>
                     </div>
                 </md-input-container>
             </div>
             <md-input-container>
-                <md-select ng-disabled="submitting" name="disco" placeholder="Sin disco" ng-model="cancion.disco_id" required>
+                <md-select ng-disabled="vm.submitting" name="disco" placeholder="Sin disco" ng-model="vm.cancion.disco_id" required>
                     <md-option value="0" >Sin disco</md-option>
-                    <md-option ng-value="disco.id" ng-repeat="disco in discos">{{disco.nombre}}</md-option>
+                    <md-option ng-value="disco.id" ng-repeat="disco in vm.discos">{{disco.nombre}}</md-option>
                 </md-select>
             </md-input-container>
             <div class="container" layout="row">
                 <md-input-container flex>
                     <label>Link appstore</label>
-                    <input ng-disabled="submitting" name="link_appstore" ng-model="cancion.link_appstore" required/>
-                    <div ng-disabled="submitting" ng-messages="form.link_appstore.$error" ng-show="(form.link_appstore.$dirty || attempted)">
+                    <input ng-disabled="vm.submitting" name="link_appstore" ng-model="vm.cancion.link_appstore" required/>
+                    <div ng-disabled="vm.submitting" ng-messages="form.link_appstore.$error" ng-show="(form.link_appstore.$dirty || vm.attempted)">
                         <div  ng-message="required">Debes completar este campo.</div>
                     </div>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Link playstore</label>
-                    <input ng-disabled="submitting" name="link_playstore" ng-model="cancion.link_playstore" required/>
-                    <div  ng-messages="form.link_playstore.$error" ng-show="(form.link_playstore.$dirty || attempted)">
+                    <input ng-disabled="vm.submitting" name="link_playstore" ng-model="vm.cancion.link_playstore" required/>
+                    <div  ng-messages="form.link_playstore.$error" ng-show="(form.link_playstore.$dirty || vm.attempted)">
                         <div ng-message="required">Debes completar este campo.</div>
                     </div>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Link spotify</label>
-                    <input ng-disabled="submitting" name="link_spotify" ng-model="cancion.link_spotify" required/>
-                    <div ng-disabled="submitting" ng-messages="form.link_spotify.$error" ng-show="(form.link_spotify.$dirty || attempted)">
+                    <input ng-disabled="vm.submitting" name="link_spotify" ng-model="vm.cancion.link_spotify" required/>
+                    <div ng-disabled="vm.submitting" ng-messages="form.link_spotify.$error" ng-show="(form.link_spotify.$dirty || vm.attempted)">
                         <div ng-message="required">Debes completar este campo.</div>
                     </div>
                 </md-input-container>
             </div>
             <md-input-container>
                 <div class="upload-container">
-                    <md-button ngf-change="fileChange()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="source" ng-model="cancion.audio_source" required ngf-select="" ngf-accept="'audio/*'">Subir audio</md-button>
-                    <div ng-messages="form.source.$error" ng-show="(form.source.$dirty || attempted)">
+                    <md-button ngf-change="fileChange()" ng-disabled="vm.submitting" class="md-raised md-primary file" type="file" name="source" ng-model="vm.cancion.audio_source" required ngf-select="" ngf-accept="'audio/*'">Subir audio</md-button>
+                    <div ng-messages="form.source.$error" ng-show="(form.source.$dirty || vm.attempted)">
                         <div ng-message="required">Debe subir un archivo de audio. </div>
                     </div>
-                    <div class="previews" ng-if="cancion.audio_source">
-                        <audio  controls ngf-src="cancion.audio_source" ngf-accept="'audio/*'"></audio>
-                        <p>{{cancion.audio_source.name || cancion.audio_source}}</p>
+                    <div class="previews" ng-if="vm.cancion.audio_source">
+                        <audio  controls ngf-src="vm.cancion.audio_source" ngf-accept="'audio/*'"></audio>
+                        <p>{{vm.cancion.audio_source.name || vm.cancion.audio_source}}</p>
                     </div>
-                    <md-progress-linear ng-if="progress!=0" class="md-accent" md-mode="determinate" value="{{progress}}">
+                    <md-progress-linear ng-if="vm.progress!=0" class="md-accent" md-mode="determinate" value="{{vm.progress}}">
                 </div>
             </md-input-container>
         </form>
     </md-dialog-content>
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-disabled="submitting"  ng-click="hide()" class="md-secondary">
+        <md-button ng-disabled="vm.submitting"  ng-click="vm.hide(false)" class="md-secondary">
             Cancelar
         </md-button>
-        <md-button ng-disabled="submitting"  ng-click="submit()" class="md-primary">
+        <md-button ng-disabled="vm.submitting"  ng-click="vm.submit()" class="md-primary">
             Aceptar
         </md-button>
     </div>

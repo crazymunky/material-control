@@ -3,10 +3,7 @@
  */
 (function(){
     'use strict';
-
-    var module = angular.module('backendApp.controllers', []);
-
-    module.controller('HeaderController', ['$scope', '$mdSidenav','$rootScope',
+    angular.module('backendApp.controllers').controller('HeaderController', ['$scope', '$mdSidenav','$rootScope',
         function ($scope, $mdSidenav,$rootScope) {
             $scope.openLeftMenu = function () {
                 $mdSidenav('side-nav').toggle();
@@ -19,7 +16,7 @@
         }
     ]);
 
-    module.controller('MenuController', ['$scope', 'USER_ROLES',
+    angular.module('backendApp.controllers').controller('MenuController', ['$scope', 'USER_ROLES',
         function ($scope, USER_ROLES) {
             $scope.menu = [
                 {
@@ -79,7 +76,7 @@
         }
     ]);
 
-    module.controller('MainCtrl', function ($scope, $rootScope, $state, AuthService, UserService) {
+    angular.module('backendApp.controllers').controller('MainCtrl', function ($scope, $rootScope, $state, AuthService, UserService) {
         var main = this;
 
 

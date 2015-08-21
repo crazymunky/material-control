@@ -22,6 +22,7 @@
                 selectable: false,
                 columnMode: 'force'
             };
+
             $scope.showAdd = function(ev){
                 $mdDialog.show({
                     controller: 'UserController',

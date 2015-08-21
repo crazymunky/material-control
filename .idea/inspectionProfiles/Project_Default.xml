@@ -36,7 +36,7 @@
     <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="myValues">
         <value>
-          <list size="21">
+          <list size="22">
             <item index="0" class="java.lang.String" itemvalue="nobr" />
             <item index="1" class="java.lang.String" itemvalue="noembed" />
             <item index="2" class="java.lang.String" itemvalue="comment" />
@@ -58,10 +58,12 @@
             <item index="18" class="java.lang.String" itemvalue="column" />
             <item index="19" class="java.lang.String" itemvalue="md-dialog-content" />
             <item index="20" class="java.lang.String" itemvalue="md-dialog" />
+            <item index="21" class="java.lang.String" itemvalue="md-chips-wrap" />
           </list>
         </value>
       </option>
       <option name="myCustomValuesEnabled" value="true" />
     </inspection_tool>
+    <inspection_tool class="JSUnresolvedVariable" enabled="false" level="WEAK WARNING" enabled_by_default="false" />
   </profile>
 </component>

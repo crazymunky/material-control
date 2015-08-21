@@ -76,6 +76,7 @@
             if (!angular.isArray(authorizedRoles)) {
                 authorizedRoles = [authorizedRoles];
             }
+//            console.log("authorized roles", authorizedRoles, "user role", UserService.getCurrentUser().role);
             return (authService.isAuthenticated() &&
             authorizedRoles.indexOf(UserService.getCurrentUser().role.toLowerCase()) !== -1);
         };
