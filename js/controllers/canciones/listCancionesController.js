@@ -3,12 +3,10 @@
  */
 (function() {
     'use strict';
-    angular
-        .module('backendApp.controllers')
-        .controller('CancionListController',CancionListController);
+    angular.module('backendApp.controllers').controller('CancionListController',CancionListController);
 
-    CancionListController.$inject = ['$scope', 'Cancion', '$mdDialog','$mdToast'];
-    function CancionListController($scope, Cancion, $mdDialog, $mdToast){
+    CancionListController.$inject = ['$scope', 'Cancion', '$mdDialog','$mdToast', '$stateParams', '$state' ];
+    function CancionListController($scope, Cancion, $mdDialog, $mdToast, $stateParams, $state){
         var vm = this;
         vm.canciones = Cancion.query();
         vm.options = {
@@ -22,9 +20,20 @@
 
         vm.showAdd = showAdd;
         vm.delete = doDelete;
-        vm.showEdit = showEdit;
+        vm.showEdit = navigateToItem;
+        vm.hide = $mdDialog.cancel;
+
+        activate();
 
         /**********************/
+        function activate(){
+            if($stateParams.id){
+                Cancion.get({id:$stateParams.id}).$promise.then(function(response){
+                    showEdit(response);
+                });
+            }
+        };
+
         function showAdd(ev){
             $mdDialog.show({
                 controller: 'AddCancionController',
@@ -32,9 +41,9 @@
                 templateUrl: 'partials/canciones/add.html',
                 parent: angular.element(document.body),
                 targetEvent: ev
-            }).then(function(newEvent){
-                if(newEvent!== undefined)
-                    vm.canciones.push(newEvent);
+            }).then(function(newModel){
+                if(newModel!= true)
+                    addOrUpdateList(vm.canciones, newModel)
             });
         };
 
@@ -52,6 +61,11 @@
             });
         };
 
+        function navigateToItem(row){
+            $state.go("canciones",{id:row.id}, {notify:false});
+            showEdit(row);
+        };
+
         function showEdit(row){
             $scope.selectedItem = angular.copy(row);
             var index = vm.canciones.indexOf(row);
@@ -62,9 +76,12 @@
                 parent: angular.element(document.body),
                 scope: $scope.$new()
             }).then(function(edited){
-                if(edited)
-                    vm.canciones[index] = edited;
+                if(edited!= true)
+                    $rootScope.addOrUpdateList(vm.canciones, edited, index);
+                $state.go("canciones",{id:''}, {notify:false});
             });
         };
+
+
     }
 })();

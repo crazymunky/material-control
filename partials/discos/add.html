@@ -68,4 +68,5 @@
             Aceptar
         </md-button>
     </div>
+    <md-progress-linear ng-if="vm.submitting || vm.progress!=0" class="md-accent" md-mode="{{vm.progress!=0 ? 'determinate' : 'indeterminate'}}" value="{{vm.progress}}">
 </md-dialog>

@@ -14,6 +14,9 @@
           <mappings>
             <mapping deploy="/public_html/mpto/backend" local="$PROJECT_DIR$" web="/mpto/backend/index.html" />
           </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/node_modules" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

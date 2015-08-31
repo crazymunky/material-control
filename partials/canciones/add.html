@@ -54,7 +54,7 @@
             </div>
             <md-input-container>
                 <div class="upload-container">
-                    <md-button ngf-change="fileChange()" ng-disabled="vm.submitting" class="md-raised md-primary file" type="file" name="source" ng-model="vm.cancion.audio_source" required ngf-select="" ngf-accept="'audio/*'">Subir audio</md-button>
+                    <md-button ngf-change="vm.fileChange()" ng-disabled="vm.submitting" class="md-raised md-primary file" type="file" name="source" ng-model="vm.cancion.audio_source" required ngf-select="" ngf-accept="'audio/*'">Subir audio</md-button>
                     <div ng-messages="form.source.$error" ng-show="(form.source.$dirty || vm.attempted)">
                         <div ng-message="required">Debe subir un archivo de audio. </div>
                     </div>
@@ -62,7 +62,6 @@
                         <audio  controls ngf-src="vm.cancion.audio_source" ngf-accept="'audio/*'"></audio>
                         <p>{{vm.cancion.audio_source.name || vm.cancion.audio_source}}</p>
                     </div>
-                    <md-progress-linear ng-if="vm.progress!=0" class="md-accent" md-mode="determinate" value="{{vm.progress}}">
                 </div>
             </md-input-container>
         </form>
@@ -75,5 +74,7 @@
         <md-button ng-disabled="vm.submitting"  ng-click="vm.submit()" class="md-primary">
             Aceptar
         </md-button>
+
     </div>
+    <md-progress-linear ng-if="vm.submitting || vm.progress!=0" class="md-accent" md-mode="{{vm.progress!=0 ? 'determinate' : 'indeterminate'}}" value="{{vm.progress}}">
 </md-dialog>

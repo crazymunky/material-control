@@ -9,7 +9,7 @@ var ngAnnotate = require('gulp-ng-annotate');
 var sass = require('gulp-sass');
 
 gulp.task('js', function () {
-    gulp.src(['js/**/app.js', 'js/**/*.js'])
+    gulp.src(['js/**/app.js','js/**/*.js'])
         .pipe(sourcemaps.init())
         .pipe(concat('app.concat.js'))
         .pipe(ngAnnotate())
@@ -27,8 +27,6 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./css'));
 
 });
-
-
 
 gulp.task('watch', ['js', 'sass'], function () {
     gulp.watch('js/**/*.js', ['js']);

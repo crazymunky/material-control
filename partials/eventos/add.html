@@ -1,4 +1,4 @@
-<md-dialog class="md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml" >
+<md-dialog xmlns:display="http://www.w3.org/1999/xhtml" class="md-whiteframe-z2" >
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2 ng-if="!edit">Agregar evento</h2>
@@ -75,4 +75,5 @@
             Aceptar
         </md-button>
     </div>
+    <md-progress-linear ng-if="vm.submitting || vm.progress!=0" class="md-accent" md-mode="{{vm.progress!=0 ? 'determinate' : 'indeterminate'}}" value="{{vm.progress}}">
 </md-dialog>

@@ -18,7 +18,7 @@
 
         vm.submit = submit;
         vm.fileChange = fileChange;
-        vm.hide = $mdDialog.cancel;
+        vm.hide = $mdDialog.hide;
 
         if($scope.selectedItem != undefined) {
             vm.cancion = $scope.selectedItem;
@@ -30,6 +30,7 @@
         /*******functions*******/
         function submit(){
             vm.attempted = true;
+            vm.submitting = true;
             if(!$scope.form.$valid)
                 return false;
 
@@ -68,12 +69,15 @@
         }
 
         function save() {
-            vm.cancion.$save(function (response) {
-                $mdDialog.hide(vm.cancion);
-                vm.submitting = false;
-                $mdToast.show($mdToast.simple().content("Nuevo canción guardada"));
-            }, function (response) {
-                $mdToast.show($mdToast.simple().content(response.data.error).theme("error-toast"));
+            Cancion.save(vm.cancion).$promise.then(function (response, algo, algo2) {
+                console.log(algo);
+                console.log(algo2);
+                if (response.error) {
+                    $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
+                } else {
+                    $mdDialog.hide(response);
+                    $mdToast.show($mdToast.simple().content("Nueva cancion guardado"));
+                }
                 vm.submitting = false;
             });
         }

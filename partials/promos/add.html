@@ -1,8 +1,8 @@
-<md-dialog class="md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml" >
+<md-dialog xmlns:display="http://www.w3.org/1999/xhtml" class="md-whiteframe-z2" >
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2 ng-if="!edit">Agregar categoria</h2>
-            <h2 ng-if="edit">Editar categoria</h2>
+            <h2 ng-if="!vm.edit">Agregar categoria</h2>
+            <h2 ng-if="vm.edit">Editar categoria</h2>
         </div>
     </md-toolbar>
     <md-dialog-content>
@@ -10,49 +10,48 @@
             <div layout="row">
                 <md-input-container flex>
                     <label>Nombre</label>
-                    <input name="nombre" ng-model="ad.nombre" required/>
-                    <div ng-disabled="submitting" ng-messages="adForm.nombre.$error" ng-show="(adForm.nombre.$dirty || attempted)">
+                    <input name="nombre" ng-model="vm.ad.nombre" required/>
+                    <div ng-disabled="submitting" ng-messages="adForm.nombre.$error" ng-show="(adForm.nombre.$dirty || vm.attempted)">
                         <div ng-message="required">Debes completar este campo.</div>
                     </div>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Duraci&oacute;n (segundos)</label>
-                    <input ng-disabled="submitting" type="number" name="duracion" ng-model="ad.duration"/>
-                    <div ng-messages="adForm.duracion.$error" ng-show="(adForm.duracion.$dirty || attempted)">
+                    <input ng-disabled="submitting" type="number" name="duracion" ng-model="vm.ad.duration"/>
+                    <div ng-messages="adForm.duracion.$error" ng-show="(adForm.duracion.$dirty || vm.attempted)">
                     </div>
                 </md-input-container>
             </div>
             <md-input-container>
-                <md-checkbox ng-disabled="submitting" ng-model="ad.skip_enabled" ng-true-value="1" ng-false-value="0" aria-label="Skipable">
+                <md-checkbox ng-disabled="submitting" ng-model="vm.ad.skip_enabled" ng-true-value="1" ng-false-value="0" aria-label="Skipable">
                     Skipable
                 </md-checkbox>
             </md-input-container>
             <md-input-container>
                 <div class="upload-container">
-                    <md-button ngf-change="fileChange()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="source" ng-model="ad.source" required ngf-select="" ngf-accept="'image/*,video/*'">Subir fuente</md-button>
+                    <md-button ngf-change="vm.fileChange()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="source" ng-model="vm.ad.source" required ngf-select="" ngf-accept="'image/*,video/*'">Subir fuente</md-button>
 
-                    <div ng-messages="adForm.source.$error" ng-show="(adForm.source.$dirty || attempted)">
+                    <div ng-messages="adForm.source.$error" ng-show="(adForm.source.$dirty || vm.attempted)">
                         <div ng-message="required">Debe subir un archivo </div>
                     </div>
 
-                    <div class="previews" ng-if="ad.source">
-                        <img ng-if="$root.isType('image', ad.type, ad.source)" ngf-src="ad.source" ngf-accept="'image/*'"/>
-                        <video ng-if="$root.isType('video', ad.type, ad.source)" controls ngf-src="ad.source" ngf-accept="'video/*'"/>
-                        <p>{{ad.source.name || ad.source}}</p>
+                    <div class="previews" ng-if="vm.ad.source">
+                        <img ng-if="$root.isType('image', vm.ad.type, vm.ad.source)" ngf-src="vm.ad.source" ngf-accept="'image/*'"/>
+                        <video ng-if="$root.isType('video', vm.ad.type, vm.ad.source)" controls ngf-src="vm.ad.source" ngf-accept="'video/*'"/>
+                        <p>{{vm.ad.source.name || vm.ad.source}}</p>
                     </div>
-
-                    <md-progress-linear ng-if="progress!=0" class="md-accent" md-mode="determinate" value="{{progress}}">
                 </div>
             </md-input-container>
         </form>
     </md-dialog-content>
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-disabled="submitting"  ng-click="hide()" class="md-secondary">
+        <md-button ng-disabled="submitting"  ng-click="vm.hide()" class="md-secondary">
             Cancelar
         </md-button>
-        <md-button ng-disabled="submitting"  ng-click="submit()" class="md-primary">
+        <md-button ng-disabled="submitting"  ng-click="vm.submit()" class="md-primary">
             Aceptar
         </md-button>
     </div>
+    <md-progress-linear ng-if="vm.submitting || vm.progress!=0" class="md-accent" md-mode="{{vm.progress!=0 ? 'determinate' : 'indeterminate'}}" value="{{vm.progress}}">
 </md-dialog>

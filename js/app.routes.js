@@ -1,12 +1,14 @@
 (function() {
     'use strict';
-    angular.module('backendApp').config(config);
+    angular.module('backendApp').config(configRoutes);
 
-    function config($stateProvider, USER_ROLES, $httpProvider) {
+    configRoutes.$inject = ['$stateProvider', 'USER_ROLES', '$httpProvider', '$provide'];
+    function configRoutes($stateProvider,  USER_ROLES, $httpProvider, $provide) {
+
         $httpProvider.interceptors.push('APIInterceptor');
 
         $stateProvider .state('ads',{
-            url:'/promos',
+            url:'/promos/:id',
             controller: 'AdListController',
             controllerAs: 'vm',
             templateUrl: 'partials/promos/list.html',
@@ -14,7 +16,7 @@
                 authorizedRoles:[USER_ROLES.admin, USER_ROLES.editorPlus]
             }
         }).state('canciones',{
-            url:'/canciones',
+            url:'/canciones/:id',
             controller: 'CancionListController',
             controllerAs: 'vm',
             templateUrl: 'partials/canciones/list.html',
@@ -22,7 +24,7 @@
                 authorizedRoles:[USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.editorPlus]
             }
         }).state('categorias',{
-            url:'/categorias',
+            url:'/categorias/:id',
             controller: 'CategoriaListController',
             controllerAs: 'vm',
             templateUrl: 'partials/categorias/list.html',
@@ -30,7 +32,7 @@
                 authorizedRoles:[USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.editorPlus]
             }
         }).state('cuentos',{
-            url:'/cuentos',
+            url:'/cuentos/:id',
             controller: 'CuentoController',
             controllerAs: 'vm',
             templateUrl: 'partials/cuentos/list.html',
@@ -83,6 +85,11 @@
             controllerAs: 'vm',
             templateUrl: 'partials/login.html'
         });
+
+        /*.html5Mode({
+            enabled:true,
+            requireBase:false
+        });*/
     }
 
 })();

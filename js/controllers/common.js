@@ -92,6 +92,15 @@
             $state.go('login');
         });
 
+        $rootScope.addOrUpdateList = addOrUpdateList;
+
+        function addOrUpdateList(array, row, index){
+            if(index<array.length && index>=0)
+                array[index] = row;
+            else
+                array.push(row);
+        }
+
         main.logout = AuthService.logout;
         main.currentUser = UserService.getCurrentUser();
     });

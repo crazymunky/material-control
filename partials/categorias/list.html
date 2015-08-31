@@ -1,9 +1,9 @@
 
-    <dtable options="options" rows="categorias" on-row-click="showEdit(row)" class="material dt">
+    <dtable options="vm.options" rows="vm.categorias" on-row-click="vm.showEdit(row)" class="material dt">
     <column name="Nombre" ></column>
     <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
     <column width="50">
-        <md-button class="md-icon-button" ng-click="delete($row, $event)">
+        <md-button class="md-icon-button" ng-click="vm.delete($row, $event)">
         <md-icon>
             <i class="material-icons" >delete</i>
         </md-icon>
@@ -12,7 +12,7 @@
 </dtable>
 
 
-<md-button class="md-fab agregar" ng-click="showAdd($event)">
+<md-button class="md-fab agregar"  ng-click="vm.showAdd($event)">
     <md-icon>
         <i class="material-icons" >add</i>
     </md-icon>

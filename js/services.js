@@ -1,49 +1,47 @@
 (function(){
     'use strict';
 
-    var module = angular.module('backendApp.services', []);
-
-    module.factory('Ad', function($resource, $rootScope){
+    angular.module("backendApp.services").factory('Ad', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/ads/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Cancion', function($resource, $rootScope){
+    angular.module("backendApp.services").factory('Cancion', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/canciones/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Categoria', function($resource, $rootScope){
+    angular.module("backendApp.services").factory('Categoria', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/categorias/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Cuento', function($resource, $rootScope){
+    angular.module("backendApp.services").factory('Cuento', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/cuentos/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Disco', function($resource, $rootScope){
+    angular.module("backendApp.services").factory('Disco', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/discos/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Evento', function($resource, $rootScope){
+    angular.module("backendApp.services").factory('Evento', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/eventos/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('User', function($resource, $rootScope){
+    angular.module("backendApp.services").factory('User', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/users/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Noticia', function($resource, $rootScope){
+    angular.module("backendApp.services").factory('Noticia', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/noticias/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Video', function($resource, $rootScope){
+    angular.module("backendApp.services").factory('Video', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/videos/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('Tag', function($resource, $rootScope){
+    angular.module("backendApp.services").factory('Tag', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/tags/:id', null, {'update':{method: 'PUT'}});
     });
 
-    module.factory('AuthService', function ($rootScope, $http, UserService) {
+    angular.module("backendApp.services").factory('AuthService', function ($rootScope, $http, UserService) {
         var authService = {};
 
         authService.login = function (credentials) {
@@ -84,26 +82,26 @@
         return authService;
     });
 
-    module.service('UserService', function(store) {
+    angular.module("backendApp.services").service('UserService', function(store) {
         var service = this,
             currentUser = null;
 
         service.setCurrentUser = function(user) {
             currentUser = user;
 
-            store.set('user', user);
+            store.set('user-backend', user);
             return currentUser;
         };
 
         service.getCurrentUser = function() {
             if (!currentUser) {
-                currentUser = store.get('user');
+                currentUser = store.get('user-backend');
             }
             return currentUser;
         };
     });
 
-    module.service('APIInterceptor', function($rootScope, UserService) {
+    angular.module("backendApp.services").service('APIInterceptor', function($rootScope, UserService) {
         var service = this;
 
         service.request = function(config) {
