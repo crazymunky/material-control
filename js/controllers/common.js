@@ -56,6 +56,12 @@
                     roles: [USER_ROLES.admin,USER_ROLES.editor, USER_ROLES.editorPlus]
                 },
                 {
+                    link : 'integrantes',
+                    title: 'Integrantes',
+                    icon: 'account_circle',
+                    roles: [USER_ROLES.admin]
+                },
+                {
                     link : 'noticias',
                     title: 'Noticias',
                     icon: 'new_releases',

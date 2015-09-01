@@ -25,6 +25,10 @@
         return $resource($rootScope.server_url+ '/api/eventos/:id', null, {'update':{method: 'PUT'}});
     });
 
+    angular.module("backendApp.services").factory('Integrante', function($resource, $rootScope){
+        return $resource($rootScope.server_url+ '/api/integrantes/:id', null, {'update':{method: 'PUT'}});
+    });
+
     angular.module("backendApp.services").factory('User', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/users/:id', null, {'update':{method: 'PUT'}});
     });

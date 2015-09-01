@@ -79,6 +79,14 @@
             data:{
                 authorizedRoles:[USER_ROLES.admin]
             }
+        }).state('integrantes',{
+            url:'/integrantes/:id',
+            controller: 'IntegranteListController',
+            controllerAs: 'vm',
+            templateUrl: 'partials/integrantes/list.html',
+            data:{
+                authorizedRoles:[USER_ROLES.admin]
+            }
         }).state('login',{
             url:'/login',
             controller: 'LoginController',
