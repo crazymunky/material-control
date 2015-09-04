@@ -3,6 +3,7 @@
         <column name="Nombre"></column>
         <column name="Tipo">{{$row.type | capitalize}}</column>
         <column name="Duraci&oacute;n">{{$row.duration}}s</column>
+        <column name="Tama&ntilde;o" prop="size">{{$row.size!= "" ? $row.size : ""}}</column>
         <column name="Impresiones"></column>
         <column name="Clicks"></column>
         <column name="Skippable">{{$row.skip_enabled == 1 ? 'Si' : 'No'}}</column>

@@ -3,6 +3,7 @@
     <column name="Autor"></column>
     <column name="Resumen"></column>
     <column name="Categoria">{{$row.categorias[0].nombre}}</column>
+    <column name="Posicion" prop="home_pos">{{$row.home_pos!=0 ? $row.home_pos : "Automatico"}}</column>
     <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
     <column frozenRight="true" width="50">
         <md-button class="md-icon-button" ng-click="delete($row, $event)">

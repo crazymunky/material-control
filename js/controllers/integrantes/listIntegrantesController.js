@@ -81,7 +81,5 @@
                 $state.go("integrantes",{id:''}, {notify:false});
             });
         };
-
-
     }
 })();

@@ -1,8 +1,8 @@
 <md-dialog xmlns:display="http://www.w3.org/1999/xhtml" class="md-whiteframe-z2" >
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2 ng-if="!vm.edit">Agregar categoria</h2>
-            <h2 ng-if="vm.edit">Editar categoria</h2>
+            <h2 ng-if="!vm.edit">Agregar ad</h2>
+            <h2 ng-if="vm.edit">Editar ad</h2>
         </div>
     </md-toolbar>
     <md-dialog-content>
@@ -22,6 +22,19 @@
                     </div>
                 </md-input-container>
             </div>
+            <md-input-container flex>
+                <label>Link</label>
+                <input name="nombre" ng-model="vm.ad.cta" required/>
+                <div ng-disabled="submitting" ng-messages="adForm.cta.$error" ng-show="(adForm.cta.$dirty || vm.attempted)">
+                    <div ng-message="required">Debes completar este campo.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <md-select ng-disabled="vm.submitting" name="disco" placeholder="Sin disco" ng-model="vm.ad.size" required>
+                    <md-option value="" >Sin tamaño</md-option>
+                    <md-option ng-value="size" ng-repeat="size in vm.sizes">{{size}}</md-option>
+                </md-select>
+            </md-input-container>
             <md-input-container>
                 <md-checkbox ng-disabled="submitting" ng-model="vm.ad.skip_enabled" ng-true-value="1" ng-false-value="0" aria-label="Skipable">
                     Skipable
@@ -36,9 +49,12 @@
                     </div>
 
                     <div class="previews" ng-if="vm.ad.source">
-                        <img ng-if="$root.isType('image', vm.ad.type, vm.ad.source)" ngf-src="vm.ad.source" ngf-accept="'image/*'"/>
-                        <video ng-if="$root.isType('video', vm.ad.type, vm.ad.source)" controls ngf-src="vm.ad.source" ngf-accept="'video/*'"/>
+                        <a target="_blank" ng-href="{{vm.ad.cta}}">
+                            <img ng-if="$root.isType('image', vm.ad.type, vm.ad.source)" ngf-src="vm.ad.source" ngf-accept="'image/*'"/>
+                            <video ng-if="$root.isType('video', vm.ad.type, vm.ad.source)" controls ngf-src="vm.ad.source" ngf-accept="'video/*'"/>
+                        </a>
                         <p>{{vm.ad.source.name || vm.ad.source}}</p>
+
                     </div>
                 </div>
             </md-input-container>

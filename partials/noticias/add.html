@@ -47,6 +47,7 @@
             </md-input-container>
             <div layout="row">
                 <md-input-container flex>
+                    <label>Video</label>
                     <md-select ng-disabled="submitting" name="video" placeholder="Video" ng-model="noticia.video_id" required>
                         <md-option ng-value="video.id" ng-repeat="video in videos">{{video.nombre}}</md-option>
                     </md-select>
@@ -55,12 +56,29 @@
                     </div>
                 </md-input-container>
                 <md-input-container flex>
+                    <label>Canci&oacute;n</label>
                     <md-select ng-disabled="submitting" name="cancion" placeholder="Canci&oacute;n" ng-model="noticia.cancion_id" required>
                         <md-option ng-value="cancion.id" ng-repeat="cancion in canciones">{{cancion.nombre}}</md-option>
                     </md-select>
                     <div  ng-messages="form.cancion.$error" ng-show="(form.cancion.$dirty || attempted)">
                         <div ng-message="required">Debes seleccionar una canci&oacute;n.</div>
                     </div>
+                </md-input-container>
+
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Banner</label>
+                    <md-select ng-disabled="submitting"  ng-model="noticia.ad_id">
+                        <md-option value="{{ad.id}}" ng-repeat="ad in ads">{{ad.nombre}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Posicion home</label>
+                    <md-select ng-disabled="submitting" name="home" placeholder="Forzar home" ng-model="noticia.home_pos">
+                        <md-option ng-value="0" >Automatico</md-option>
+                        <md-option ng-value="$index+1" ng-repeat="posicion in posiciones track by $index">{{$index+1}}</md-option>
+                    </md-select>
                 </md-input-container>
             </div>
             <md-input-container>
@@ -98,7 +116,6 @@
                         <img  ngf-src="noticia.imagen" ngf-accept="'image/*'"/>
                         <p >{{noticia.imagen.name || noticia.imagen}}</p>
                     </div>
-                    <md-progress-linear ng-if="progress!=0" class="md-accent" md-mode="determinate" value="{{progress}}">
                 </div>
             </md-input-container>
         </form>
@@ -112,5 +129,5 @@
             Aceptar
         </md-button>
     </div>
-    <md-progress-linear ng-if="vm.submitting || vm.progress!=0" class="md-accent" md-mode="{{vm.progress!=0 ? 'determinate' : 'indeterminate'}}" value="{{vm.progress}}">
+    <md-progress-linear ng-if="submitting || progress!=0" class="md-accent" md-mode="{{progress!=0 ? 'determinate' : 'indeterminate'}}" value="{{progress}}">
 </md-dialog>
