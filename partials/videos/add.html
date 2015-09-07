@@ -1,4 +1,4 @@
-<md-dialog class="md-whiteframe-z2" xmlns:display="http://www.w3.org/1999/xhtml" >
+<md-dialog xmlns:display="http://www.w3.org/1999/xhtml" class="md-whiteframe-z2" >
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2 ng-if="!edit">Agregar video</h2>
@@ -15,6 +15,7 @@
                 </div>
             </md-input-container>
             <md-input-container flex>
+                <label>Ad</label>
                 <md-select ng-disabled="submitting" name="ad" placeholder="Sin ad" ng-model="video.ad_id">
                     <md-option value="0" >Sin ad</md-option>
                     <md-option ng-value="ad.id" ng-repeat="ad in ads">{{ad.nombre}}</md-option>

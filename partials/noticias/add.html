@@ -1,4 +1,4 @@
-<md-dialog xmlns:display="http://www.w3.org/1999/xhtml" class="md-whiteframe-z2" >
+<md-dialog xmlns:display="http://www.w3.org/1999/xhtml" class="md-whiteframe-z2"  id="dialog-noticia">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2 ng-if="!edit">Agregar noticia</h2>
@@ -23,29 +23,16 @@
                     </div>
                 </md-input-container>
             </div>
-            <md-input-container>
-                <md-select ng-disabled="submitting" name="categoria" placeholder="Categoria" ng-model="noticia.categoria_id" required>
-                    <md-option ng-value="categoria.id" ng-repeat="categoria in categorias">{{categoria.nombre}}</md-option>
-                </md-select>
-                <div ng-messages="form.categoria.$error" ng-show="(form.categoria.$dirty || attempted)">
-                    <div ng-message="required">Debes seleccionar una categoria.</div>
-                </div>
-            </md-input-container>
-            <md-input-container>
-                <label>Resumen</label>
-                <textarea ng-disabled="submitting"  name="resumen" ng-model="noticia.resumen" required></textarea>
-                <div ng-messages="form.resumen.$error" ng-show="(form.resumen.$dirty || attempted)">
-                    <div ng-message="required">Debes completar este campo.</div>
-                </div>
-            </md-input-container>
-            <md-input-container>
-                <label>Contenido </label>
-                <textarea ng-disabled="submitting" name="contenido" ng-model="noticia.contenido" required></textarea>
-                <div  ng-messages="form.contenido.$error" ng-show="(form.contenido.$dirty || attempted)">
-                    <div ng-message="required">Debes completar este campo.</div>
-                </div>
-            </md-input-container>
             <div layout="row">
+                <md-input-container flex>
+                    <label>Categoria</label>
+                    <md-select ng-disabled="submitting" name="categoria" placeholder="Categoria" ng-model="noticia.categoria_id" required>
+                        <md-option ng-value="categoria.id" ng-repeat="categoria in categorias">{{categoria.nombre}}</md-option>
+                    </md-select>
+                    <div ng-messages="form.categoria.$error" ng-show="(form.categoria.$dirty || attempted)">
+                        <div ng-message="required">Debes seleccionar una categoria.</div>
+                    </div>
+                </md-input-container>
                 <md-input-container flex>
                     <label>Video</label>
                     <md-select ng-disabled="submitting" name="video" placeholder="Video" ng-model="noticia.video_id" required>
@@ -64,8 +51,21 @@
                         <div ng-message="required">Debes seleccionar una canci&oacute;n.</div>
                     </div>
                 </md-input-container>
-
             </div>
+            <md-input-container>
+                <label>Resumen</label>
+                <textarea ng-disabled="submitting"  name="resumen" ng-model="noticia.resumen" required></textarea>
+                <div ng-messages="form.resumen.$error" ng-show="(form.resumen.$dirty || attempted)">
+                    <div ng-message="required">Debes completar este campo.</div>
+                </div>
+            </md-input-container>
+            <md-input-container>
+                <label>Contenido </label>
+                <textarea ng-disabled="submitting" name="contenido" ng-model="noticia.contenido" required></textarea>
+                <div  ng-messages="form.contenido.$error" ng-show="(form.contenido.$dirty || attempted)">
+                    <div ng-message="required">Debes completar este campo.</div>
+                </div>
+            </md-input-container>
             <div layout="row">
                 <md-input-container flex>
                     <label>Banner</label>
@@ -80,21 +80,22 @@
                         <md-option ng-value="$index+1" ng-repeat="posicion in posiciones track by $index">{{$index+1}}</md-option>
                     </md-select>
                 </md-input-container>
+                <md-input-container flex>
+                    <label>CTA link (vacio para link a la noticia)</label>
+                    <input name="cta_link" ng-model="noticia.cta_link" ng-disabled="submitting"/>
+                    <div ng-messages="form.cta_link.$error" ng-show="(form.cta_link.$dirty || attempted)">
+                        <div ng-message="required">Debes completar este campo.</div>
+                    </div>
+                </md-input-container>
             </div>
-            <md-input-container>
-                <label>CTA link (vacio para link a la noticia)</label>
-                <input name="cta_link" ng-model="noticia.cta_link" ng-disabled="submitting"/>
-                <div ng-messages="form.cta_link.$error" ng-show="(form.cta_link.$dirty || attempted)">
-                    <div ng-message="required">Debes completar este campo.</div>
-                </div>
-            </md-input-container>
-            <md-chips ng-model="noticia.tags" md-on-append="newTag($chip)" >
+
+            <md-chips ng-model="noticia.tags" md-on-append="newTag($chip)" flex>
                 <md-autocomplete
                         md-selected-item="selectedTag"
                         md-search-text="searchText"
                         md-items="item in querySearch(searchText)"
                         md-item-text="item.nombre"
-                        placeholder="Search for a tag">
+                        placeholder="Search or enter a new tag">
                     <span md-highlight-text="searchText">{{item.nombre}}</span>
                 </md-autocomplete>
                 <md-chip-template>

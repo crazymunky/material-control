@@ -163,7 +163,7 @@ md-input-container input {
 
 md-chips-wrap.md-chips.ng-scope {
   margin-bottom: 20px;
-  max-width: 490px;
+  max-width: 99.1%;
 }
 
 .md-dialog-container {
@@ -182,4 +182,9 @@ md-progress-linear md-container {
 
 md-list {
   overflow-y: auto;
+}
+
+md-dialog-content#dialog-noticia {
+  width: calc(100vw - 48px);
+  height: 100vh;
 }

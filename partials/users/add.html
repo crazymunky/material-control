@@ -44,7 +44,8 @@
                 </md-input-container>
             </div>
             <md-input-container>
-                <md-select ng-disabled="submitting" name="rol" placeholder="Sin rol" ng-model="user.rol" required>
+                <label for="rol">Rol</label>
+                <md-select ng-disabled="submitting" name="rol" ng-model="user.rol" required>
                     <md-option ng-value="rol" ng-repeat="(rol, nombre) in roles">{{nombre}}</md-option>
                 </md-select>
                 <div ng-messages="form.rol.$error" ng-show="(form.rol.$dirty || attempted)">

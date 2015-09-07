@@ -1,7 +1,8 @@
-<md-dialog xmlns:display="http://www.w3.org/1999/xhtml" class="md-whiteframe-z2" >
+<md-dialog class="md-whiteframe-z2">
     <md-toolbar>
         <div class="md-toolbar-tools">
             <h2 ng-if="!vm.edit">Agregar ad</h2>
+
             <h2 ng-if="vm.edit">Editar ad</h2>
         </div>
     </md-toolbar>
@@ -38,48 +39,69 @@
                 <md-input-container flex>
                     <label>Nombre</label>
                     <input name="nombre" ng-model="vm.ad.nombre" required/>
-                    <div ng-disabled="submitting" ng-messages="adForm.nombre.$error" ng-show="(adForm.nombre.$dirty || vm.attempted)">
+
+                    <div ng-disabled="submitting" ng-messages="adForm.nombre.$error"
+                         ng-show="(adForm.nombre.$dirty || vm.attempted)">
                         <div ng-message="required">Debes completar este campo.</div>
                     </div>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Duraci&oacute;n (segundos)</label>
                     <input ng-disabled="submitting" type="number" name="duracion" ng-model="vm.ad.duration"/>
+
                     <div ng-messages="adForm.duracion.$error" ng-show="(adForm.duracion.$dirty || vm.attempted)">
                     </div>
                 </md-input-container>
+                <md-input-container flex>
+                    <label>Colocar en home</label>
+                    <md-select ng-disabled="vm.submitting" name="home_pos" ng-model="vm.ad.home_pos">
+                        <md-option value="0">No</md-option>
+                        <md-option value="{{$index}}" ng-repeat="i in vm.posiciones">{{$index}}</md-option>
+                    </md-select>
+                </md-input-container>
             </div>
-            <md-input-container flex>
-                <label>Link</label>
-                <input name="cta" ng-model="vm.ad.cta" required/>
-                <div ng-disabled="submitting" ng-messages="adForm.cta.$error" ng-show="(adForm.cta.$dirty || vm.attempted)">
-                    <div ng-message="required">Debes completar este campo.</div>
-                </div>
-            </md-input-container>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Link</label>
+                    <input name="cta" ng-model="vm.ad.cta" required/>
+                    <div ng-disabled="submitting" ng-messages="adForm.cta.$error"
+                         ng-show="(adForm.cta.$dirty || vm.attempted)">
+                        <div ng-message="required">Debes completar este campo.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Size</label>
+                    <md-select ng-disabled="vm.submitting" name="size" ng-model="vm.ad.size">
+                        <md-option value="">Sin tamaño</md-option>
+                        <md-option ng-value="size" ng-repeat="size in vm.sizes">{{size}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
             <md-input-container>
-                <md-select ng-disabled="vm.submitting" name="disco" placeholder="Sin disco" ng-model="vm.ad.size" required>
-                    <md-option value="" >Sin tamaño</md-option>
-                    <md-option ng-value="size" ng-repeat="size in vm.sizes">{{size}}</md-option>
-                </md-select>
-            </md-input-container>
-            <md-input-container>
-                <md-checkbox ng-disabled="submitting" ng-model="vm.ad.skip_enabled" ng-true-value="1" ng-false-value="0" aria-label="Skipable">
+                <md-checkbox ng-disabled="submitting" ng-model="vm.ad.skip_enabled" ng-true-value="1" ng-false-value="0"
+                             aria-label="Skipable">
                     Skipable
                 </md-checkbox>
             </md-input-container>
             <md-input-container>
                 <div class="upload-container">
-                    <md-button ngf-change="vm.fileChange()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="source" ng-model="vm.ad.source" required ngf-select="" ngf-accept="'image/*,video/*'">Subir fuente</md-button>
+                    <md-button ngf-change="vm.fileChange()" ng-disabled="submitting" class="md-raised md-primary file"
+                               type="file" name="source" ng-model="vm.ad.source" required ngf-select=""
+                               ngf-accept="'image/*,video/*'">Subir fuente
+                    </md-button>
 
                     <div ng-messages="adForm.source.$error" ng-show="(adForm.source.$dirty || vm.attempted)">
-                        <div ng-message="required">Debe subir un archivo </div>
+                        <div ng-message="required">Debe subir un archivo</div>
                     </div>
 
                     <div class="previews" ng-if="vm.ad.source">
                         <a target="_blank" ng-href="{{vm.ad.cta}}">
-                            <img ng-if="$root.isType('image', vm.ad.type, vm.ad.source)" ngf-src="vm.ad.source" ngf-accept="'image/*'"/>
-                            <video ng-if="$root.isType('video', vm.ad.type, vm.ad.source)" controls ngf-src="vm.ad.source" ngf-accept="'video/*'"/>
+                            <img ng-if="$root.isType('image', vm.ad.type, vm.ad.source)" ngf-src="vm.ad.source"
+                                 ngf-accept="'image/*'"/>
+                            <video ng-if="$root.isType('video', vm.ad.type, vm.ad.source)" controls
+                                   ngf-src="vm.ad.source" ngf-accept="'video/*'"/>
                         </a>
+
                         <p>{{vm.ad.source.name || vm.ad.source}}</p>
 
                     </div>
@@ -89,12 +111,13 @@
     </md-dialog-content>
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-disabled="submitting"  ng-click="vm.hide()" class="md-secondary">
+        <md-button ng-disabled="submitting" ng-click="vm.hide()" class="md-secondary">
             Cancelar
         </md-button>
-        <md-button ng-disabled="submitting"  ng-click="vm.submit()" class="md-primary">
+        <md-button ng-disabled="submitting" ng-click="vm.submit()" class="md-primary">
             Aceptar
         </md-button>
     </div>
-    <md-progress-linear ng-if="vm.submitting || vm.progress!=0" class="md-accent" md-mode="{{vm.progress!=0 ? 'determinate' : 'indeterminate'}}" value="{{vm.progress}}">
+    <md-progress-linear ng-if="vm.submitting || vm.progress!=0" class="md-accent"
+                        md-mode="{{vm.progress!=0 ? 'determinate' : 'indeterminate'}}" value="{{vm.progress}}">
 </md-dialog>
