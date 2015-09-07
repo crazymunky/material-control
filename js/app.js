@@ -57,7 +57,7 @@
         $rootScope.upload_url = $rootScope.server_url + '/api/upload';
 
         $rootScope.isType = function (type, strType, file) {
-            console.log(type, strType, file);
+            //console.log(type, strType, file);
             var isType = false;
             if (strType == type)
                 isType = true;

@@ -6,6 +6,33 @@
         </div>
     </md-toolbar>
     <md-dialog-content>
+        <div ng-if="vm.edit" class="info">
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Impresiones</label>
+                    <input disabled ng-model="vm.ad.impresiones"/>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Clicks</label>
+                    <input disabled ng-model="vm.ad.clicks"/>
+                </md-input-container>
+            </div>
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Reproducciones</label>
+                    <input disabled ng-model="vm.ad.timesPlayed"/>
+                </md-input-container>
+
+                <md-input-container flex>
+                    <label>Skipped</label>
+                    <input disabled ng-model="vm.ad.timesSkipped"/>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Avg. Time(s)</label>
+                    <input disabled ng-model="vm.ad.avgPlayed"/>
+                </md-input-container>
+            </div>
+        </div>
         <form name="adForm">
             <div layout="row">
                 <md-input-container flex>
@@ -24,7 +51,7 @@
             </div>
             <md-input-container flex>
                 <label>Link</label>
-                <input name="nombre" ng-model="vm.ad.cta" required/>
+                <input name="cta" ng-model="vm.ad.cta" required/>
                 <div ng-disabled="submitting" ng-messages="adForm.cta.$error" ng-show="(adForm.cta.$dirty || vm.attempted)">
                     <div ng-message="required">Debes completar este campo.</div>
                 </div>
