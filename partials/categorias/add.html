@@ -9,7 +9,7 @@
         <form name="form">
             <md-input-container>
                 <label>Nombre</label>
-                <input ng-disabled="submitting" name="nombre" ng-model="vm.categoria.nombre" required/>
+                <input ng-disabled="vm.submitting" name="nombre" ng-model="vm.categoria.nombre" required/>
                 <div ng-messages="form.nombre.$error" ng-show="(form.nombre.$dirty || attempted)">
                     <div ng-message="required">Debes completar este campo.</div>
                 </div>
@@ -18,12 +18,12 @@
     </md-dialog-content>
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-disabled="submitting"  ng-click="vm.hide()" class="md-secondary">
+        <md-button ng-disabled="vm.submitting"  ng-click="vm.hide()" class="md-secondary">
             Cancelar
         </md-button>
-        <md-button ng-disabled="submitting"  ng-click="vm.submit()" class="md-primary">
+        <md-button ng-disabled="vm.submitting"  ng-click="vm.submit()" class="md-primary">
             Aceptar
         </md-button>
     </div>
-    <md-progress-linear ng-if="vm.submitting || vm.progress!=0" class="md-accent" md-mode="{{vm.progress!=0 ? 'determinate' : 'indeterminate'}}" value="{{vm.progress}}">
+    <md-progress-linear ng-if="vm.submitting" class="md-accent" md-mode="indeterminate">
 </md-dialog>

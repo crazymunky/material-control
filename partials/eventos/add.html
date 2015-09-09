@@ -36,6 +36,7 @@
                 </md-input-container>
                 <md-input-container flex>
                     <label>Fecha</label>
+                    <!--md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker-->
                     <input ng-disabled="submitting" name="fecha" ng-model="evento.fecha" type="date" required/>
                     <div ng-disabled="submitting" ng-messages="form.fecha.$error" ng-show="(form.fecha.$dirty || attempted)">
                         <div ng-message="required">Debes completar este campo.</div>

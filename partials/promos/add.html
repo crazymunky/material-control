@@ -56,23 +56,22 @@
                     <label>Colocar en home</label>
                     <md-select ng-disabled="vm.submitting" name="home_pos" ng-model="vm.ad.home_pos">
                         <md-option value="0">No</md-option>
-                        <md-option value="{{$index}}" ng-repeat="i in vm.posiciones">{{$index}}</md-option>
+                        <md-option value="{{$index+1}}" ng-repeat="i in vm.posiciones">{{$index+1}}</md-option>
                     </md-select>
                 </md-input-container>
             </div>
             <div layout="row">
                 <md-input-container flex>
                     <label>Link</label>
-                    <input name="cta" ng-model="vm.ad.cta" required/>
+                    <input name="cta" ng-model="vm.ad.cta"/>
                     <div ng-disabled="submitting" ng-messages="adForm.cta.$error"
                          ng-show="(adForm.cta.$dirty || vm.attempted)">
-                        <div ng-message="required">Debes completar este campo.</div>
                     </div>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Size</label>
                     <md-select ng-disabled="vm.submitting" name="size" ng-model="vm.ad.size">
-                        <md-option value="">Sin tamaño</md-option>
+                        <md-option value="">Sin tama&ntilde;o</md-option>
                         <md-option ng-value="size" ng-repeat="size in vm.sizes">{{size}}</md-option>
                     </md-select>
                 </md-input-container>
@@ -89,21 +88,17 @@
                                type="file" name="source" ng-model="vm.ad.source" required ngf-select=""
                                ngf-accept="'image/*,video/*'">Subir fuente
                     </md-button>
-
                     <div ng-messages="adForm.source.$error" ng-show="(adForm.source.$dirty || vm.attempted)">
                         <div ng-message="required">Debe subir un archivo</div>
                     </div>
-
                     <div class="previews" ng-if="vm.ad.source">
-                        <a target="_blank" ng-href="{{vm.ad.cta}}">
+                        <a target="_blank" ng-href="http://{{vm.ad.cta}}">
                             <img ng-if="$root.isType('image', vm.ad.type, vm.ad.source)" ngf-src="vm.ad.source"
                                  ngf-accept="'image/*'"/>
                             <video ng-if="$root.isType('video', vm.ad.type, vm.ad.source)" controls
                                    ngf-src="vm.ad.source" ngf-accept="'video/*'"/>
                         </a>
-
                         <p>{{vm.ad.source.name || vm.ad.source}}</p>
-
                     </div>
                 </div>
             </md-input-container>

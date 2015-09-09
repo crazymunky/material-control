@@ -40,7 +40,7 @@
                 authorizedRoles:[USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.editorPlus]
             }
         }).state('discos',{
-            url:'/discos',
+            url:'/discos/:id',
             controller: 'DiscoListController',
             controllerAs: 'vm',
             templateUrl: 'partials/discos/list.html',

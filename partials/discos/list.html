@@ -1,17 +1,17 @@
-<dtable options="options" rows="discos" class="material dt" on-row-click="showEdit(row)">
+<dtable options="vm.options" rows="vm.discos" class="material dt" on-row-click="vm.showEdit(row)">
     <column name="Nombre"></column>
     <column name="Descripci&oacute;n">{{$row.descripcion}}</column>
     <column name="Cant. Canciones">{{$row.canciones.length}}</column>
     <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
     <column frozenRight="true" width="50">
-        <md-button class="md-icon-button" ng-click="delete($row, $event)">
+        <md-button class="md-icon-button" ng-click="vm.delete($row, $event)">
             <md-icon>
                 <i class="material-icons" >delete</i>
             </md-icon>
         </md-button>
     </column>
 </dtable>
-<md-button class="md-fab agregar" ng-click="showAdd($event)">
+<md-button class="md-fab agregar" ng-click="vm.showAdd($event)">
     <md-icon>
         <i class="material-icons" >add</i>
     </md-icon>
