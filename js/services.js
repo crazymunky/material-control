@@ -13,6 +13,10 @@
         return $resource($rootScope.server_url+ '/api/categorias/:id', null, {'update':{method: 'PUT'}});
     });
 
+    angular.module("backendApp.services").factory('Comentario', function($resource, $rootScope){
+        return $resource($rootScope.server_url+ '/api/comentarios/:id', null, {'update':{method: 'PUT'}});
+    });
+
     angular.module("backendApp.services").factory('Cuento', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/cuentos/:id', null, {'update':{method: 'PUT'}});
     });

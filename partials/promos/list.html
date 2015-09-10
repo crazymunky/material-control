@@ -1,20 +1,20 @@
 <dtable options="vm.options" rows="vm.ads" class="material dt" on-row-click="vm.showEdit(row)" title-overflow-header="truncateColumnNames">
-        <column name="Nombre"></column>
-        <column name="Tipo">{{$row.type | capitalize}}</column>
-        <column name="Duraci&oacute;n">{{$row.duration}}s</column>
-        <column name="Tama&ntilde;o" prop="size">{{$row.size!= "" ? $row.size : ""}}</column>
-        <column name="Skippable">{{$row.skip_enabled == 1 ? 'Si' : 'No'}}</column>
-        <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
-        <column frozenRight="true" width="50">
-            <md-button class="md-icon-button" ng-click="vm.delete($row, $event)">
-                <md-tooltip>
-                    Borrar
-                </md-tooltip>
-                <md-icon>
-                    <i class="material-icons" >delete</i>
-                </md-icon>
-            </md-button>
-        </column>
+    <column name="Nombre"></column>
+    <column name="Tipo">{{$row.type | capitalize}}</column>
+    <column name="Skip">{{$row.skip_enabled == 1 ? 'Si' : 'No'}}</column>
+    <column name="Tiempo skip">{{$row.skip_enabled==1? $row.duration+"s": ""}}</column>
+    <column name="Tama&ntilde;o" prop="size">{{$row.size!= "" ? $row.size : ""}}</column>
+    <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
+    <column frozenRight="true" width="50">
+        <md-button class="md-icon-button" ng-click="vm.delete($row, $event)">
+            <md-tooltip>
+                Borrar
+            </md-tooltip>
+            <md-icon>
+                <i class="material-icons" >delete</i>
+            </md-icon>
+        </md-button>
+    </column>
 </dtable>
 <md-button class="md-fab agregar" ng-click="vm.showAdd($event)">
     <md-tooltip md-direction="left">

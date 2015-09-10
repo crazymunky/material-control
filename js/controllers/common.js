@@ -38,6 +38,12 @@
                     roles: [USER_ROLES.admin,USER_ROLES.editor, USER_ROLES.editorPlus]
                 },
                 {
+                    link : 'comentarios',
+                    title: 'Comentarios',
+                    icon: 'book',
+                    roles: [USER_ROLES.admin,USER_ROLES.editor, USER_ROLES.editorPlus]
+                },
+                {
                     link : 'cuentos',
                     title: 'Cuentos',
                     icon: 'book',

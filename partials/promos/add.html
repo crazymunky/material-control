@@ -4,7 +4,14 @@
             <h2 ng-if="!vm.edit">Agregar ad</h2>
 
             <h2 ng-if="vm.edit">Editar ad</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.hide()">
+                <md-icon>
+                    <i class="material-icons" >clear</i>
+                </md-icon>
+            </md-button>
         </div>
+
     </md-toolbar>
     <md-dialog-content>
         <div ng-if="vm.edit" class="info">
@@ -46,13 +53,6 @@
                     </div>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>Duraci&oacute;n (segundos)</label>
-                    <input ng-disabled="submitting" type="number" name="duracion" ng-model="vm.ad.duration"/>
-
-                    <div ng-messages="adForm.duracion.$error" ng-show="(adForm.duracion.$dirty || vm.attempted)">
-                    </div>
-                </md-input-container>
-                <md-input-container flex>
                     <label>Colocar en home</label>
                     <md-select ng-disabled="vm.submitting" name="home_pos" ng-model="vm.ad.home_pos">
                         <md-option value="0">No</md-option>
@@ -69,24 +69,33 @@
                     </div>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>Size</label>
+                    <label>Tama&ntilde;o</label>
                     <md-select ng-disabled="vm.submitting" name="size" ng-model="vm.ad.size">
                         <md-option value="">Sin tama&ntilde;o</md-option>
                         <md-option ng-value="size" ng-repeat="size in vm.sizes">{{size}}</md-option>
                     </md-select>
                 </md-input-container>
             </div>
-            <md-input-container>
+            <div layout="row" ng-if="$root.isType('video', vm.ad.type, vm.ad.source)">
+            <md-input-container  flex>
                 <md-checkbox ng-disabled="submitting" ng-model="vm.ad.skip_enabled" ng-true-value="1" ng-false-value="0"
                              aria-label="Skipable">
                     Skipable
                 </md-checkbox>
             </md-input-container>
+            <md-input-container flex ng-if="vm.ad.skip_enabled==1">
+                <label>Tiempo para skip</label>
+                <input ng-disabled="submitting" type="number" name="duracion" ng-model="vm.ad.duration"/>
+
+                <div ng-messages="adForm.duracion.$error" ng-show="(adForm.duracion.$dirty || vm.attempted)">
+                </div>
+            </md-input-container>
+            </div>
             <md-input-container>
                 <div class="upload-container">
                     <md-button ngf-change="vm.fileChange()" ng-disabled="submitting" class="md-raised md-primary file"
                                type="file" name="source" ng-model="vm.ad.source" required ngf-select=""
-                               ngf-accept="'image/*,video/*'">Subir fuente
+                               >Subir fuente
                     </md-button>
                     <div ng-messages="adForm.source.$error" ng-show="(adForm.source.$dirty || vm.attempted)">
                         <div ng-message="required">Debe subir un archivo</div>
