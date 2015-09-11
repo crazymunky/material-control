@@ -1,0 +1,27 @@
+{
+  "name": "material-control",
+  "version": "1.0.0",
+  "main": "app.concat.js",
+  "dependencies": {
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-sass": "^2.0.4",
+    "gulp": "^3.9.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crazymunky/material-control.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/crazymunky/material-control/issues"
+  },
+  "homepage": "https://github.com/crazymunky/material-control#readme",
+  "description": ""
+}
