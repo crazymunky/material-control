@@ -7,7 +7,7 @@
         function($scope, Comentario, $mdDialog, $mdToast){
             var data;
 
-            Comentario.query().$promise.then(function(response){$scope.cuentos = data = response;});
+            Comentario.query().$promise.then(function(response){$scope.comentarios = data = response;$scope.filter();});
             $scope.hide = $mdDialog.hide;
 
             $scope.options = {
@@ -28,25 +28,26 @@
             $scope.filter = function(newVal) {
                 if(!data)return;
                 if(!$scope.filters.aprobados &&!$scope.filters.pendientes && !$scope.filters.rechazados)
-                    $scope.cuentos = data;
+                    $scope.comentarios = [];
                 else
-                    $scope.cuentos = data.filter(function(d) {
+                    $scope.comentarios = data.filter(function(d) {
                         var aprobado = d.aprobado;
-
+                        var retorno = false;
                         switch(aprobado){
                             case 1:
-                                var retorno = $scope.filters.aprobados;
+                                retorno = $scope.filters.aprobados;
                                 break;
                             case 0:
-                                var retorno = $scope.filters.rechazados;
+                                retorno = $scope.filters.rechazados;
                                 break;
                             case -1:
-                                var retorno = $scope.filters.pendientes;
+                                retorno = $scope.filters.pendientes;
                                 break;
                         }
                         return retorno;
                     });
             };
+
 
             $scope.$watch('filters', $scope.filter , true);
 
@@ -58,8 +59,8 @@
                         $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
                     else {
                         $mdToast.show($mdToast.simple().content(response.message));
-                        var index = $scope.cuentos.indexOf(row);
-                        $scope.cuentos.splice(index, 1);
+                        var index = $scope.comentarios.indexOf(row);
+                        $scope.comentarios.splice(index, 1);
                         data.splice(index, 1);
                 }
                 });
@@ -84,7 +85,7 @@
             $scope.showEdit = function(row){
                 $scope.selectedItem = row;
                 $mdDialog.show({
-                    templateUrl: 'partials/cuentos/add.html',
+                    templateUrl: 'partials/comentarios/add.html',
                     parent: angular.element(document.body),
                     scope: $scope.$new(),
                     controller: ShowComentarioController
@@ -92,8 +93,8 @@
             };
 
             function ShowComentarioController($scope, $mdDialog){
-                console.log("INIT");
-                $scope.cuento = $scope.selectedItem;
+                $scope.comentario = $scope.selectedItem;
+                console.log("INIT", $scope.comentario);
             }
         }
     ]);

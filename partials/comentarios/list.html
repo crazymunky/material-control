@@ -10,11 +10,11 @@
     </md-checkbox>
 </div>
 
-<dtable options="options" rows="cuentos" class="material dt" on-row-click="showEdit(row)">
+<dtable options="options" rows="comentarios" class="material dt" on-row-click="showEdit(row)">
     <!--column><img ng-src="{{row.imagen}}" /></column-->
-    <column name="Usuario">{{$row.nombre}}</column>
-    <column name="Apellido"></column>
-    <column name="Email"></column>
+    <column name="Usuario">{{$row.siteuser.nombre}}</column>
+    <column name="Noticia">{{$row.noticia.headline}}</column>
+    <column name="Comentario">{{$row.texto}}</column>
     <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
     <column name="Estado" prop="aprobado" >{{$cell === 1 ? "Aprobado" : ($cell === 0 ? "Rechazado" : "Pendiente")}}</column>
     <column name="" prop="id"  width="100">

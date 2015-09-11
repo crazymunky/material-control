@@ -147,6 +147,10 @@ md-select .md-select-label{
     right: 0;
     top: 1px;
   }
+  .holder-btn button + button {
+    right: 40px!important;
+  }
+
 }
 
 form > md-input-container:last-child:not(:only-child) {
