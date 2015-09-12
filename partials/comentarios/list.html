@@ -12,7 +12,7 @@
 
 <dtable options="options" rows="comentarios" class="material dt" on-row-click="showEdit(row)">
     <!--column><img ng-src="{{row.imagen}}" /></column-->
-    <column name="Usuario">{{$row.siteuser.nombre}}</column>
+    <column name="Usuario">{{$row.nombre}}</column>
     <column name="Noticia">{{$row.noticia.headline}}</column>
     <column name="Comentario">{{$row.texto}}</column>
     <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>

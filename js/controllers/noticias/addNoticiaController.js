@@ -3,7 +3,7 @@
  */
 (function() {
     'use strict';
-       angular.module('backendApp.controllers').controller('AddNoticiaController',['$rootScope','$scope','$mdToast', '$mdDialog', 'Noticia','Categoria','Video','Cancion','Ad', 'Upload','Tag',
+    angular.module('backendApp.controllers').controller('AddNoticiaController',['$rootScope','$scope','$mdToast', '$mdDialog', 'Noticia','Categoria','Video','Cancion','Ad', 'Upload','Tag',
         function($rootScope,$scope,$mdToast, $mdDialog, Noticia, Categoria, Video, Cancion, Ad, Upload, Tag){
             if($scope.selectedItem!= undefined) {
                 $scope.noticia = $scope.selectedItem;
@@ -87,9 +87,12 @@
                     $scope.submitting = false;
                     $scope.noticia = response;
                     $scope.noticia.fecha = new Date($scope.noticia.fecha);
-                    $scope.noticia.categoria_id = $scope.noticia.categorias[0].id;
-                    $scope.noticia.video_id = $scope.noticia.video.id;
-                    $scope.noticia.cancion_id = $scope.noticia.cancion.id;
+                    if($scope.noticia.categorias && $scope.noticia.categorias.length > 0)
+                        $scope.noticia.categoria_id = $scope.noticia.categorias[0].id;
+                    if($scope.noticia.video)
+                        $scope.noticia.video_id = $scope.noticia.video.id;
+                    if($scope.noticia.cancion)
+                        $scope.noticia.cancion_id = $scope.noticia.cancion.id;
                     $mdDialog.hide(response);
                 });
             }

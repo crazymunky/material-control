@@ -53,16 +53,25 @@
         function doDelete(row, $event) {
             $event.preventDefault();
             $event.stopPropagation();
-            Disco.delete({id: row.id}).$promise.then(function (response) {
-                if (response.error)
-                    $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
-                else {
-                    $mdToast.show($mdToast.simple().content(response.message));
-                    var index = vm.discos.indexOf(row);
-                    vm.discos.splice(index, 1);
-                }
+            var confirm = $mdDialog.confirm()
+                .content('Esta seguro que desea borrar este elemento')
+                .ok('Borrar')
+                .cancel('Cancelar')
+                .targetEvent($event);
+
+            $mdDialog.show(confirm).then(function(){
+                Noticia.delete({id:row.id}).$promise.then(function(response){
+                    if(response.error)
+                        $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
+                    else {
+                        $mdToast.show($mdToast.simple().content(response.message));
+                        var index = vm.discos.indexOf(row);
+                        vm.discos.splice(index, 1);
+                    }
+                });
             });
-        }
+
+        };
 
 
         function showEdit(row) {

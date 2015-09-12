@@ -56,7 +56,7 @@
                     <label>Colocar en home</label>
                     <md-select ng-disabled="vm.submitting" name="home_pos" ng-model="vm.ad.home_pos">
                         <md-option value="0">No</md-option>
-                        <md-option value="{{$index+1}}" ng-repeat="i in vm.posiciones">{{$index+1}}</md-option>
+                        <md-option value="{{$index+1}}" ng-repeat="i in vm.posiciones">{{$index+1}} {{vm.posiciones_tamano[$index]}}</md-option>
                     </md-select>
                 </md-input-container>
             </div>
@@ -77,25 +77,25 @@
                 </md-input-container>
             </div>
             <div layout="row" ng-if="$root.isType('video', vm.ad.type, vm.ad.source)">
-            <md-input-container  flex>
-                <md-checkbox ng-disabled="submitting" ng-model="vm.ad.skip_enabled" ng-true-value="1" ng-false-value="0"
-                             aria-label="Skipable">
-                    Skipable
-                </md-checkbox>
-            </md-input-container>
-            <md-input-container flex ng-if="vm.ad.skip_enabled==1">
-                <label>Tiempo para skip</label>
-                <input ng-disabled="submitting" type="number" name="duracion" ng-model="vm.ad.duration"/>
+                <md-input-container  flex>
+                    <md-checkbox ng-disabled="submitting" ng-model="vm.ad.skip_enabled" ng-true-value="1" ng-false-value="0"
+                                 aria-label="Skipable">
+                        Skipable
+                    </md-checkbox>
+                </md-input-container>
+                <md-input-container flex ng-if="vm.ad.skip_enabled==1">
+                    <label>Tiempo para skip</label>
+                    <input ng-disabled="submitting" type="number" name="duracion" ng-model="vm.ad.duration"/>
 
-                <div ng-messages="adForm.duracion.$error" ng-show="(adForm.duracion.$dirty || vm.attempted)">
-                </div>
-            </md-input-container>
+                    <div ng-messages="adForm.duracion.$error" ng-show="(adForm.duracion.$dirty || vm.attempted)">
+                    </div>
+                </md-input-container>
             </div>
             <md-input-container>
                 <div class="upload-container">
                     <md-button ngf-change="vm.fileChange()" ng-disabled="submitting" class="md-raised md-primary file"
                                type="file" name="source" ng-model="vm.ad.source" required ngf-select=""
-                               >Subir fuente
+                            >Subir fuente
                     </md-button>
                     <div ng-messages="adForm.source.$error" ng-show="(adForm.source.$dirty || vm.attempted)">
                         <div ng-message="required">Debe subir un archivo</div>

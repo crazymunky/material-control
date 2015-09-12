@@ -36,6 +36,8 @@
             if (!$scope.form.$valid)
                 return false;
 
+            vm.submitting=true;
+            console.log("fileChanged", vm.fileChanged);
             if (vm.fileChanged)
                 uploadAndSave();
             else if (vm.edit)

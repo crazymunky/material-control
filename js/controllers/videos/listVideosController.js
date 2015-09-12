@@ -26,19 +26,28 @@
                 });
             };
 
-            $scope.delete = function(row, $event){
+            $scope.delete = doDelete;
+            function doDelete(row, $event) {
                 $event.preventDefault();
                 $event.stopPropagation();
-                Video.delete({id:row.id}).$promise.then(function(response){
-                    console.log(response);
-                    if(response.error)
-                        $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
-                    else {
-                        $mdToast.show($mdToast.simple().content(response.message));
-                        var index = $scope.videos.indexOf(row);
-                        $scope.videos.splice(index, 1);
-                    }
+                var confirm = $mdDialog.confirm()
+                    .content('Esta seguro que desea borrar este elemento')
+                    .ok('Borrar')
+                    .cancel('Cancelar')
+                    .targetEvent($event);
+
+                $mdDialog.show(confirm).then(function(){
+                    Video.delete({id:row.id}).$promise.then(function(response){
+                        if(response.error)
+                            $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
+                        else {
+                            $mdToast.show($mdToast.simple().content(response.message));
+                            var index = $scope.videos.indexOf(row);
+                            $scope.videos.splice(index, 1);
+                        }
+                    });
                 });
+
             };
 
             $scope.showEdit = function(row){
@@ -65,7 +74,8 @@
 
             if($scope.selectedItem!= undefined) {
                 $scope.video = $scope.selectedItem;
-                $scope.video.ad_id = $scope.video.ad.id;
+                if($scope.video.ad)
+                    $scope.video.ad_id = $scope.video.ad.id;
                 $scope.edit = true;
                 if($scope.video.type=='youtube'){
                     $scope.isLink = true;

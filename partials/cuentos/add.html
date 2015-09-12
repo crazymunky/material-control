@@ -46,9 +46,24 @@
                     </div>
                 </md-input-container>
             </div>
+            <md-input-container >
+                <label>Url</label>
+                <input ng-disabled="submitting" name="url" ng-model="cuento.url" required type="url"/>
+                <div ng-disabled="submitting" ng-messages="form.url.$error" ng-show="(form.url.$dirty || attempted)">
+                    <div ng-message="required">Debes completar este campo.</div>
+                    <div ng-message="email">Debes ingresar un email valido.</div>
+                </div>
+            </md-input-container>
             <md-input-container>
                 <label>Descripci&oacute;n</label>
                 <textarea ng-model="cuento.descripcion"></textarea>
+            </md-input-container>
+            <md-input-container>
+            <div class="previews" ng-if="cuento.file">
+                <img ng-if="cuento.type == 'image'" ngf-src="cuento.file"/>
+                <video controls ngf-src="cuento.file" ng-if="cuento.type=='video'"></video>
+                <p >{{cuento.imagen.name || cuento.imagen}}</p>
+            </div>
             </md-input-container>
             <!--md-input-container>
                 <div class="upload-container">

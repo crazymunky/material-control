@@ -57,6 +57,7 @@
 
             promise.then(function (response) {
                 var data = response.data;
+                console.log("loggin", data);
                 if(data.error){
                     alert("BAD LOGIN");
                 }else {

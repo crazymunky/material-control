@@ -7,7 +7,10 @@
         function($scope, Cuento, $mdDialog, $mdToast){
             var data;
 
-            Cuento.query().$promise.then(function(response){$scope.cuentos = data = response;});
+            Cuento.query().$promise.then(function(response){
+                $scope.cuentos = data = response;
+                console.log($scope.cuentos);
+            });
             $scope.hide = $mdDialog.hide;
 
             $scope.options = {
@@ -26,6 +29,7 @@
             };
 
             $scope.filter = function(newVal) {
+                console.log("filtering");
                 if(!data)return;
                 if(!$scope.filters.aprobados &&!$scope.filters.pendientes && !$scope.filters.rechazados)
                     $scope.cuentos = data;
@@ -46,22 +50,30 @@
                         }
                         return retorno;
                     });
+                console.log($scope.cuentos);
             };
 
             $scope.$watch('filters', $scope.filter , true);
-
-            $scope.delete = function(row, $event){
+            $scope.delete = doDelete;
+            function doDelete(row, $event) {
                 $event.preventDefault();
                 $event.stopPropagation();
-                Cuento.delete({id:row.id}).$promise.then(function(response){
-                    if(response.error)
-                        $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
-                    else {
-                        $mdToast.show($mdToast.simple().content(response.message));
-                        var index = $scope.cuentos.indexOf(row);
-                        $scope.cuentos.splice(index, 1);
-                        data.splice(index, 1);
-                }
+                var confirm = $mdDialog.confirm()
+                    .content('Esta seguro que desea borrar este elemento')
+                    .ok('Borrar')
+                    .cancel('Cancelar')
+                    .targetEvent($event);
+
+                $mdDialog.show(confirm).then(function(){
+                    Cuento.delete({id: row.id}).$promise.then(function (response) {
+                        if (response.error)
+                            $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
+                        else {
+                            $mdToast.show($mdToast.simple().content(response.message));
+                            var index = vm.cuentos.indexOf(row);
+                            vm.cuentos.splice(index, 1);
+                        }
+                    });
                 });
             };
 

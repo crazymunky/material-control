@@ -16,6 +16,7 @@
         vm.fileChanged = false;
         vm.sizes = [ "300x250", "300x600", "728X90", "320x50", "810X550"];
         vm.posiciones = [1, 2, 3];
+        vm.posiciones_tamano = ['(728x90)', '(300x250)', '(728x90)'];
 
         if ($scope.selectedItem != undefined) {
             vm.ad = $scope.selectedItem;

@@ -31,7 +31,8 @@
                 </md-input-container>
             </div>
             <md-input-container>
-                <md-select ng-disabled="vm.submitting" name="disco" placeholder="Sin disco" ng-model="vm.cancion.disco_id" required>
+                <label>Disco</label>
+                <md-select ng-disabled="vm.submitting" name="disco" ng-model="vm.cancion.disco_id" >
                     <md-option value="0" >Sin disco</md-option>
                     <md-option ng-value="disco.id" ng-repeat="disco in vm.discos">{{disco.nombre}}</md-option>
                 </md-select>

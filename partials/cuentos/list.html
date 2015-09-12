@@ -4,7 +4,6 @@
     <column name="Apellido"></column>
     <column name="Email"></column>
     <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
-    <column name="Estado" prop="aprobado" >{{$cell === 1 ? "Aprobado" : ($cell === 0 ? "Rechazado" : "Pendiente")}}</column>
     <column width="50">
         <md-button class="md-icon-button" ng-click="delete($row, $event)">
             <md-icon>

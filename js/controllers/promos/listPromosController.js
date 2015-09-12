@@ -33,7 +33,8 @@
             });
         };
 
-        vm.delete = function (row, $event) {
+        vm.delete = doDelete;
+        function doDelete(row, $event) {
             $event.preventDefault();
             $event.stopPropagation();
             var confirm = $mdDialog.confirm()
@@ -62,7 +63,7 @@
             showEdit(row);
         };
         function showEdit(row) {
-            $scope.selectedItem = row;
+            $scope.selectedItem = angular.copy(row);
             var index = vm.ads.indexOf(row);
             $mdDialog.show({
                 controller: 'AddAdController',

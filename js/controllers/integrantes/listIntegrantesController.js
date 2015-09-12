@@ -43,22 +43,31 @@
                 targetEvent: ev
             }).then(function(newModel){
                 if(newModel!= true)
-                    addOrUpdateList(vm.integrantes, newModel)
+                    $rootScope.addOrUpdateList(vm.integrantes, newModel)
             });
         };
 
-        function doDelete(row, $event){
+        function doDelete(row, $event) {
             $event.preventDefault();
             $event.stopPropagation();
-            Integrante.delete({id:row.id}).$promise.then(function(response){
-                if(response.error)
-                    $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
-                else {
-                    $mdToast.show($mdToast.simple().content(response.message));
-                    var index = vm.integrantes.indexOf(row);
-                    vm.integrantes.splice(index, 1);
-                }
+            var confirm = $mdDialog.confirm()
+                .content('Esta seguro que desea borrar este elemento')
+                .ok('Borrar')
+                .cancel('Cancelar')
+                .targetEvent($event);
+
+            $mdDialog.show(confirm).then(function(){
+                Integrante.delete({id:row.id}).$promise.then(function(response){
+                    if(response.error)
+                        $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
+                    else {
+                        $mdToast.show($mdToast.simple().content(response.message));
+                        var index = vm.integrantes.indexOf(row);
+                        vm.integrantes.splice(index, 1);
+                    }
+                });
             });
+
         };
 
         function navigateToItem(row){

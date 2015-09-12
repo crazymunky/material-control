@@ -52,14 +52,17 @@
             </div>
             <md-input-container>
                 <div class="upload-container">
-                    <md-button ng-disabled="vm.submitting" ngf-change="fileChange()"  class="md-raised md-primary file" type="file" name="cover_img" ng-model="vm.disco.cover_img" required ngf-select="" ngf-accept="'image/*'">Subir cover</md-button>
-                    <div ng-messages="form.cover_img.$error" ng-show="(form.cover_img.$dirty || attempted)">
+                    <md-button ngf-change="vm.fileChange()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="imagen" ng-model="vm.disco.cover_img" required ngf-select="" ngf-accept="'image/*'">
+                        Subir imagen
+                    </md-button>
+                    <div ng-messages="form.imagen.$error" ng-show="(form.imagen.$dirty || attempted)">
                         <div ng-message="required">Debe subir una imagen.</div>
                     </div>
-                    <div class="previews" ng-if="disco.cover_img">
-                        <img  ngf-src="disco.cover_img" ngf-accept="'image/*'"/>
-                        <p ng-if="disco.cover_img">{{disco.cover_img.name || disco.cover_img}}</p>
+                    <div class="previews" ng-if="vm.disco.cover_img">
+                        <img ngf-src="vm.disco.cover_img" ngf-accept="'image/*'"/>
+                        <p >{{vm.disco.cover_img.name || vm.disco.cover_img}}</p>
                     </div>
+                    <md-progress-linear ng-if="progress!=0" class="md-accent" md-mode="determinate" value="{{progress}}">
                 </div>
             </md-input-container>
         </form>

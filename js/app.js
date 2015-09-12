@@ -54,7 +54,8 @@
 
     function appRun($state, $rootScope, UserService, AuthService) {
         //$rootScope.server_url = 'http://192.168.235.153/musica_para_tus_oidos/public';
-        $rootScope.server_url = 'http://stg1.jwtdigitalpr.com/mpto';
+        //$rootScope.server_url = 'http://stg1.jwtdigitalpr.com/mpto';
+       $rootScope.server_url = 'http://musicaparatusoidospr.com';
         $rootScope.upload_url = $rootScope.server_url + '/api/upload';
 
         $rootScope.isType = function (type, strType, file) {

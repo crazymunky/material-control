@@ -22,7 +22,8 @@
 
         if($scope.selectedItem != undefined) {
             vm.cancion = $scope.selectedItem;
-            vm.cancion.disco_id = vm.cancion.disco.id;
+            if(vm.cancion.disco)
+                vm.cancion.disco_id = vm.cancion.disco.id;
             vm.edit = true;
         }else
             vm.cancion = new Cancion();
@@ -30,10 +31,15 @@
         /*******functions*******/
         function submit(){
             vm.attempted = true;
-            vm.submitting = true;
+
             if(!$scope.form.$valid)
                 return false;
+            else
+                console.log("isValid");
 
+            vm.submitting = true;
+
+            console.log(vm.fileChanged);
             if(vm.fileChanged)
                 uploadAndSave();
             else if(vm.edit)
@@ -48,6 +54,7 @@
         };
 
         function uploadAndSave() {
+            console.log("upload");
             Upload.upload({
                 url: $rootScope.upload_url,
                 file: vm.cancion.audio_source

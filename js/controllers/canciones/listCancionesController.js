@@ -5,8 +5,8 @@
     'use strict';
     angular.module('backendApp.controllers').controller('CancionListController',CancionListController);
 
-    CancionListController.$inject = ['$scope', 'Cancion', '$mdDialog','$mdToast', '$stateParams', '$state' ];
-    function CancionListController($scope, Cancion, $mdDialog, $mdToast, $stateParams, $state){
+    CancionListController.$inject = ['$rootScope','$scope', 'Cancion', '$mdDialog','$mdToast', '$stateParams', '$state' ];
+    function CancionListController($rootScope, $scope, Cancion, $mdDialog, $mdToast, $stateParams, $state){
         var vm = this;
         vm.canciones = Cancion.query();
         vm.options = {
@@ -43,22 +43,32 @@
                 targetEvent: ev
             }).then(function(newModel){
                 if(newModel!= true)
-                    addOrUpdateList(vm.canciones, newModel)
+                    $rootScope.addOrUpdateList(vm.canciones, newModel);
             });
         };
 
-        function doDelete(row, $event){
+
+        function doDelete(row, $event) {
             $event.preventDefault();
             $event.stopPropagation();
-            Cancion.delete({id:row.id}).$promise.then(function(response){
-                if(response.error)
-                    $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
-                else {
-                    $mdToast.show($mdToast.simple().content(response.message));
-                    var index = vm.canciones.indexOf(row);
-                    vm.canciones.splice(index, 1);
-                }
+            var confirm = $mdDialog.confirm()
+                .content('Esta seguro que desea borrar este elemento')
+                .ok('Borrar')
+                .cancel('Cancelar')
+                .targetEvent($event);
+
+            $mdDialog.show(confirm).then(function(){
+                Cancion.delete({id: row.id}).$promise.then(function (response) {
+                    if (response.error)
+                        $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
+                    else {
+                        $mdToast.show($mdToast.simple().content(response.message));
+                        var index = vm.canciones.indexOf(row);
+                        vm.canciones.splice(index, 1);
+                    }
+                });
             });
+
         };
 
         function navigateToItem(row){

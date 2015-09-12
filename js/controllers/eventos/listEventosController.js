@@ -28,18 +28,28 @@
                 })
             };
 
-            $scope.delete = function(row, $event){
+            $scope.delete = doDelete;
+            function doDelete(row, $event) {
                 $event.preventDefault();
                 $event.stopPropagation();
-                Evento.delete({id:row.id}).$promise.then(function(response){
-                    if(response.error)
-                        $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
-                    else {
-                        $mdToast.show($mdToast.simple().content(response.message));
-                        var index = $scope.eventos.indexOf(row);
-                        $scope.eventos.splice(index, 1);
-                    }
+                var confirm = $mdDialog.confirm()
+                    .content('Esta seguro que desea borrar este elemento')
+                    .ok('Borrar')
+                    .cancel('Cancelar')
+                    .targetEvent($event);
+
+                $mdDialog.show(confirm).then(function(){
+                    Evento.delete({id:row.id}).$promise.then(function(response){
+                        if(response.error)
+                            $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
+                        else {
+                            $mdToast.show($mdToast.simple().content(response.message));
+                            var index = $scope.eventos.indexOf(row);
+                            $scope.eventos.splice(index, 1);
+                        }
+                    });
                 });
+
             };
 
             $scope.showEdit = function(row){
