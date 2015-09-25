@@ -61,7 +61,7 @@
             <md-input-container>
             <div class="previews" ng-if="cuento.file">
                 <img ng-if="cuento.type == 'image'" ngf-src="cuento.file"/>
-                <video controls ngf-src="cuento.file" ng-if="cuento.type=='video'"></video>
+                <video controls ngf-src="cuento.file" ng-if="cuento.type!='image'"></video>
                 <p >{{cuento.imagen.name || cuento.imagen}}</p>
             </div>
             </md-input-container>

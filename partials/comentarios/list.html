@@ -16,15 +16,15 @@
     <column name="Noticia">{{$row.noticia.headline}}</column>
     <column name="Comentario">{{$row.texto}}</column>
     <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
-    <column name="Estado" prop="aprobado" >{{$cell === 1 ? "Aprobado" : ($cell === 0 ? "Rechazado" : "Pendiente")}}</column>
+    <column name="Estado" prop="aprobado" >{{$row.aprobado === 1 ? "Aprobado" : ($row.aprobado === 0 ? "Rechazado" : "Pendiente")}}</column>
     <column name="" prop="id"  width="100">
         <div class="holder-btn">
-            <md-button class="md-icon-button"  ng-click="approve($row, true, $event)">
+            <md-button class="md-icon-button" ng-if="$row.aprobado!=1" ng-click="approve($row, true, $event)">
                 <md-icon>
                     <i class="material-icons" >done</i>
                 </md-icon>
             </md-button>
-            <md-button class="md-icon-button" ng-click="approve($row, false, $event)">
+            <md-button class="md-icon-button" ng-if="$row.aprobado!=0" ng-click="approve($row, false, $event)">
                 <md-icon>
                     <i class="material-icons" >clear</i>
                 </md-icon>

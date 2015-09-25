@@ -70,8 +70,8 @@
                             $mdToast.show($mdToast.simple().content(response.error).theme("error-toast"));
                         else {
                             $mdToast.show($mdToast.simple().content(response.message));
-                            var index = vm.cuentos.indexOf(row);
-                            vm.cuentos.splice(index, 1);
+                            var index = $scope.cuentos.indexOf(row);
+                            $scope.cuentos.splice(index, 1);
                         }
                     });
                 });

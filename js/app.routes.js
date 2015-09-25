@@ -87,6 +87,14 @@
             data: {
                 authorizedRoles: [USER_ROLES.admin]
             }
+        }).state('siteusers', {
+            url: '/siteusers',
+            controller: 'SiteUserListController',
+            controllerAs: 'vm',
+            templateUrl: 'partials/siteUsers/list.html',
+            data: {
+                authorizedRoles: [USER_ROLES.admin]
+            }
         }).state('integrantes', {
             url: '/integrantes/:id',
             controller: 'IntegranteListController',
@@ -100,6 +108,11 @@
             controller: 'LoginController',
             controllerAs: 'vm',
             templateUrl: 'partials/login.html'
+        }).state('analytics', {
+            url: '/analytics',
+            controller: 'AnalyticsController',
+            controllerAs: 'vm',
+            templateUrl: 'partials/analytics.html'
         });
 
         /*.html5Mode({

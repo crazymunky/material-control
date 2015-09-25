@@ -23,7 +23,7 @@
                     </div>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>Duraci&oacute;n (milisegundos)</label>
+                    <label>Duraci&oacute;n (segundos)</label>
                     <input ng-disabled="vm.submitting" type="number" name="duracion" required ng-model="vm.cancion.duracion"/>
                     <div ng-messages="form.duracion.$error" ng-show="(form.duracion.$dirty || vm.attempted)">
                         <div ng-message="required">Debe ingresar la duraci&oacute;n</div>
@@ -52,10 +52,20 @@
                         <div ng-message="required">Debes completar este campo.</div>
                     </div>
                 </md-input-container>
+
+            </div>
+            <div class="container" layout="row">
                 <md-input-container flex>
                     <label>Link spotify</label>
                     <input ng-disabled="vm.submitting" name="link_spotify" ng-model="vm.cancion.link_spotify" required/>
                     <div ng-disabled="vm.submitting" ng-messages="form.link_spotify.$error" ng-show="(form.link_spotify.$dirty || vm.attempted)">
+                        <div ng-message="required">Debes completar este campo.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Link amazon</label>
+                    <input ng-disabled="vm.submitting" name="link_amazon" ng-model="vm.cancion.link_amazon" required/>
+                    <div ng-disabled="vm.submitting" ng-messages="form.link_amazon.$error" ng-show="(form.link_amazon.$dirty || vm.attempted)">
                         <div ng-message="required">Debes completar este campo.</div>
                     </div>
                 </md-input-container>

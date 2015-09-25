@@ -42,10 +42,19 @@
                         <div ng-message="required">Debes completar este campo.</div>
                     </div>
                 </md-input-container>
+                </div>
+            <div layout="row">
                 <md-input-container flex>
                     <label>Link spotify</label>
                     <input ng-disabled="vm.submitting" name="link_spotify" ng-model="vm.disco.link_spotify" required/>
                     <div ng-disabled="vm.submitting" ng-messages="form.link_spotify.$error" ng-show="(form.link_spotify.$dirty || attempted)">
+                        <div ng-message="required">Debes completar este campo.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Link amazon</label>
+                    <input ng-disabled="vm.submitting" name="link_amazon" ng-model="vm.disco.link_amazon" required/>
+                    <div ng-disabled="vm.submitting" ng-messages="form.link_amazon.$error" ng-show="(form.link_amazon.$dirty || attempted)">
                         <div ng-message="required">Debes completar este campo.</div>
                     </div>
                 </md-input-container>
@@ -62,7 +71,6 @@
                         <img ngf-src="vm.disco.cover_img" ngf-accept="'image/*'"/>
                         <p >{{vm.disco.cover_img.name || vm.disco.cover_img}}</p>
                     </div>
-                    <md-progress-linear ng-if="progress!=0" class="md-accent" md-mode="determinate" value="{{progress}}">
                 </div>
             </md-input-container>
         </form>

@@ -23,9 +23,9 @@
             </md-input-container>
             <md-input-container flex>
                 <label>Ad</label>
-                <md-select ng-disabled="submitting" name="ad" placeholder="Sin ad" ng-model="video.ad_id">
+                <md-select ng-disabled="submitting" name="ad" ng-model="video.ad_id">
                     <md-option value="0" >Sin ad</md-option>
-                    <md-option ng-value="ad.id" ng-repeat="ad in ads">{{ad.nombre}}</md-option>
+                    <md-option ng-value="ad.id" ng-repeat="ad in ads | filter:{type:'video'}">{{ad.nombre}}</md-option>
                 </md-select>
             </md-input-container>
             <div layout="row" layout-align="space-between center">

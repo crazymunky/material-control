@@ -1,10 +1,10 @@
 <md-dialog xmlns:display="http://www.w3.org/1999/xhtml" class="md-whiteframe-z2" >
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2 ng-if="!edit">Agregar usuario</h2>
-            <h2 ng-if="edit">Editar usuario</h2>
+            <h2 ng-if="!vm.edit">Agregar usuario</h2>
+            <h2 ng-if="vm.edit">Editar usuario</h2>
             <span flex></span>
-            <md-button class="md-icon-button" ng-click="hide()">
+            <md-button class="md-icon-button" ng-click="vm.hide()">
                 <md-icon>
                     <i class="material-icons" >clear</i>
                 </md-icon>
@@ -17,15 +17,15 @@
                 <md-input-container flex>
 
                     <label>Nombre</label>
-                    <input ng-disabled="submitting" name="nombre" ng-model="user.nombre" required/>
-                    <div ng-disabled="submitting" ng-messages="form.nombre.$error" ng-show="(form.nombre.$dirty || attempted)">
+                    <input ng-disabled="vm.submitting" name="nombre" ng-model="vm.user.nombre" required/>
+                    <div ng-disabled="vm.submitting" ng-messages="form.nombre.$error" ng-show="(form.nombre.$dirty || attempted)">
                         <div ng-message="required">Debes completar este campo.</div>
                     </div>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Email</label>
-                    <input ng-disabled="submitting" name="email" ng-model="user.email" required type="email"/>
-                    <div ng-disabled="submitting" ng-messages="form.email.$error" ng-show="(form.email.$dirty || attempted)">
+                    <input ng-disabled="vm.submitting" name="email" ng-model="vm.user.email" required type="email"/>
+                    <div ng-disabled="vm.submitting" ng-messages="form.email.$error" ng-show="(form.email.$dirty || attempted)">
                         <div ng-message="required">Debes completar este campo.</div>
                         <div ng-message="email">Debes ingresar un email valido.</div>
                     </div>
@@ -34,16 +34,16 @@
             <div layout="row">
                 <md-input-container flex>
                     <label>Contrase&ntilde;a</label>
-                    <input ng-disabled="submitting" name="password" ng-model="user.password" equals="{{user.password2}}" type="password" ng-required="!edit"/>
-                    <div ng-disabled="submitting" ng-messages="form.password.$error" ng-show="(form.password.$dirty || attempted)">
+                    <input ng-disabled="vm.submitting" name="password" ng-model="vm.user.password" equals="{{user.password2}}" type="password" ng-required="!vm.edit"/>
+                    <div ng-disabled="vm.submitting" ng-messages="form.password.$error" ng-show="(form.password.$dirty || attempted)">
                         <div ng-message="required">Debes completar este campo.</div>
                         <div ng-message="equals">Las contrase&ntilde;as deben coincidir</div>
                     </div>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Confirma la contrase&ntilde;a</label>
-                    <input ng-disabled="submitting" name="password2" ng-model="user.password2"  equals="{{user.password}}" type="password" ng-required="!edit"/>
-                    <div ng-disabled="submitting" ng-messages="form.password2.$error" ng-show="(form.password2.$dirty || attempted)">
+                    <input ng-disabled="vm.submitting" name="password2" ng-model="vm.user.password2"  equals="{{user.password}}" type="password" ng-required="!vm.edit"/>
+                    <div ng-disabled="vm.submitting" ng-messages="form.password2.$error" ng-show="(form.password2.$dirty || attempted)">
                         <div ng-message="required">Debes completar este campo.</div>
                         <div ng-message="equals">Las contrase&ntilde;as deben coincidir</div>
                     </div>
@@ -51,7 +51,7 @@
             </div>
             <md-input-container>
                 <label for="rol">Rol</label>
-                <md-select ng-disabled="submitting" name="rol" ng-model="user.rol" required>
+                <md-select ng-disabled="vm.submitting" id="rol" name="rol" ng-model="vm.user.rol" required>
                     <md-option ng-value="rol" ng-repeat="(rol, nombre) in roles">{{nombre}}</md-option>
                 </md-select>
                 <div ng-messages="form.rol.$error" ng-show="(form.rol.$dirty || attempted)">
@@ -60,17 +60,16 @@
             </md-input-container>
             <md-input-container>
                 <div class="upload-container">
-                    <md-button ngf-change="fileChanged()" ng-disabled="submitting" class="md-raised md-primary file" type="file" name="imagen" ng-model="user.imagen" ngf-select="" ngf-accept="'image/*'">
+                    <md-button ngf-change="vm.fileChange()" ng-disabled="vm.submitting" class="md-raised md-primary file" type="file" name="imagen" ng-model="vm.user.imagen" ngf-select="" ngf-accept="'image/*'">
                         Imagen perfil
                     </md-button>
                     <div ng-messages="form.imagen.$error" ng-show="(form.imagen.$dirty || attempted)">
                         <div ng-message="required">Debe subir una imagen.</div>
                     </div>
-                    <div class="previews" ng-if="user.imagen">
-                        <img  ngf-src="user.imagen" ngf-accept="'image/*'"/>
-                        <p >{{user.imagen.name || user.imagen}}</p>
+                    <div class="previews" ng-if="vm.user.imagen">
+                        <img  ngf-src="vm.user.imagen" ngf-accept="'image/*'"/>
+                        <p >{{vm.user.imagen.name || vm.user.imagen}}</p>
                     </div>
-                    <md-progress-linear ng-if="progress!=0" class="md-accent" md-mode="determinate" value="{{progress}}">
                 </div>
             </md-input-container>
         </form>
@@ -78,10 +77,10 @@
     </md-dialog-content>
     <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-disabled="submitting"  ng-click="hide()" class="md-secondary">
+        <md-button ng-disabled="vm.submitting"  ng-click="vm.hide()" class="md-secondary">
             Cancelar
         </md-button>
-        <md-button ng-disabled="submitting"  ng-click="submit()" class="md-primary">
+        <md-button ng-disabled="vm.submitting"  ng-click="vm.submit()" class="md-primary">
             Aceptar
         </md-button>
     </div>

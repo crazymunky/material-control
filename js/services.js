@@ -1,6 +1,15 @@
 (function(){
     'use strict';
+    /*  var apiResources = ['Ad', 'Cancion', 'Categoria', 'Comentario', 'Cuento', 'Disco', 'Evento', 'Integrante', 'User', 'UserSite', 'Noticia', 'Video', 'Tag'];
 
+     for (var i = 0; i < apiResources.length; i++) {
+     var serviceName = apiResources[i];
+     console.log("resource Name", serviceName);
+     console.log("resource id", serviceName.toLowerCase());
+     angular.module("backendApp.services").factory(serviceName, function ($resource, $rootScope) {
+     return $resource($rootScope.server_url + '/api/ad' + serviceName.toLowerCase() + '/:id', null, {'update': {method: 'PUT'}});
+     });
+     }*/
     angular.module("backendApp.services").factory('Ad', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/ads/:id', null, {'update':{method: 'PUT'}});
     });
@@ -37,6 +46,10 @@
         return $resource($rootScope.server_url+ '/api/users/:id', null, {'update':{method: 'PUT'}});
     });
 
+    angular.module("backendApp.services").factory('SiteUser', function($resource, $rootScope){
+        return $resource($rootScope.server_url+ '/api/siteusers/:id', null, {'update':{method: 'PUT'}});
+    });
+
     angular.module("backendApp.services").factory('Noticia', function($resource, $rootScope){
         return $resource($rootScope.server_url+ '/api/noticias/:id', null, {'update':{method: 'PUT'}});
     });
@@ -55,16 +68,7 @@
         authService.login = function (credentials) {
             var promise = $http.post($rootScope.server_url + '/api/login', credentials);
 
-            promise.then(function (response) {
-                var data = response.data;
-                console.log("loggin", data);
-                if(data.error){
-                    alert("BAD LOGIN");
-                }else {
-                    UserService.setCurrentUser(data);
-                    $rootScope.$broadcast('authorized');
-                }
-            }, function () {
+            promise.then(successAuhthentication, function () {
                 $rootScope.$broadcast('unauthorized');
             });
 
@@ -75,6 +79,31 @@
             var promise = $http.post($rootScope.server_url + '/api/logout');
             $rootScope.$broadcast('unauthorized');
         };
+
+        authService.refresh = function(){
+            var user = UserService.getCurrentUser();
+            if(user) {
+                var promise = $http.post($rootScope.server_url + '/api/refresh', user.access_token);
+
+                promise.then(successAuhthentication, function () {
+                    $rootScope.$broadcast('unauthorized');
+                });
+
+                return promise;
+            }
+        };
+
+        function successAuhthentication(response){
+            var data = response.data;
+            console.log("new user data", data);
+            if (data.error) {
+                alert("BAD LOGIN");
+            } else if(data.access_token){
+                UserService.setCurrentUser(data);
+                $rootScope.$broadcast('authorized');
+            }
+        }
+
         authService.isAuthenticated = function () {
             return UserService.getCurrentUser()!=null;
         };
@@ -83,7 +112,7 @@
             if (!angular.isArray(authorizedRoles)) {
                 authorizedRoles = [authorizedRoles];
             }
-//            console.log("authorized roles", authorizedRoles, "user role", UserService.getCurrentUser().role);
+            //console.log("authorized roles", authorizedRoles, "user role", UserService.getCurrentUser().role);
             return (authService.isAuthenticated() &&
             authorizedRoles.indexOf(UserService.getCurrentUser().role.toLowerCase()) !== -1);
         };

@@ -75,9 +75,17 @@
             </md-input-container>
             <div layout="row">
                 <md-input-container flex>
-                    <label>Banner</label>
-                    <md-select ng-disabled="submitting"  ng-model="noticia.ad_id">
-                        <md-option value="{{ad.id}}" ng-repeat="ad in ads">{{ad.nombre}}</md-option>
+                    <label>Banner 1 (300x600)</label>
+                    <md-select ng-disabled="submitting"  ng-model="noticia.noticiaads[0].ad_id">
+                        <md-option value="0">Sin banner</md-option>
+                        <md-option value="{{ad.id}}" ng-repeat="ad in ads | filter:{size:'300x600'}">{{ad.nombre}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Banner 2 (970x90, 728x90)</label>
+                    <md-select ng-disabled="submitting"  ng-model="noticia.noticiaads[1].ad_id">
+                        <md-option value="0">Sin banner</md-option>
+                        <md-option value="{{ad.id}}" ng-repeat="ad in ads | filter:filterSize">{{ad.nombre}}</md-option>
                     </md-select>
                 </md-input-container>
                 <md-input-container flex>

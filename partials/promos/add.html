@@ -18,14 +18,14 @@
             <div layout="row">
                 <md-input-container flex>
                     <label>Impresiones</label>
-                    <input disabled ng-model="vm.ad.impresiones"/>
+                    <input disabled ng-model="vm.ad.prints.length"/>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Clicks</label>
-                    <input disabled ng-model="vm.ad.clicks"/>
+                    <input disabled ng-model="vm.ad.clicks.length"/>
                 </md-input-container>
             </div>
-            <div layout="row">
+            <div layout="row" ng-if="vm.ad.type =='video'">
                 <md-input-container flex>
                     <label>Reproducciones</label>
                     <input disabled ng-model="vm.ad.timesPlayed"/>
@@ -106,6 +106,7 @@
                                  ngf-accept="'image/*'"/>
                             <video ng-if="$root.isType('video', vm.ad.type, vm.ad.source)" controls
                                    ngf-src="vm.ad.source" ngf-accept="'video/*'"/>
+                            <iframe ng-if="$root.isType('swf', vm.ad.type, vm.ad.source)" ngf-src="vm.ad.source" frameborder="0"></iframe>
                         </a>
                         <p>{{vm.ad.source.name || vm.ad.source}}</p>
                     </div>

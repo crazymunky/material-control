@@ -36,7 +36,7 @@
             }) : '';
         }
     };
-    angular.module('backendApp', ['angular-storage','ngFileUpload', 'ngMaterial', 'data-table', 'ngResource','ngMessages', 'ui.router','backendApp.controllers', 'backendApp.services'])
+    angular.module('backendApp', [,'chart.js','chart.js','angular-storage','ngFileUpload', 'ngMaterial', 'data-table', 'ngResource','ngMessages', 'ui.router','backendApp.controllers', 'backendApp.services'])
         .config(themeConfig)
         .constant('USER_ROLES', {
             admin: 'admin',
@@ -53,13 +53,23 @@
     angular.module('backendApp.services',[]);
 
     function appRun($state, $rootScope, UserService, AuthService) {
-        //$rootScope.server_url = 'http://192.168.235.153/musica_para_tus_oidos/public';
-        //$rootScope.server_url = 'http://stg1.jwtdigitalpr.com/mpto';
-       $rootScope.server_url = 'http://musicaparatusoidospr.com';
+        switch(window.location.origin){
+            case 'http://stg1.jwtdigitalpr.com':
+                $rootScope.server_url = 'http://stg1.jwtdigitalpr.com/mpto';
+                break;
+            case 'http://192.168.235.153':
+            case 'http://localhost:63342':
+                $rootScope.server_url = 'http://192.168.235.153/musica_para_tus_oidos/public';
+                break;
+            case 'http://www.musicaparatusoidospr.com':
+            case 'http://www.mptopr.com':
+                $rootScope.server_url = 'http://www.musicaparatusoidospr.com';
+                break;
+        }
         $rootScope.upload_url = $rootScope.server_url + '/api/upload';
 
         $rootScope.isType = function (type, strType, file) {
-            //console.log(type, strType, file);
+            //console.log("CAMBIO DE COSO", type, strType, file);
             var isType = false;
             if (strType == type)
                 isType = true;
@@ -68,10 +78,11 @@
 
             return isType;
         };
-        if (UserService.getCurrentUser() == null)
+
+        if (!AuthService.isAuthenticated())
             $state.go('login');
         else {
-            $state.go('videos');
+            AuthService.refresh().then(function(response){console.log(response);});
         }
 
         $rootScope.$on('$stateChangeStart', function (event, next) {

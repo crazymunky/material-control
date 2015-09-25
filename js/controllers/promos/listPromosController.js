@@ -4,8 +4,8 @@
 (function() {
     'use strict';
     angular.module('backendApp.controllers').controller('AdListController',AdListController);
-    AdListController.$inject = ['$rootScope','$scope','Ad', '$mdDialog', '$mdToast', '$state'];
-    function AdListController($rootScope, $scope, Ad, $mdDialog, $mdToast, $state) {
+    AdListController.$inject = ['$rootScope','$scope','Ad', '$mdDialog', '$mdToast', '$state', '$stateParams'];
+    function AdListController($rootScope, $scope, Ad, $mdDialog, $mdToast, $state, $stateParams) {
         var vm = this;
 
         vm.ads = Ad.query();
@@ -31,6 +31,18 @@
                 if (newObj!==true)
                     vm.ads.push(newObj);
             });
+        };
+
+        activate();
+
+        /**********************/
+        function activate(){
+            if($stateParams.id){
+                console.log($stateParams);
+                Ad.get({id:$stateParams.id}).$promise.then(function(response){
+                    showEdit(response);
+                });
+            }
         };
 
         vm.delete = doDelete;
@@ -63,18 +75,21 @@
             showEdit(row);
         };
         function showEdit(row) {
-            $scope.selectedItem = angular.copy(row);
             var index = vm.ads.indexOf(row);
-            $mdDialog.show({
-                controller: 'AddAdController',
-                controllerAs: 'vm',
-                templateUrl: 'partials/promos/add.html',
-                parent: angular.element(document.body),
-                scope: $scope.$new()
-            }).then(function(edited){
-                if(edited!= true)
-                    $rootScope.addOrUpdateList(vm.ads, edited, index);
-                $state.go("ads",{id:''}, {notify:false});
+            row = Ad.get({id:row.id}, function(){
+                vm.ads[index] = row;
+                $scope.selectedItem = angular.copy(row);
+                $mdDialog.show({
+                    controller: 'AddAdController',
+                    controllerAs: 'vm',
+                    templateUrl: 'partials/promos/add.html',
+                    parent: angular.element(document.body),
+                    scope: $scope.$new()
+                }).then(function(edited){
+                    if(edited!= true)
+                        $rootScope.addOrUpdateList(vm.ads, edited, index);
+                    $state.go("ads",{id:''}, {notify:false});
+                });
             });
         };
 

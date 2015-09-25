@@ -1,0 +1,58 @@
+<md-dialog xmlns:display="http://www.w3.org/1999/xhtml" class="md-whiteframe-z2" >
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 ng-if="!vm.edit">Agregar usuario</h2>
+            <h2 ng-if="vm.edit">Editar usuario</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="vm.hide()">
+                <md-icon>
+                    <i class="material-icons" >clear</i>
+                </md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <form name="form">
+            <div layout="row">
+                <md-input-container flex>
+                    <label>Nombre</label>
+                    <input ng-disabled="vm.submitting" name="nombre" ng-model="vm.user.nombre" required/>
+                    <div ng-disabled="vm.submitting" ng-messages="form.nombre.$error" ng-show="(form.nombre.$dirty || attempted)">
+                        <div ng-message="required">Debes completar este campo.</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>Email</label>
+                    <input ng-disabled="vm.submitting" name="email" ng-model="vm.user.email" required type="email"/>
+                    <div ng-disabled="vm.submitting" ng-messages="form.email.$error" ng-show="(form.email.$dirty || attempted)">
+                        <div ng-message="required">Debes completar este campo.</div>
+                        <div ng-message="email">Debes ingresar un email valido.</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <md-input-container>
+                <label>Recibe notificaciones</label>
+                <input ng-disabled="vm.submitting" name="notificaciones" ng-model="vm.user.notificaciones" required/>
+            </md-input-container>
+            <md-input-container>
+                <label>Tipo</label>
+                <input ng-disabled="vm.submitting" name=type" ng-model="vm.user.type" required/>
+            </md-input-container>
+            <md-input-container ng-if="vm.user.type=='facebook'">
+                <label>Uid</label>
+                <input ng-disabled="vm.submitting" name=uid" ng-model="vm.user.uid" required/>
+            </md-input-container>
+        </form>
+
+    </md-dialog-content>
+    <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button ng-disabled="vm.submitting"  ng-click="vm.hide()" class="md-secondary">
+            Cancelar
+        </md-button>
+        <md-button ng-disabled="vm.submitting"  ng-click="vm.submit()" class="md-primary">
+            Aceptar
+        </md-button>
+    </div>
+    <md-progress-linear ng-if="vm.submitting || vm.progress!=0" class="md-accent" md-mode="{{vm.progress!=0 ? 'determinate' : 'indeterminate'}}" value="{{vm.progress}}">
+</md-dialog>

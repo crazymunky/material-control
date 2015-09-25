@@ -1,7 +1,7 @@
 <dtable options="vm.options" rows="vm.canciones" on-row-click="vm.showEdit(row)" class="material dt">
     <column name="Nombre">{{$row.nombre}}</column>
     <column name="Disco">{{$row.disco.nombre}}</column>
-    <column name="Duraci&oacute;n (ms)">{{$row.duracion}}</column>
+    <column name="Duraci&oacute;n (s)">{{$row.duracion}}</column>
     <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
     <column frozenRight="true" width="50">
         <md-button class="md-icon-button" ng-click="vm.delete($row, $event)">

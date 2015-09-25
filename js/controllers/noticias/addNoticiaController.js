@@ -12,10 +12,21 @@
                 $scope.noticia.video_id = $scope.noticia.video.id;
                 $scope.noticia.cancion_id = $scope.noticia.cancion.id;
                 $scope.edit = true;
+                if(!$scope.noticia.noticiaads[0])
+                    $scope.noticia.noticiaads[0] = {ad_id:0};
+                if(!$scope.noticia.noticiaads[1])
+                    $scope.noticia.noticiaads[1] = {ad_id:0};
             }else {
                 $scope.noticia = new Noticia();
                 $scope.noticia.tags = [];
+                $scope.noticia.noticiaads = [];
+                $scope.noticia.noticiaads[0] = {ad_id:0};
+                $scope.noticia.noticiaads[1] = {ad_id:0};
             }
+
+
+
+            console.log($scope.noticia);
 
             $scope.categorias = Categoria.query();
             $scope.videos = Video.query();
@@ -28,6 +39,13 @@
             $scope.hide = function() {
                 $mdDialog.hide();
             };
+
+            $scope.filterSize = function(item){
+                var wantedSize = ["970x90", "728x90"];
+                var matches = wantedSize.indexOf(item.size)>-1;
+                //console.log(item.size, wantedSize, matches);
+                return matches;
+            }
 
             $scope.submitting = false;
             $scope.attempted = false;

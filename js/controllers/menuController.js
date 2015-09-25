@@ -3,19 +3,6 @@
  */
 (function(){
     'use strict';
-    angular.module('backendApp.controllers').controller('HeaderController', ['$scope', '$mdSidenav','$rootScope',
-        function ($scope, $mdSidenav,$rootScope) {
-            $scope.openLeftMenu = function () {
-                $mdSidenav('side-nav').toggle();
-            };
-            $rootScope.$on('$stateChangeSuccess',
-                function(event, toState, toParams, fromState, fromParams) {
-                    $scope.state = toState;
-                }
-            )
-        }
-    ]);
-
     angular.module('backendApp.controllers').controller('MenuController', ['$scope', 'USER_ROLES',
         function ($scope, USER_ROLES) {
             $scope.menu = [
@@ -83,39 +70,16 @@
                     title: 'Usuarios',
                     icon: 'account_circle',
                     roles: [USER_ROLES.admin]
+                },{
+                    link : 'siteusers',
+                    title: 'Usuarios sitio',
+                    icon: 'account_circle',
+                    roles: [USER_ROLES.admin]
                 }
             ];
         }
     ]);
 
-    angular.module('backendApp.controllers').controller('MainCtrl', function ($scope, $rootScope, $state, AuthService, UserService) {
-        var main = this;
-
-
-
-        $scope.isAuthorized = AuthService.isAuthorized;
-
-        $rootScope.$on('authorized', function() {
-            main.currentUser = UserService.getCurrentUser();
-        });
-
-        $rootScope.$on('unauthorized', function() {
-            main.currentUser = UserService.setCurrentUser(null);
-            $state.go('login');
-        });
-
-        $rootScope.addOrUpdateList = addOrUpdateList;
-
-        function addOrUpdateList(array, row, index){
-            if(index<array.length && index>=0)
-                array[index] = row;
-            else
-                array.push(row);
-        }
-
-        main.logout = AuthService.logout;
-        main.currentUser = UserService.getCurrentUser();
-    });
 
 
 })();

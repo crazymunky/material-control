@@ -3,15 +3,16 @@
  */
 (function() {
     'use strict';
-    angular.module('backendApp.controllers').controller('UserController',UserController);
-    UserController.$inject = ['$rootScope','$scope','$mdToast', '$mdDialog', 'User','Upload','USER_ROLES'];
-    function UserController($rootScope, $scope,$mdToast, $mdDialog, User, Upload, USER_ROLES){
+    angular.module('backendApp.controllers').controller('SiteUserController',SiteUserController);
+    SiteUserController.$inject = ['$rootScope','$scope','$mdToast', '$mdDialog', 'SiteUser','Upload','USER_ROLES'];
+
+    function SiteUserController($rootScope, $scope,$mdToast, $mdDialog, SiteUser, Upload, USER_ROLES){
         var vm = this;
         if($scope.selectedItem!= undefined) {
             vm.user = $scope.selectedItem;
             vm.edit = true;
         }else
-            vm.user = new User();
+            vm.user = new SiteUser();
 
         vm.submitting = false;
         vm.attempted = false;
@@ -52,7 +53,7 @@
 
 
         function save() {
-            User.save(vm.user,function (data) {
+            SiteUser.save(vm.user,function (data) {
                 if (data.error) {
                     $mdToast.show($mdToast.simple().content(data.error).theme("error-toast"));
                     vm.submitting = false;
@@ -89,7 +90,7 @@
 
         }
         function update() {
-            User.update({id: vm.user.id}, vm.user).$promise.then(function(response){
+            SiteUser.update({id: vm.user.id}, vm.user).$promise.then(function(response){
                 vm.submitting = false;
                 $mdDialog.hide(vm.user);
             });
