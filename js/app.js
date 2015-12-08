@@ -82,7 +82,7 @@
         if (!AuthService.isAuthenticated())
             $state.go('login');
         else {
-            AuthService.refresh().then(function(response){console.log(response);});
+            AuthService.refresh().then(function(response){});
         }
 
         $rootScope.$on('$stateChangeStart', function (event, next) {

@@ -18,11 +18,11 @@
             <div layout="row">
                 <md-input-container flex>
                     <label>Impresiones</label>
-                    <input disabled ng-model="vm.ad.prints.length"/>
+                    <input disabled ng-model="vm.ad.prints.length + vm.ad.impresiones"/>
                 </md-input-container>
                 <md-input-container flex>
                     <label>Clicks</label>
-                    <input disabled ng-model="vm.ad.clicks.length"/>
+                    <input disabled ng-model="vm.ad.clicks.length + vm.ad.clicks_old"/>
                 </md-input-container>
             </div>
             <div layout="row" ng-if="vm.ad.type =='video'">

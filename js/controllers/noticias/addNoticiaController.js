@@ -8,9 +8,12 @@
             if($scope.selectedItem!= undefined) {
                 $scope.noticia = $scope.selectedItem;
                 $scope.noticia.fecha = new Date($scope.noticia.fecha);
-                $scope.noticia.categoria_id = $scope.noticia.categorias[0].id;
-                $scope.noticia.video_id = $scope.noticia.video.id;
-                $scope.noticia.cancion_id = $scope.noticia.cancion.id;
+                if($scope.noticia.categorias && $scope.noticia.categorias.length !=0)
+                    $scope.noticia.categoria_id = $scope.noticia.categorias[0].id;
+                if($scope.noticia.video)
+                    $scope.noticia.video_id = $scope.noticia.video.id;
+                if($scope.noticia.cancion)
+                    $scope.noticia.cancion_id = $scope.noticia.cancion.id;
                 $scope.edit = true;
                 if(!$scope.noticia.noticiaads[0])
                     $scope.noticia.noticiaads[0] = {ad_id:0};

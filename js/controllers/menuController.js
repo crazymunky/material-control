@@ -12,6 +12,7 @@
                     icon: 'add_shopping_cart',
                     roles: [USER_ROLES.admin, USER_ROLES.editorPlus]
                 },
+
                 {
                     link : 'canciones',
                     title: 'Canciones',
@@ -55,7 +56,13 @@
                     roles: [USER_ROLES.admin]
                 },
                 {
-                    link : 'noticias',
+                    link : 'analytics',
+                    title: 'Metricas',
+                    icon: 'add_shopping_cart',
+                    roles: [USER_ROLES.admin, USER_ROLES.analista]
+                },
+                {
+                    link : 'noticias' ,
                     title: 'Noticias',
                     icon: 'new_releases',
                     roles: [USER_ROLES.admin,USER_ROLES.editor, USER_ROLES.editorPlus]

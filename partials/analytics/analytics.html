@@ -1,0 +1,38 @@
+<h2 class="md-title">Totales por dia</h2>
+
+<md-card class="md-padding">
+    <md-input-container layout="row">
+        <md-checkbox ng-model="vm.seriesEnabled[0]" aria-label="Clicks">
+            Clicks
+        </md-checkbox>
+        <md-checkbox ng-model="vm.seriesEnabled[1]" aria-label="Impresiones">
+            Impresiones
+        </md-checkbox>
+    </md-input-container>
+    <div class="holder-chart general">
+        <canvas id="line" class="chart chart-line" chart-data="vm.data"
+                chart-labels="vm.labels" chart-legend="true" chart-series="vm.series"
+                chart-click="vm.onClick" >
+        </canvas>
+    </div>
+</md-card>
+
+<h2 class="md-title">Anuncios</h2>
+<dtable options="vm.options" rows="vm.ads" class="material dt" on-row-click="vm.showDetails(row)" title-overflow-header="truncateColumnNames">
+    <column name="Nombre"></column>
+    <column name="Tama&ntilde;o" prop="size">{{$row.size!= "" ? $row.size : ""}}</column>
+    <column name="Impresiones" prop="id">{{$row.prints.length|| "-"}}</column>
+    <column name="Clicks" prop="id">{{$row.clicks.length|| "-"}}</column>
+    <column name="Reproducciones" prop="id">{{$row.reproducciones.length|| "-"}}</column>
+    <column name="Avg. Tiempo(s)" prop="id">{{$row.avgPlayed || "-"}}</column>
+    <column name="Creado">{{$row.created_at | date:'MM/dd/yyyy'}}</column>
+</dtable>
+
+<md-button class="md-fab agregar" href="{{$root.server_url}}/export/analytics" target="_blank" title="Export analytics data">
+    <md-tooltip md-direction="left">
+        Descargar metricas
+    </md-tooltip>
+    <md-icon>
+        <i class="material-icons" >file_download</i>
+    </md-icon>
+</md-button>

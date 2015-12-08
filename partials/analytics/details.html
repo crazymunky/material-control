@@ -1,0 +1,65 @@
+<div class="holder-details">
+    <md-dialog class="md-whiteframe-z2" aria-label="Detalles">
+
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Detalle: {{vm.ad.nombre}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.hide()" aria-label="cerrar">
+                    <md-icon>
+                        <i class="material-icons" >clear</i>
+                    </md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <h3>Totales</h3>
+            <div class="info">
+                <div layout="row">
+                    <md-input-container flex>
+                        <label>Impresiones</label>
+                        <input disabled ng-model="vm.ad.prints.length"/>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Clicks</label>
+                        <input disabled ng-model="vm.ad.clicks.length"/>
+                    </md-input-container>
+                </div>
+                <div layout="row" ng-if="vm.ad.type =='video'">
+                    <md-input-container flex>
+                        <label>Reproducciones</label>
+                        <input disabled ng-model="vm.ad.timesPlayed"/>
+                    </md-input-container>
+
+                    <md-input-container flex>
+                        <label>Skipped</label>
+                        <input disabled ng-model="vm.ad.timesSkipped"/>
+                    </md-input-container>
+                    <md-input-container flex>
+                        <label>Avg. Time(s)</label>
+                        <input disabled ng-model="vm.ad.avgPlayed"/>
+                    </md-input-container>
+                </div>
+            </div>
+            <div class="holder-graficas" layout="row">
+
+
+            <div class="holder-chart" ng-if="vm.labelsPrints.length!=0" flex>
+                <h3>Conversiones</h3>
+                <canvas class="chart chart-line" chart-data="vm.dataPrints"
+                        chart-labels="vm.labelsPrints" chart-legend="true" chart-series="vm.seriesPrints"
+                        chart-click="vm.onClick">
+                </canvas>
+            </div>
+
+            <div class="holder-chart" ng-if="vm.ad.type=='video' && vm.labelsReproducciones.length!=0" flex>
+                <h3>Reproducciones</h3>
+                <canvas class="chart chart-line" chart-data="vm.dataReproducciones"
+                        chart-labels="vm.labelsReproducciones" chart-legend="true" chart-series="vm.seriesReproducciones"
+                        chart-click="vm.onClick" chart-colours="['#2F51EB','#F91E49']">
+                </canvas>
+            </div>
+            </div>
+        </md-dialog-content>
+    </md-dialog>
+</div>

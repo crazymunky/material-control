@@ -96,14 +96,20 @@
                     </md-select>
                 </md-input-container>
                 <md-input-container flex>
-                    <label>CTA link (vacio para link a la noticia)</label>
-                    <input name="cta_link" ng-model="noticia.cta_link" ng-disabled="submitting"/>
-                    <div ng-messages="form.cta_link.$error" ng-show="(form.cta_link.$dirty || attempted)">
+                <label>CTA link (vacio para link a la noticia)</label>
+                <input name="cta_link" ng-model="noticia.cta_link" ng-disabled="submitting"/>
+                <div ng-messages="form.cta_link.$error" ng-show="(form.cta_link.$dirty || attempted)">
+                    <div ng-message="required">Debes completar este campo.</div>
+                </div>
+            </md-input-container>
+                <md-input-container flex>
+                    <label>Url tag</label>
+                    <input name="headline_url" ng-model="noticia.headline_url" ng-disabled="submitting"/>
+                    <div ng-messages="form.headline_url.$error" ng-show="(form.headline_url.$dirty || attempted)">
                         <div ng-message="required">Debes completar este campo.</div>
                     </div>
                 </md-input-container>
             </div>
-
             <md-chips ng-model="noticia.tags" md-on-append="newTag($chip)" flex>
                 <md-autocomplete
                         md-selected-item="selectedTag"

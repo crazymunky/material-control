@@ -64,7 +64,7 @@
                 authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor, USER_ROLES.editorPlus]
             }
         }).state('noticias', {
-            url: '/noticias',
+            url: '/noticias/:id',
             controller: 'NoticiaListController',
             controllerAs: 'vm',
             templateUrl: 'partials/noticias/list.html',
@@ -112,7 +112,7 @@
             url: '/analytics',
             controller: 'AnalyticsController',
             controllerAs: 'vm',
-            templateUrl: 'partials/analytics.html'
+            templateUrl: 'partials/analytics/analytics.html'
         });
 
         /*.html5Mode({

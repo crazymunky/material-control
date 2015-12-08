@@ -3,8 +3,8 @@
  */
 (function() {
     'use strict';
-    angular.module('backendApp.controllers').controller('NoticiaListController',['$rootScope','$scope', 'Noticia', '$mdDialog', '$mdToast','$state',
-        function($rootScope, $scope, Noticia, $mdDialog, $mdToast, $state){
+    angular.module('backendApp.controllers').controller('NoticiaListController',['$rootScope','$scope', 'Noticia', '$mdDialog', '$mdToast','$state','$stateParams',
+        function($rootScope, $scope, Noticia, $mdDialog, $mdToast, $state, $stateParams){
             $scope.noticias = Noticia.query();
             $scope.options = {
                 rowHeight: 50,
@@ -13,6 +13,17 @@
                 scrollbarV: false,
                 selectable: false,
                 columnMode: 'force'
+            };
+
+            activate();
+
+            /**********************/
+            function activate(){
+                if($stateParams.id){
+                    Noticia.get({id:$stateParams.id}).$promise.then(function(response){
+                        showEdit(response);
+                    });
+                }
             };
             $scope.showAdd = function(ev){
                 $mdDialog.show({
@@ -49,20 +60,27 @@
 
             };
 
-            $scope.showEdit = function(row){
-                $scope.selectedItem = angular.copy(row);;
+            $scope.showEdit = navigateToItem;
+            function navigateToItem(row){
+                $state.go("noticias",{id:row.id}, {notify:false});
+                showEdit(row);
+            };
+
+            function showEdit(row) {
+                $scope.selectedItem = angular.copy(row);
+                ;
                 var index = $scope.noticias.indexOf(row);
                 $mdDialog.show({
                     controller: 'AddNoticiaController',
                     templateUrl: 'partials/noticias/add.html',
                     parent: angular.element(document.body),
                     scope: $scope.$new()
-                }).then(function(edited){
-                    if(edited!= true)
+                }).then(function (edited) {
+                    if (edited != true)
                         $rootScope.addOrUpdateList($scope.noticias, edited, index);
-                    $state.go("noticias",{id:''}, {notify:false});
+                    $state.go("noticias", {id: ''}, {notify: false});
                 });
-            };
+            }
         }
     ]);
 })();

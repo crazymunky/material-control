@@ -95,7 +95,7 @@
 
         function successAuhthentication(response){
             var data = response.data;
-            console.log("new user data", data);
+            //console.log("new user data", data);
             if (data.error) {
                 alert("BAD LOGIN");
             } else if(data.access_token){
